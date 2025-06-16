@@ -1,14 +1,28 @@
 import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { IlLogo } from '../../assets/illustration'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-export default function Splash() {
+type SplashProps = {
+  navigation: NativeStackNavigationProp<any, any>; // ganti dengan tipe stack kamu jika sudah pakai TypeScript Navigation
+};
+
+export default function Splash({ navigation }: SplashProps) {
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      navigation.replace('Dashboard');
+    }, 3000);
+
+    // Clear timer jika komponen unmount (best practice)
+    return () => clearTimeout(timer);
+  }, [navigation]);
+
   return (
     <View style={styles.page}>
       <IlLogo />
       <Text style={styles.title}>Doctor Anonymous</Text>
     </View>
-  )
+  );
 }
 
 const styles = StyleSheet.create({

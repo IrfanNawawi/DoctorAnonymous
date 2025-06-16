@@ -1,16 +1,17 @@
-import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 type PropsButton = {
   type: 'primary' | 'secondary';
   title: string;
+  onPressButton?: () => void;
 };
 
-export default function Button({ type, title }: PropsButton) {
+export default function Button({ type, title, onPressButton }: PropsButton) {
   return (
-    <View style={containerStyle(type)}>
+    <TouchableOpacity style={containerStyle(type)} onPress={onPressButton}>
       <Text style={titleButtonStyle(type)}>{title}</Text>
-    </View>
+    </TouchableOpacity>
   );
 }
 
