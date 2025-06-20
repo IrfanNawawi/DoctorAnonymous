@@ -1,16 +1,35 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { colors, fonts } from '../../../utils';
+import IconOnly from './icon-only';
+
+type ButtonType = 'primary' | 'secondary' | 'icon-only';
+type IconType = 'back-dark' | 'back-light';
 
 type PropsButton = {
-  type: 'primary' | 'secondary';
-  title: string;
+  typeButton: ButtonType;
+  title?: string;
   onPressButton?: () => void;
+  typeIcon?: IconType;
 };
 
-export default function Button({ type, title, onPressButton }: PropsButton) {
+export default function Button({ typeButton, typeIcon, title = '', onPressButton }: PropsButton) {
+  // Render khusus untuk button ikon saja
+  if (typeButton === 'icon-only') {
+    if (!typeIcon) {
+      console.warn('Button typeIcon is required when typeButton is "icon-only"');
+      return null;
+    }
+    return <IconOnly typeIcon={typeIcon} onPressIconOnly={onPressButton} />;
+  }
+
   return (
-    <TouchableOpacity style={containerStyle(type)} onPress={onPressButton}>
-      <Text style={titleButtonStyle(type)}>{title}</Text>
+    <TouchableOpacity
+      style={containerStyle(typeButton)}
+      onPress={onPressButton}
+      accessibilityRole="button"
+    >
+      <Text style={titleButtonStyle(typeButton)}>{title}</Text>
     </TouchableOpacity>
   );
 }
@@ -23,19 +42,22 @@ const styles = StyleSheet.create({
   },
   titleBase: {
     fontSize: 18,
-    fontWeight: '600',
     textAlign: 'center',
-    fontFamily: 'Nunito-SemiBold',
+    fontFamily: fonts.primary[600],
   },
 });
 
 // Style dinamis
 const containerStyle = (type: 'primary' | 'secondary') => ({
   ...styles.containerBase,
-  backgroundColor: type === 'secondary' ? 'white' : '#0BCAD4',
+  backgroundColor: type === 'secondary'
+      ? colors.button.secondary.background
+      : colors.button.primary.background,
 });
 
 const titleButtonStyle = (type: 'primary' | 'secondary') => ({
   ...styles.titleBase,
-  color: type === 'secondary' ? '#112340' : 'white',
+  color: type === 'secondary'
+      ? colors.button.secondary.text
+      : colors.button.primary.text,
 });

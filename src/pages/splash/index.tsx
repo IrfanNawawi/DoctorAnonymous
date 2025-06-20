@@ -1,19 +1,21 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React, { useEffect } from 'react'
-import { IlLogo } from '../../assets/illustration'
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { IlLogo } from '../../assets/illustration';
+import { colors, fonts } from '../../utils';
+import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../router';
 
-type SplashProps = {
-  navigation: NativeStackNavigationProp<any, any>; // ganti dengan tipe stack kamu jika sudah pakai TypeScript Navigation
-};
+type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;
 
-export default function Splash({ navigation }: SplashProps) {
+export default function Splash() {
+  const navigation = useNavigation<SplashScreenNavigationProp>();
+
   useEffect(() => {
     const timer = setTimeout(() => {
       navigation.replace('Dashboard');
     }, 3000);
 
-    // Clear timer jika komponen unmount (best practice)
     return () => clearTimeout(timer);
   }, [navigation]);
 
@@ -29,13 +31,12 @@ const styles = StyleSheet.create({
   page: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   title: {
     fontSize: 20,
-    fontWeight: '600',
-    color: '#112340',
+    color: colors.text.primary,
     marginTop: 20,
-    fontFamily: 'Nunito-SemiBold',
-  }
-})
+    fontFamily: fonts.primary[600],
+  },
+});

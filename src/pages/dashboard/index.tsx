@@ -1,47 +1,54 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { IlGetStarted, IlLogo } from '../../assets/illustration'
 import { Button, Gap } from '../../components'
+import { colors, fonts } from '../../utils';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-type DashboardProps = {
-  navigation: NativeStackNavigationProp<any, any>; // ganti dengan tipe stack kamu jika sudah pakai TypeScript Navigation
-};
+type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Dashboard'>;
 
-export default function Dashboard({ navigation }: DashboardProps) {
-  return (
-    <ImageBackground source={IlGetStarted} style={styles.page}>
-        <View>
-            <IlLogo />
-            <Text style={styles.title}>
-                {'Konsultasi dengan\ndokter jadi lebih\nmudah & fleksibel'}
-            </Text>
-        </View>
-        <View>
-            <Button type='primary' title='Get Started' onPressButton={() => {
-                navigation.navigate('Register');
-                }}/>
-            <Gap height={16} width={0}/>
-            <Button type='secondary' title='Sign In' onPressButton={() => {
-                navigation.replace('Login');
-                }}/>
-        </View>
-    </ImageBackground>
+export default function Dashboard() {
+    const navigation = useNavigation<DashboardScreenNavigationProp>();
+    
+    return (
+    <SafeAreaView style={styles.container}>
+        <ImageBackground source={IlGetStarted} style={styles.page}>
+            <View>
+                <IlLogo />
+                <Text style={styles.title}>
+                    {'Konsultasi dengan\ndokter jadi lebih\nmudah & fleksibel'}
+                </Text>
+            </View>
+            <View>
+                <Button typeButton='primary' title='Get Started' onPressButton={
+                    () => navigation.navigate('Register')
+                }/>
+                <Gap height={16}/>
+                <Button typeButton='secondary' title='Sign In' onPressButton={
+                    () => navigation.navigate('Login')
+                }/>
+            </View>
+        </ImageBackground>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.button.secondary.background,
+    },
     page: {
         padding: 40, 
         justifyContent: 'space-between',
-        backgroundColor: 'white',
         flex: 1
     },
     title: {
         fontSize: 24,
-        fontWeight: '600',
-        color: 'white',
+        color: colors.button.primary.text,
         marginTop: 91,
-        fontFamily: 'Nunito-SemiBold',
+        fontFamily: fonts.primary[600],
     }
 })

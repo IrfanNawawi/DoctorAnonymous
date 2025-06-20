@@ -1,8 +1,16 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Dashboard, Login, Register, Splash } from "../pages";
+import { Dashboard, Login, Register, Splash, UploadPhoto } from "../pages";
 
-const Stack = createNativeStackNavigator();
+export type RootStackParamList = {
+  Splash: undefined;
+  Dashboard: undefined;
+  Login: undefined;
+  Register: undefined;
+  UploadPhoto: undefined;
+}
+
+const Stack = createNativeStackNavigator<RootStackParamList>();
 
 export default function Router() {
   return (
@@ -11,6 +19,7 @@ export default function Router() {
         <Stack.Screen name="Dashboard" component={Dashboard} options={{ headerShown: false }}/>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }}/>
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
+        <Stack.Screen name="UploadPhoto" component={UploadPhoto} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }
