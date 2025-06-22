@@ -1,15 +1,20 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { DummyDoctorOne, IcRatedStar } from '../../../assets'
+import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
+import { IcRatedStar } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 
-export default function DoctorRated() {
+type PropsDoctorRated = {
+  picture: ImageProps,
+  name: string,
+  profession: string
+}
+export default function DoctorRated({picture, name, profession}: PropsDoctorRated) {
   return (
     <View style={styles.container}>
-      <Image source={DummyDoctorOne} style={styles.avatar}/>
+      <Image source={picture} style={styles.avatar}/>
       <View style={styles.profile}>
-        <Text style={styles.name}>Alexa Rachel</Text>
-        <Text style={styles.profession}>Pediatrician</Text>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.profession}>{profession}</Text>
       </View>
       <View style={styles.rated}>
         <IcRatedStar/>

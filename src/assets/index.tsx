@@ -1,3 +1,4 @@
 export * from './illustration';
 export * from './icon';
-export * from './dummy';
+export * from './dummy-image';
+export * from './dummy-json';

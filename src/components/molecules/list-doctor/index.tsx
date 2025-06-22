@@ -1,15 +1,20 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { DummyDoctorTwo } from '../../../assets'
+import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 
-export default function ListDoctor() {
+type PropsListDoctor = {
+    name: string;
+    desc: string;
+    picture: ImageProps
+}
+
+export default function ListDoctor({name, desc, picture}: PropsListDoctor) {
   return (
     <View style={styles.container}>
-        <Image source={DummyDoctorTwo} style={styles.avatar}/>
+        <Image source={picture} style={styles.avatar}/>
         <View>
-            <Text style={styles.name}>Alexander Jannie</Text>
-            <Text style={styles.desc}>Baik ibu, terima kasih banyak atas wakt...</Text>
+            <Text style={styles.name}>{name}</Text>
+            <Text style={styles.desc}>{desc}</Text>
         </View>
     </View>
   )

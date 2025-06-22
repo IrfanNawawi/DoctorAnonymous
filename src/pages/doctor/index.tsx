@@ -2,6 +2,8 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components'
 import { colors, fonts } from '../../utils'
+import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, DummyNewsOne, DummyNewsThree, DummyNewsTwo, IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../assets'
+import { JSONCategoryDoctor } from '../../assets'
 
 export default function Doctor() {
   return (
@@ -19,24 +21,27 @@ export default function Doctor() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={32} />
-                <DoctorCategory />
-                <DoctorCategory />
-                <DoctorCategory />
-                <DoctorCategory />
+                {
+                  JSONCategoryDoctor.data.map(item => {
+                    return (
+                      <DoctorCategory key={item.id} category={item.name} />
+                    )
+                  })
+                }
                 <Gap width={22} />
               </View>
             </ScrollView>
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-            <DoctorRated />
-            <DoctorRated />
-            <DoctorRated />
+            <DoctorRated picture={DummyDoctorOne} name='Alexander Jannie' profession='Pediatrician'/>
+            <DoctorRated picture={DummyDoctorTwo} name='Sunny Frank' profession='Dentist'/>
+            <DoctorRated picture={DummyDoctorThree} name='Poe Minn' profession='Podiatrist'/>
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem />
-          <NewsItem />
-          <NewsItem />
+          <NewsItem headline={`Is it safe to stay at home\nduring coronavirus?`} date='Today' picture={DummyNewsOne}/>
+          <NewsItem headline={`Consume yellow citrus\nhelps you healthier`} date='Today' picture={DummyNewsTwo}/>
+          <NewsItem headline={`Learn how to make a\nproper orange juice at home`} date='Today' picture={DummyNewsThree}/>
           <Gap height={30}/>
         </ScrollView>
       </View>

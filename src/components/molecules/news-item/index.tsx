@@ -1,16 +1,21 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { DummyNewsOne } from '../../../assets'
+import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 
-export default function NewsItem() {
+type PropsNewsItem = {
+  headline: string,
+  date: string,
+  picture: ImageProps
+}
+
+export default function NewsItem({headline, date, picture}: PropsNewsItem) {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>
-        <Text style={styles.title}>{`Is it safe to stay at home during\ncoronavirus?`}</Text>
-        <Text style={styles.date}>Today</Text>
+        <Text style={styles.title}>{headline}</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
-      <Image source={DummyNewsOne} style={styles.image}/>
+      <Image source={picture} style={styles.image}/>
     </View>
   )
 }

@@ -8,6 +8,9 @@ import DummyNewsThree from './dummy-news-three.png';
 import DummyHospitalOne from './dummy-hospital-one.png';
 import DummyHospitalTwo from './dummy-hospital-two.png';
 import DummyHospitalThree from './dummy-hospital-three.png';
+import DummyMessageOne from './dummy-message-one.png';
+import DummyMessageTwo from './dummy-message-two.png';
+import DummyMessageThree from './dummy-message-three.png';
 
 export { 
     DummyUser, 
@@ -19,5 +22,8 @@ export {
     DummyNewsThree, 
     DummyHospitalOne, 
     DummyHospitalTwo, 
-    DummyHospitalThree
+    DummyHospitalThree,
+    DummyMessageOne,
+    DummyMessageTwo,
+    DummyMessageThree
 };

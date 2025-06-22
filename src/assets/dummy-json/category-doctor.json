@@ -1,0 +1,20 @@
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "dokter umum"
+        },
+        {
+            "id": 2,
+            "name": "psikiater"
+        },
+        {
+            "id": 3,
+            "name": "dokter obat"
+        },
+        {
+            "id": 4,
+            "name": "dokter anak"
+        }
+    ]
+}

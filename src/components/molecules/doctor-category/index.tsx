@@ -1,14 +1,33 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { IlCategoryDoctor } from '../../../assets'
-import { colors, fonts } from '../../../utils'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../../assets';
+import { colors, fonts } from '../../../utils';
 
-export default function DoctorCategory() {
+type PropsDoctorCategory = {
+  category: string,
+}
+
+export default function DoctorCategory({category}: PropsDoctorCategory) {
+  const renderIconDoctorCategory = () => {
+    switch (category) {
+      case 'dokterumum':
+        return <IlCategoryDoctor style={styles.illustration} />;
+      case 'psikiater':
+        return <IlCategoryPsikiater style={styles.illustration} />;
+      case 'dokter obat':
+        return <IlCategoryMedicine style={styles.illustration} />;
+      case 'dokter anak':
+        return <IlCategoryDoctorKids style={styles.illustration} />;
+      default:
+        return <IlCategoryDoctor style={styles.illustration} />;
+    }
+  };
+  
   return (
     <View style={styles.container}>
-      <IlCategoryDoctor style={styles.illustration}/>
+      {renderIconDoctorCategory()}
       <Text style={styles.label}>Saya butuh</Text>
-      <Text style={styles.category}>dokter umum</Text>
+      <Text style={styles.category}>{category}</Text>
     </View>
   )
 }
