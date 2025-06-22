@@ -14,7 +14,7 @@ export default function Link({title, fontSize, align, onPressLink}: LinkProps) {
   return (
     <View>
       <TouchableOpacity onPress={onPressLink}>
-          <Text style={fontSizeStyle(fontSize, align)}>{title}</Text>
+        <Text style={fontSizeStyle(fontSize, align)}>{title}</Text>
       </TouchableOpacity>
     </View>
   )
@@ -22,9 +22,9 @@ export default function Link({title, fontSize, align, onPressLink}: LinkProps) {
 
 const styles = StyleSheet.create({
     text: {
-        fontFamily: fonts.primary[400], 
-        color: colors.text.secondary, 
-        textDecorationLine: 'underline'
+      fontFamily: fonts.primary[400], 
+      color: colors.text.secondary, 
+      textDecorationLine: 'underline'
     }
 })
 

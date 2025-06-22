@@ -29,7 +29,7 @@ export default function Login() {
         <Button
           typeButton="primary"
           title="Sign In"
-          onPressButton={() => navigation.navigate('Register')}
+          onPressButton={() => navigation.replace('MainApp')}
         />
         <Gap height={30} />
 

@@ -1,10 +1,12 @@
 const dataColors = {
     green: '#0BCAD4',
+    lightGreen: '#EDFCFD',
     navy: '#112340',
     grey: '#7D8797',
     white: '#FFFFFF',
     black: '#000000',
-    white800: '#E9E9E9'
+    dark1: '#E9E9E9',
+    dark2: '#495A75',
 }
 
 export const colors = {
@@ -14,7 +16,9 @@ export const colors = {
     black: dataColors.black,
     text: {
         primary: dataColors.navy,
-        secondary: dataColors.grey
+        secondary: dataColors.grey,
+        menuInactive: dataColors.dark2,
+        menuActive: dataColors.green
     },
     button: {
         primary: {
@@ -26,5 +30,6 @@ export const colors = {
             text: dataColors.navy
         }
     },
-    border: dataColors.white800
+    border: dataColors.dark1,
+    cardLight: dataColors.lightGreen
 };
