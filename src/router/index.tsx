@@ -1,6 +1,17 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { Consultation, Dashboard, Doctor, Hospitals, Login, Register, Splash, UploadPhoto } from "../pages";
+import { 
+  Chatting, 
+  ChooseDoctor, 
+  Consultation, 
+  Dashboard, 
+  Doctor, 
+  Hospitals, 
+  Login, 
+  Register, 
+  Splash, 
+  UploadPhoto 
+} from "../pages";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigator } from "../components";
 
@@ -11,6 +22,11 @@ export type RootStackParamList = {
   Register: undefined;
   UploadPhoto: undefined;
   MainApp: undefined;
+  Doctor: undefined;
+  Consultation: undefined;
+  Hospitals: undefined;
+  ChooseDoctor: undefined;
+  Chatting: undefined;
 }
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -35,6 +51,8 @@ export default function Router() {
         <Stack.Screen name="Register" component={Register} options={{ headerShown: false }}/>
         <Stack.Screen name="UploadPhoto" component={UploadPhoto} options={{ headerShown: false }}/>
         <Stack.Screen name="MainApp" component={MainApp} options={{ headerShown: false }}/>
+        <Stack.Screen name="ChooseDoctor" component={ChooseDoctor} options={{ headerShown: false }}/>
+        <Stack.Screen name="Chatting" component={Chatting} options={{ headerShown: false }}/>
     </Stack.Navigator>
   )
 }

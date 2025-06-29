@@ -1,42 +1,48 @@
+import React from 'react'
 import { StyleSheet, Text, View } from 'react-native'
-import React, { useState } from 'react'
+import { 
+  DummyDoctorOne, 
+  DummyDoctorThree, 
+  DummyDoctorTwo, 
+  JSONDataDoctor 
+} from '../../assets'
 import { ListDoctor } from '../../components'
 import { colors, fonts } from '../../utils'
-import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo } from '../../assets'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../router'
+import { useNavigation } from '@react-navigation/native'
+
+type DoctorCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Consultation'>;
+
+const renderImageConsultation = (name: string) => {
+  switch (name) {
+    case 'Alexander Jannie':
+      return DummyDoctorOne;
+    case 'Nairobi Putri Hayza':
+      return DummyDoctorTwo;
+    case 'John McParker Steve':
+      return DummyDoctorThree;
+    default:
+      return DummyDoctorOne;
+  }
+};
 
 export default function Consultation() {
-  const [doctors] = useState([
-    {
-      id: 1,
-      name: 'Alexander Jannie',
-      desc: 'Baik ibu, terima kasih banyak atas wakt...',
-      picture: DummyDoctorOne
-    },
-    {
-      id: 2,
-      name: 'Nairobi Putri Hayza',
-      desc: 'Oh tentu saja tidak karena jeruk it...',
-      picture: DummyDoctorTwo
-    },
-    {
-      id: 3,
-      name: 'John McParker Steve',
-      desc: 'Oke menurut pak dokter bagaimana unt...',
-      picture: DummyDoctorThree 
-    }
-  ])
+  const navigation = useNavigation<DoctorCategoryScreenNavigationProp>();
+  
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Consultation</Text>
         {
-          doctors.map((doctor) => {
+          JSONDataDoctor.consultation.map((item) => {
             return (
               <ListDoctor 
-                key={doctor.id} 
-                name={doctor.name} 
-                desc={doctor.desc} 
-                picture={doctor.picture} 
+                key={item.id} 
+                name={item.name} 
+                desc={item.desc} 
+                picture={renderImageConsultation(item.name)} 
+                onPressListDoctor={() => navigation.navigate('Chatting')}
               />
             )
           })

@@ -4,25 +4,25 @@ import { IcBackDark, IcBackLight } from '../../../assets'; // Replace with corre
 
 type IconType = 'back-dark' | 'back-light';
 type IconOnlyProps = {
-  typeIcon: IconType;
+  typeIcon?: IconType;
   onPressIconOnly?: () => void;
 };
 
-const Icon = ({ typeIcon }: { typeIcon: IconType }) => {
-  switch (typeIcon) {
-    case 'back-dark':
-      return <IcBackDark />;
-    case 'back-light':
-      return <IcBackLight />;
-    default:
-      return <IcBackDark />;
-  }
-};
-
 export default function IconOnly({ typeIcon, onPressIconOnly }: IconOnlyProps) {
+  const renderIconBack = () => {
+    switch (typeIcon) {
+      case 'back-dark':
+        return <IcBackDark />;
+      case 'back-light':
+        return <IcBackLight />;
+      default:
+        return <IcBackDark />;
+    }
+  };
+
   return (
     <TouchableOpacity onPress={onPressIconOnly}>
-      <Icon typeIcon={typeIcon} />
+      {renderIconBack()}
     </TouchableOpacity>
   );
 }

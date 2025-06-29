@@ -2,25 +2,25 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import IconOnly from './icon-only';
+import IconBtnSend from './icon-btn-send';
 
-type ButtonType = 'primary' | 'secondary' | 'icon-only';
+type ButtonType = 'primary' | 'secondary' | 'icon-only' | 'icon-btn-send';
 type IconType = 'back-dark' | 'back-light';
 
-type PropsButton = {
+type ButtonProps = {
   typeButton: ButtonType;
   title?: string;
   onPressButton?: () => void;
-  typeIcon?: IconType;
+  typeIconButton?: IconType;
+  disabledButton?: boolean;
 };
 
-export default function Button({ typeButton, typeIcon, title = '', onPressButton }: PropsButton) {
-  // Render khusus untuk button ikon saja
-  if (typeButton === 'icon-only') {
-    if (!typeIcon) {
-      console.warn('Button typeIcon is required when typeButton is "icon-only"');
-      return null;
-    }
-    return <IconOnly typeIcon={typeIcon} onPressIconOnly={onPressButton} />;
+export default function Button({ typeButton, typeIconButton, title = '', onPressButton, disabledButton = false }: ButtonProps) {
+  switch (typeButton) {
+    case 'icon-only':
+      return <IconOnly typeIcon={typeIconButton} onPressIconOnly={onPressButton} />;
+    case 'icon-btn-send':
+      return <IconBtnSend disabledIcon={disabledButton}/>;
   }
 
   return (
@@ -52,7 +52,7 @@ const containerStyle = (type: 'primary' | 'secondary') => ({
   ...styles.containerBase,
   backgroundColor: type === 'secondary'
       ? colors.button.secondary.background
-      : colors.button.primary.background,
+      : colors.button.primary.background, 
 });
 
 const titleButtonStyle = (type: 'primary' | 'secondary') => ({

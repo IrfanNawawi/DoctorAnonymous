@@ -10,7 +10,7 @@ export default function UploadPhoto() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Upload Photo" onPressHeader={() => navigation.goBack()} />
+      <Header title="Upload Photo" type='light' onPressHeader={() => navigation.goBack()} />
       <View style={styles.content}>
         <View style={styles.profile}>
           <View style={styles.avatarWrapper}>
@@ -21,7 +21,11 @@ export default function UploadPhoto() {
           <Text style={styles.professionalUser}>UI/UX Designer</Text>
         </View>
         <View>
-          <Button title='Upload and Continue' typeButton='primary' />
+          <Button 
+            title='Upload and Continue' 
+            typeButton='primary' 
+            onPressButton={() => navigation.navigate('Login')}
+          />
           <Gap height={30}/>
           <Link title='Skip for this' align='center' fontSize={16} />
         </View>

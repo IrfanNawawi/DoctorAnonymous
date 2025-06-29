@@ -1,11 +1,51 @@
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { 
+  DummyDoctorOne, 
+  DummyDoctorThree, 
+  DummyDoctorTwo, 
+  DummyNewsOne, 
+  DummyNewsThree, 
+  DummyNewsTwo, 
+  JSONDataDoctor 
+} from '../../assets'
 import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components'
 import { colors, fonts } from '../../utils'
-import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, DummyNewsOne, DummyNewsThree, DummyNewsTwo, IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../assets'
-import { JSONCategoryDoctor } from '../../assets'
+import { NativeStackNavigationProp } from '@react-navigation/native-stack'
+import { RootStackParamList } from '../../router'
+import { useNavigation } from '@react-navigation/native'
+
+type DoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Doctor'>;
+
+const renderImageNews = (id: number) => {
+  switch (id) {
+    case 1:
+      return DummyNewsOne;
+    case 2:
+      return DummyNewsTwo;
+    case 3:
+      return DummyNewsThree;
+    default:
+      return DummyNewsOne;
+  }
+};
+
+const renderImageRated = (name: string) => {
+  switch (name) {
+    case 'Alexander Jannie':
+      return DummyDoctorOne;
+    case 'Sunny Frank':
+      return DummyDoctorTwo;
+    case 'Poe Minn':
+      return DummyDoctorThree;
+    default:
+      return DummyDoctorOne;
+  }
+};
 
 export default function Doctor() {
+  const navigation = useNavigation<DoctorScreenNavigationProp>();
+
   return (
     <View style={styles.container}>
       <View style={styles.content}>
@@ -22,9 +62,13 @@ export default function Doctor() {
               <View style={styles.category}>
                 <Gap width={32} />
                 {
-                  JSONCategoryDoctor.data.map(item => {
+                  JSONDataDoctor.category.map(item => {
                     return (
-                      <DoctorCategory key={item.id} category={item.name} />
+                      <DoctorCategory 
+                        key={item.id} 
+                        category={item.name}
+                        onPressDoctorCategory={() => navigation.navigate('ChooseDoctor')}
+                      />
                     )
                   })
                 }
@@ -34,14 +78,32 @@ export default function Doctor() {
           </View>
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-            <DoctorRated picture={DummyDoctorOne} name='Alexander Jannie' profession='Pediatrician'/>
-            <DoctorRated picture={DummyDoctorTwo} name='Sunny Frank' profession='Dentist'/>
-            <DoctorRated picture={DummyDoctorThree} name='Poe Minn' profession='Podiatrist'/>
+            {
+              JSONDataDoctor.rated.map(item => {
+                return (
+                  <DoctorRated 
+                    key={item.id}
+                    picture={renderImageRated(item.name)} 
+                    name={item.name} 
+                    profession={item.profession}
+                  />
+                )
+              })
+            }
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          <NewsItem headline={`Is it safe to stay at home\nduring coronavirus?`} date='Today' picture={DummyNewsOne}/>
-          <NewsItem headline={`Consume yellow citrus\nhelps you healthier`} date='Today' picture={DummyNewsTwo}/>
-          <NewsItem headline={`Learn how to make a\nproper orange juice at home`} date='Today' picture={DummyNewsThree}/>
+          {
+            JSONDataDoctor.news.map(item => {
+              return (
+                <NewsItem
+                  key={item.id}
+                  headline={item.title} 
+                  date={item.date} 
+                  picture={renderImageNews(item.id)}
+                />
+              )
+            })
+          }
           <Gap height={30}/>
         </ScrollView>
       </View>
@@ -69,7 +131,6 @@ const styles = StyleSheet.create({
     color: colors.text.primary,
     marginTop: 30,
     marginBottom: 16,
-    maxWidth: 209
   },
   category: {
     flexDirection: 'row',

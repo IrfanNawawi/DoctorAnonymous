@@ -1,13 +1,14 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../../assets';
 import { colors, fonts } from '../../../utils';
 
-type PropsDoctorCategory = {
+type DoctorCategoryProps = {
   category: string,
+  onPressDoctorCategory?: () => void
 }
 
-export default function DoctorCategory({category}: PropsDoctorCategory) {
+export default function DoctorCategory({category, onPressDoctorCategory}: DoctorCategoryProps) {
   const renderIconDoctorCategory = () => {
     switch (category) {
       case 'dokterumum':
@@ -24,11 +25,11 @@ export default function DoctorCategory({category}: PropsDoctorCategory) {
   };
   
   return (
-    <View style={styles.container}>
-      {renderIconDoctorCategory()}
-      <Text style={styles.label}>Saya butuh</Text>
-      <Text style={styles.category}>{category}</Text>
-    </View>
+    <TouchableOpacity style={styles.container} onPress={onPressDoctorCategory}>
+        {renderIconDoctorCategory()}
+        <Text style={styles.label}>Saya butuh</Text>
+        <Text style={styles.category}>{category}</Text>
+    </TouchableOpacity>
   )
 }
 

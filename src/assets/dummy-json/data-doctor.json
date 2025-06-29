@@ -1,0 +1,103 @@
+{
+    "category": [
+        {
+            "id": 1,
+            "name": "dokter umum"
+        },
+        {
+            "id": 2,
+            "name": "psikiater"
+        },
+        {
+            "id": 3,
+            "name": "dokter obat"
+        },
+        {
+            "id": 4,
+            "name": "dokter anak"
+        }
+    ],
+    "rated": [
+        {
+            "id": 1,
+            "name": "Alexander Jannie",
+            "profession": "Pediatrician",
+            "rate": 5
+        },
+        {
+            "id": 2,
+            "name": "Sunny Frank",
+            "profession": "Dentist",
+            "rate": 4
+        },
+        {
+            "id": 3,
+            "name": "Poe Minn",
+            "profession": "Podiatrist",
+            "rate": 4
+        }
+    ],
+    "news": [
+        {
+            "id": 1,
+            "title": "Is it safe to stay at home\nduring coronavirus?",
+            "date": "Today"
+        },
+        {
+            "id": 2,
+            "title": "Consume yellow citrus\nhelps you healthier",
+            "date": "20/10/2021"
+        },
+        {
+            "id": 3,
+            "title": "Learn how to make a\nproper orange juice at home",
+            "date": "Today"
+        }
+    ],
+    "hospitals": [
+        {
+            "id": 1,
+            "type": "Rumah Sakit",
+            "name": "RSUD Dr. Soeprapto",
+            "address": "Jln. Surya Sejahtera 20"
+        },
+        {
+            "id": 2,
+            "type": "Rumah Sakit Anak",
+            "name": "Happy Family & Kids",
+            "address": "Jln. Surya Sejahtera 20"
+        },
+        {
+            "id": 3,
+            "type": "Rumah Sakit Jiwa",
+            "name": "Tingkatan Paling Atas",
+            "address": "Jln. Surya Sejahtera 20"
+        },
+        {
+            "id": 4,
+            "type": "Rumah Sakit Jiwa",
+            "name": "RSUD Dr. Soeprapto",
+            "address": "Jln. Surya Sejahtera 20"
+        }
+    ],
+    "consultation": [
+        {
+            "id": 1,
+            "name": "Alexander Jannie",
+            "gender": "wanita",
+            "desc": "Baik ibu, terima kasih banyak atas wakt..."
+        },
+        {
+            "id": 2,
+            "name": "Nairobi Putri Hayza",
+            "gender": "wanita",
+            "desc": "Oh tentu saja tidak karena jeruk it..."
+        },
+        {
+            "id": 3,
+            "name": "John McParker Steve",
+            "gender": "pria",
+            "desc": "Oke menurut pak dokter bagaimana unt..."
+        }
+    ]
+}

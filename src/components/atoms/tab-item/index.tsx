@@ -19,7 +19,7 @@ import { colors, fonts } from '../../../utils';
 type IconTitleType = 'Doctor' | 'Consultation' | 'Hospitals';
 
 type IconProps = {
-  title: IconTitleType
+  title: IconTitleType;
   active?: boolean;
   onPress?: () => void;
   onLongPress?: () => void;
@@ -62,12 +62,21 @@ export default function TabItem({ title, active = false, onPress, onLongPress }:
 
   return (
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
-        <Animated.View style={[styles.container, animatedStyle]}>
+      <Animated.View style={[styles.container, animatedStyle]}>
         {renderIcon()}
-        <Text style={[styles.text, { color: active ? colors.text.menuActive : colors.text.menuInactive }]}>
-            {title}
+        <Text
+          style={[
+            styles.text,
+            {
+              color: active
+                ? colors.text.menuActive
+                : colors.text.menuInactive,
+            },
+          ]}
+        >
+          {title}
         </Text>
-        </Animated.View>
+      </Animated.View>
     </TouchableOpacity>
   );
 }

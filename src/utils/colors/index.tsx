@@ -1,24 +1,28 @@
 const dataColors = {
     green: '#0BCAD4',
     lightGreen: '#EDFCFD',
-    navy: '#112340',
-    grey: '#7D8797',
+    dark1: '#112340',
+    dark2: '#495A75',
+    dark3: '#8092AF',
+    grey1: '#7D8797',
+    grey2: '#E9E9E9',
+    grey3: '#EDEEF0',
     white: '#FFFFFF',
     black: '#000000',
-    dark1: '#E9E9E9',
-    dark2: '#495A75',
 }
 
 export const colors = {
     primary: dataColors.green,
-    secondary: dataColors.navy,
+    secondary: dataColors.dark1,
     white: dataColors.white,
     black: dataColors.black,
+    disable: dataColors.grey3,
     text: {
-        primary: dataColors.navy,
-        secondary: dataColors.grey,
+        primary: dataColors.dark1,
+        secondary: dataColors.grey1,
         menuInactive: dataColors.dark2,
-        menuActive: dataColors.green
+        menuActive: dataColors.green,
+        subTitle: dataColors.dark3
     },
     button: {
         primary: {
@@ -27,9 +31,9 @@ export const colors = {
         },
         secondary: {
             background: dataColors.white,
-            text: dataColors.navy
+            text: dataColors.dark1
         }
     },
-    border: dataColors.dark1,
+    border: dataColors.grey2,
     cardLight: dataColors.lightGreen
 };

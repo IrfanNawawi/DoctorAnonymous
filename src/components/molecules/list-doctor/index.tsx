@@ -1,22 +1,26 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageProps, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
+import { IcNextLight } from '../../../assets';
 
-type PropsListDoctor = {
+type ListDoctorProps = {
     name: string;
     desc: string;
     picture: ImageProps
+    type?: 'next'
+    onPressListDoctor?: () => void
 }
 
-export default function ListDoctor({name, desc, picture}: PropsListDoctor) {
+export default function ListDoctor({name, desc, picture, type, onPressListDoctor}: ListDoctorProps) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPressListDoctor}>
         <Image source={picture} style={styles.avatar}/>
-        <View>
+        <View style={styles.content}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.desc}>{desc}</Text>
         </View>
-    </View>
+        {type === 'next' && <IcNextLight />}
+    </TouchableOpacity>
   )
 }
 
@@ -26,7 +30,11 @@ const styles = StyleSheet.create({
         padding: 16,
         borderBottomWidth: 1,
         borderBottomColor: colors.border,
-        alignItems: 'center'
+        alignItems: 'center',
+        justifyContent: 'space-between'
+    },
+    content: {
+        flex: 1
     },
     avatar: {
         width: 46,

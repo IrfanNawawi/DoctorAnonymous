@@ -3,12 +3,12 @@ import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
 import { IcRatedStar } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 
-type PropsDoctorRated = {
+type DoctorRatedProps = {
   picture: ImageProps,
   name: string,
   profession: string
 }
-export default function DoctorRated({picture, name, profession}: PropsDoctorRated) {
+export default function DoctorRated({picture, name, profession}: DoctorRatedProps) {
   return (
     <View style={styles.container}>
       <Image source={picture} style={styles.avatar}/>

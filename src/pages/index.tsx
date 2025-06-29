@@ -6,6 +6,8 @@ import UploadPhoto from './upload-photo';
 import Doctor from './doctor';
 import Consultation from './consultation';
 import Hospitals from './hospitals';
+import ChooseDoctor from './choose-doctor';
+import Chatting from './chatting';
 
 export {
     Splash, 
@@ -15,5 +17,7 @@ export {
     UploadPhoto, 
     Doctor, 
     Consultation, 
-    Hospitals
+    Hospitals,
+    ChooseDoctor,
+    Chatting
 };

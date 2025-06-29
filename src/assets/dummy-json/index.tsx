@@ -1,3 +1,5 @@
-import JSONCategoryDoctor from './category-doctor.json';
+import JSONDataDoctor from './data-doctor.json';
 
-export { JSONCategoryDoctor }
+export { 
+    JSONDataDoctor,
+}

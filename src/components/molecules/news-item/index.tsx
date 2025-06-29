@@ -2,13 +2,13 @@ import React from 'react'
 import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 
-type PropsNewsItem = {
+type NewsItemProps = {
   headline: string,
   date: string,
   picture: ImageProps
 }
 
-export default function NewsItem({headline, date, picture}: PropsNewsItem) {
+export default function NewsItem({headline, date, picture}: NewsItemProps) {
   return (
     <View style={styles.container}>
       <View style={styles.titleWrapper}>

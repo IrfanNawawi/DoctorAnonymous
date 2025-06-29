@@ -2,14 +2,14 @@ import React from 'react'
 import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 
-type PropsListHospital = {
+type ListHospitalProps = {
     type: string,
     name: string
     address: string
     picture: ImageProps
 }
 
-export default function ListHospital({type, name, address, picture}: PropsListHospital) {
+export default function ListHospital({type, name, address, picture}: ListHospitalProps) {
   return (
     <View style={styles.container}>
         <Image source={picture} style={styles.picture}/>
