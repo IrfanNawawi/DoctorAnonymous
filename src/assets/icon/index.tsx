@@ -12,6 +12,12 @@ import IcRatedStar from './ic-rated-star.svg';
 import IcNextLight from './ic-next-light.svg';
 import IcSendActive from './ic-send-active.svg';
 import IcSendNonactive from './ic-send-nonactive.svg';
+import IcProfileEdit from './ic-profile-edit.svg';
+import IcProfileLanguage from './ic-profile-language.svg';
+import IcProfileRated from './ic-profile-rated.svg';
+import IcProfileHelpCenter from './ic-profile-help-center.svg';
+import IcGenderMale from './ic-gender-male.svg';
+import IcGenderFemale from './ic-gender-female.svg';
 
 export { 
     IcBackDark,
@@ -27,5 +33,11 @@ export {
     IcRatedStar,
     IcNextLight,
     IcSendActive,
-    IcSendNonactive
+    IcSendNonactive,
+    IcProfileEdit,
+    IcProfileLanguage,
+    IcProfileRated,
+    IcProfileHelpCenter,
+    IcGenderMale,
+    IcGenderFemale
 };

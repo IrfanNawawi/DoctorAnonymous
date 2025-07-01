@@ -13,7 +13,7 @@ export default function Register() {
 
   return (
     <SafeAreaView style={styles.container}>
-      <Header title="Daftar Akun" type='light' onPressHeader={() => navigation.goBack()} />
+      <Header title="Daftar Akun" onPressHeader={() => navigation.goBack()} />
       <View style={styles.content}>
         <Input label="Full Name" />
         <Gap height={24} />

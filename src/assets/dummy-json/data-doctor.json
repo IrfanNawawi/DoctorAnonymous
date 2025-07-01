@@ -99,5 +99,48 @@
             "gender": "pria",
             "desc": "Oke menurut pak dokter bagaimana unt..."
         }
+    ],
+    "setting-profile": [
+        {
+            "id": 1,
+            "name": "Edit Profile",
+            "desc": "Last updated yesterday",
+            "icon": "setting"
+        },
+        {
+            "id": 2,
+            "name": "Language",
+            "desc": "Available 12 languages",
+            "icon": "setting"
+        },
+        {
+            "id": 3,
+            "name": "Give Us Rate",
+            "desc": "On Google Play Store",
+            "icon": "setting"
+        },
+        {
+            "id": 4,
+            "name": "Help Center",
+            "desc": "Read our guidelines",
+            "icon": "setting"
+        }
+    ],
+    "doctor-profile": [
+        {
+            "id": 1,
+            "title": "Alumnus",
+            "desc": "Universitas Indonesia, 2020"
+        },
+        {
+            "id": 2,
+            "title": "Tempat Praktik",
+            "desc": "Rumah Sakit Umum, Bandung"
+        },
+        {
+            "id": 3,
+            "title": "No. STR",
+            "desc": "0000116622081996"
+        }
     ]
 }

@@ -1,12 +1,12 @@
 import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { 
   DummyDoctorOne, 
   DummyDoctorThree, 
   DummyDoctorTwo, 
   JSONDataDoctor 
 } from '../../assets'
-import { ListDoctor } from '../../components'
+import { List } from '../../components'
 import { colors, fonts } from '../../utils'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { RootStackParamList } from '../../router'
@@ -31,24 +31,24 @@ export default function Consultation() {
   const navigation = useNavigation<DoctorCategoryScreenNavigationProp>();
   
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Consultation</Text>
         {
           JSONDataDoctor.consultation.map((item) => {
             return (
-              <ListDoctor 
+              <List 
                 key={item.id} 
                 name={item.name} 
                 desc={item.desc} 
                 picture={renderImageConsultation(item.name)} 
-                onPressListDoctor={() => navigation.navigate('Chatting')}
+                onPressList={() => navigation.navigate('Chatting')}
               />
             )
           })
         }
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

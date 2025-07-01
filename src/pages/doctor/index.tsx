@@ -1,5 +1,5 @@
 import React from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
 import { 
   DummyDoctorOne, 
   DummyDoctorThree, 
@@ -47,12 +47,12 @@ export default function Doctor() {
   const navigation = useNavigation<DoctorScreenNavigationProp>();
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperSection}>
             <Gap height={30}/>
-            <HomeProfile />
+            <HomeProfile onPressHomeProfile={() => navigation.navigate('UserProfile')}/>
             <Text style={styles.welcome}>
               {`Mau konsultasi dengan\nsiapa hari ini ?`}
             </Text>
@@ -86,6 +86,7 @@ export default function Doctor() {
                     picture={renderImageRated(item.name)} 
                     name={item.name} 
                     profession={item.profession}
+                    onPressDoctorRated={() => navigation.navigate('DoctorProfile')}
                   />
                 )
               })
@@ -107,7 +108,7 @@ export default function Doctor() {
           <Gap height={30}/>
         </ScrollView>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

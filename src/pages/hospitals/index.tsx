@@ -1,4 +1,4 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors, fonts } from '../../utils'
 import { 
@@ -25,7 +25,7 @@ const renderImageHospitals = (type: string) => {
 
 export default function Hospitals() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <ImageBackground source={IlHospitalBackground} style={styles.background}>
         <Text style={styles.title}>Nearby hospitals</Text>
         <Text style={styles.availibility}>{JSONDataDoctor.hospitals.length} Tersedia</Text>
@@ -45,7 +45,7 @@ export default function Hospitals() {
           })
         }
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 

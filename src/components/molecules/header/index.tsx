@@ -8,14 +8,15 @@ type DataTypeHeader = 'dark' | 'light' | 'dark-profile'
 
 type HeaderProps = {
   title: string
-  type: DataTypeHeader
+  type?: DataTypeHeader
   onPressHeader?: () => void
+  onPressProfileDoctor?: () => void
 };
 
-export default function Header({ onPressHeader, title, type }: HeaderProps) {
+export default function Header({ onPressHeader, title, type = 'light', onPressProfileDoctor }: HeaderProps) {
   
   if (type === 'dark-profile') {
-    return <DarkProfile onPressDarkProfile={onPressHeader} />
+    return <DarkProfile onPressDarkProfile={onPressHeader} onPressProfileDoctor={onPressProfileDoctor}/>
   }
   return (
     <View style={containerStyleHeader(type)}>

@@ -1,20 +1,36 @@
 import React from 'react'
 import { Image, ImageProps, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
-import { IcNextLight } from '../../../assets';
+import { IcNextLight, IcProfileEdit, IcProfileHelpCenter, IcProfileLanguage, IcProfileRated } from '../../../assets';
 
-type ListDoctorProps = {
+type ListProps = {
     name: string;
     desc: string;
-    picture: ImageProps
+    picture?: ImageProps
     type?: 'next'
-    onPressListDoctor?: () => void
+    icon?: string
+    onPressList?: () => void
 }
 
-export default function ListDoctor({name, desc, picture, type, onPressListDoctor}: ListDoctorProps) {
+const renderSettingUserProfile = (name: string) => {
+    switch (name) {
+        case 'Edit Profile':
+            return <IcProfileEdit />
+        case 'Language':
+            return <IcProfileLanguage />
+        case 'Give Us Rate':
+            return <IcProfileRated />
+        case 'Help Center':
+            return <IcProfileHelpCenter />
+        default:
+            return <IcProfileEdit />
+    }
+}
+
+export default function List({name, desc, picture, type, icon, onPressList}: ListProps) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPressListDoctor}>
-        <Image source={picture} style={styles.avatar}/>
+    <TouchableOpacity style={styles.container} onPress={onPressList}>
+        {icon ? renderSettingUserProfile(name) : <Image source={picture} style={styles.avatar}/>}
         <View style={styles.content}>
             <Text style={styles.name}>{name}</Text>
             <Text style={styles.desc}>{desc}</Text>
@@ -34,13 +50,13 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between'
     },
     content: {
-        flex: 1
+        flex: 1,
+        marginLeft: 16
     },
     avatar: {
         width: 46,
         height: 46,
         borderRadius: 46 / 2,
-        marginRight: 12
     },
     name: {
         fontSize: 16,

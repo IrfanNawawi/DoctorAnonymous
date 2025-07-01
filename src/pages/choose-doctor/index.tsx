@@ -1,11 +1,11 @@
-import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, JSONDataDoctor } from '../../assets';
-import { Header, ListDoctor } from '../../components';
-import { colors } from '../../utils';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../router';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import { SafeAreaView, StyleSheet } from 'react-native';
+import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, JSONDataDoctor } from '../../assets';
+import { Header, List } from '../../components';
+import { RootStackParamList } from '../../router';
+import { colors } from '../../utils';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 
@@ -26,23 +26,23 @@ export default function ChooseDoctor() {
     const navigation = useNavigation<ChooseDoctorScreenNavigationProp>();
     
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <Header title="Pilih Dokter Anak" type='dark' onPressHeader={() => navigation.goBack()} />
             {
             JSONDataDoctor.consultation.map((item) => {
                 return (
-                <ListDoctor 
+                <List 
                     key={item.id} 
                     name={item.name} 
                     desc={item.gender} 
                     picture={renderImageConsultation(item.name)}
                     type='next'
-                    onPressListDoctor={() => navigation.navigate('Chatting')}
+                    onPressList={() => navigation.navigate('Chatting')}
                 />
                 )
             })
             }
-        </View>
+        </SafeAreaView>
     )
 }
 

@@ -1,16 +1,17 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
+import { Image, ImageProps, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IcRatedStar } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 
 type DoctorRatedProps = {
   picture: ImageProps,
   name: string,
-  profession: string
+  profession: string,
+  onPressDoctorRated?: () => void
 }
-export default function DoctorRated({picture, name, profession}: DoctorRatedProps) {
+export default function DoctorRated({picture, name, profession, onPressDoctorRated}: DoctorRatedProps) {
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPressDoctorRated}>
       <Image source={picture} style={styles.avatar}/>
       <View style={styles.profile}>
         <Text style={styles.name}>{name}</Text>
@@ -23,7 +24,7 @@ export default function DoctorRated({picture, name, profession}: DoctorRatedProp
         <IcRatedStar/>
         <IcRatedStar/>
       </View>
-    </View>
+    </TouchableOpacity>
   )
 }
 
@@ -31,7 +32,8 @@ const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    paddingBottom: 16
+    paddingBottom: 16,
+    alignItems: 'center'
   },
   avatar: {
     width: 50,

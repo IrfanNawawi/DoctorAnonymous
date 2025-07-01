@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { IlLogo } from '../../assets/illustration';
-import { colors, fonts } from '../../utils';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect } from 'react';
+import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { IlLogo } from '../../assets/illustration';
 import { RootStackParamList } from '../../router';
+import { colors, fonts } from '../../utils';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;
 
@@ -20,10 +20,10 @@ export default function Splash() {
   }, [navigation]);
 
   return (
-    <View style={styles.page}>
+    <SafeAreaView style={styles.page}>
       <IlLogo />
       <Text style={styles.title}>Doctor Anonymous</Text>
-    </View>
+    </SafeAreaView>
   );
 }
 

@@ -1,14 +1,15 @@
-import { Image, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { DummyDoctorOne } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 import { Button } from '../../atoms'
-import { DummyDoctorOne } from '../../../assets'
 
 type DarkProfileProps = {
-    onPressDarkProfile?: () => void
+    onPressDarkProfile?: () => void,
+    onPressProfileDoctor?: () => void
   };
 
-export default function DarkProfile({onPressDarkProfile}: DarkProfileProps) {
+export default function DarkProfile({onPressDarkProfile, onPressProfileDoctor}: DarkProfileProps) {
   return (
     <View style={styles.container}>
         <Button 
@@ -16,11 +17,13 @@ export default function DarkProfile({onPressDarkProfile}: DarkProfileProps) {
             typeIconButton='back-light' 
             onPressButton={onPressDarkProfile}
         />
-        <View style={styles.content}>
-            <Text style={styles.name}>Nairobi Putri Hayza</Text>
-            <Text style={styles.profession}>UI/UX Designer</Text>
-        </View>
-        <Image source={DummyDoctorOne} style={styles.avatar}/>
+        <TouchableOpacity onPress={onPressProfileDoctor} style={{flexDirection: 'row'}}>
+            <View style={styles.content}>
+                <Text style={styles.name}>Nairobi Putri Hayza</Text>
+                <Text style={styles.profession}>UI/UX Designer</Text>
+            </View>
+            <Image source={DummyDoctorOne} style={styles.avatar}/>
+        </TouchableOpacity>
     </View>
   )
 }
@@ -42,7 +45,8 @@ const styles = StyleSheet.create({
     avatar: {
         width: 46,
         height: 46,
-        borderRadius: 46 / 2
+        borderRadius: 46 / 2,
+        marginEnd: 16
     },
     name: {
         fontSize: 20,
