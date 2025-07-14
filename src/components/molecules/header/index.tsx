@@ -33,8 +33,7 @@ export default function Header({ onPressHeader, title, type = 'light', onPressPr
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 30,
+    padding: 16,
     flexDirection: 'row',
     alignItems: 'center',
   },

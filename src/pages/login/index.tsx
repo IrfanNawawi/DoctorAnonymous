@@ -3,7 +3,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets';
 import { Button, Gap, Input, Link } from '../../components';
-import { colors, fonts } from '../../utils';
+import { colors, fonts, useForm } from '../../utils';
 import { RootStackParamList } from '../../router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
@@ -12,15 +12,37 @@ type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, '
 export default function Login() {
   const navigation = useNavigation<LoginScreenNavigationProp>();
 
+  const [form, setForm] = useForm({
+    email: '',
+    password: '',
+  });
+
+  const onSignIn = () => {
+    navigation.replace('MainApp')
+  };
+
+  const onSignUp = () => {
+    navigation.navigate('Register')
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView contentContainerStyle={styles.scroll} showsVerticalScrollIndicator={false}>
         <IlLogo />
         <Text style={styles.title}>{'Masuk dan mulai\nberkonsultasi'}</Text>
 
-        <Input label="Email Address" />
+        <Input 
+          label="Email Address"
+          value={form.email}
+          onChangeTextInput={value => setForm('email', value)}
+        />
         <Gap height={24} />
-        <Input label="Password" />
+        <Input 
+          label="Password"
+          value={form.password}
+          onChangeTextInput={value => setForm('password', value)}
+          secureTextEntry
+        />
         <Gap height={10} />
 
         <Link title="Forgot My Password" fontSize={12} align="left" onPressLink={() => {}} />
@@ -29,7 +51,7 @@ export default function Login() {
         <Button
           typeButton="primary"
           title="Sign In"
-          onPressButton={() => navigation.replace('MainApp')}
+          onPressButton={onSignIn}
         />
         <Gap height={30} />
 
@@ -37,7 +59,7 @@ export default function Login() {
           title="Create New Account"
           fontSize={16}
           align="center"
-          onPressLink={() => navigation.navigate('Register')}
+          onPressLink={onSignUp}
         />
       </ScrollView>
     </SafeAreaView>

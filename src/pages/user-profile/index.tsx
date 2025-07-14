@@ -5,6 +5,7 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { JSONDataDoctor } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
 import { RootStackParamList } from '../../router';
+import { colors } from '../../utils';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
@@ -54,6 +55,6 @@ export default function UserProfile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: 'white'
+        backgroundColor: colors.white
     },
 })

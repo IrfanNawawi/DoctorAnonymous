@@ -1,4 +1,4 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { IlGetStarted, IlLogo } from '../../assets/illustration'
 import { Button, Gap } from '../../components'
@@ -13,41 +13,43 @@ export default function Dashboard() {
     const navigation = useNavigation<DashboardScreenNavigationProp>();
     
     return (
-    <SafeAreaView style={styles.container}>
         <ImageBackground source={IlGetStarted} style={styles.page}>
-            <View>
-                <IlLogo />
-                <Text style={styles.title}>
-                    {'Konsultasi dengan\ndokter jadi lebih\nmudah & fleksibel'}
-                </Text>
-            </View>
-            <View>
-                <Button 
-                    typeButton='primary' 
-                    title='Get Started' 
-                    onPressButton={() => navigation.navigate('Register')}
-                />
-                <Gap height={16}/>
-                <Button 
-                    typeButton='secondary' 
-                    title='Sign In' 
-                    onPressButton={() => navigation.navigate('Login')}
-                />
-            </View>
+            <SafeAreaView style={styles.container}>
+                <View>
+                    <IlLogo />
+                    <Text style={styles.title}>
+                        {'Konsultasi dengan\ndokter jadi lebih\nmudah & fleksibel'}
+                    </Text>
+                </View>
+                <View>
+                    <Button 
+                        typeButton='primary' 
+                        title='Get Started' 
+                        onPressButton={() => navigation.navigate('Register')}
+                    />
+                    <Gap height={16}/>
+                    <Button 
+                        typeButton='secondary' 
+                        title='Sign In' 
+                        onPressButton={() => navigation.replace('Login')}
+                    />
+                </View>
+            </SafeAreaView>
         </ImageBackground>
-    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: colors.button.secondary.background,
+        justifyContent: 'space-between'
     },
     page: {
         padding: 40, 
-        justifyContent: 'space-between',
-        flex: 1
+        flex: 1,
+        height:Dimensions.get('window').height, 
+        width:Dimensions.get('window').width,
+        overflow:'hidden',
     },
     title: {
         fontSize: 24,

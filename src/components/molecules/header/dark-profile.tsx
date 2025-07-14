@@ -17,7 +17,7 @@ export default function DarkProfile({onPressDarkProfile, onPressProfileDoctor}: 
             typeIconButton='back-light' 
             onPressButton={onPressDarkProfile}
         />
-        <TouchableOpacity onPress={onPressProfileDoctor} style={{flexDirection: 'row'}}>
+        <TouchableOpacity onPress={onPressProfileDoctor} style={styles.detailHeader}>
             <View style={styles.content}>
                 <Text style={styles.name}>Nairobi Putri Hayza</Text>
                 <Text style={styles.profession}>UI/UX Designer</Text>
@@ -60,5 +60,8 @@ const styles = StyleSheet.create({
         color: colors.text.subTitle,
         textAlign: 'center',
         marginTop: 6
+    },
+    detailHeader: {
+        flexDirection: 'row',
     }
 })

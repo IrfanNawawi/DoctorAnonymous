@@ -25,7 +25,7 @@ const renderImageHospitals = (type: string) => {
 
 export default function Hospitals() {
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <ImageBackground source={IlHospitalBackground} style={styles.background}>
         <Text style={styles.title}>Nearby hospitals</Text>
         <Text style={styles.availibility}>{JSONDataDoctor.hospitals.length} Tersedia</Text>
@@ -45,7 +45,7 @@ export default function Hospitals() {
           })
         }
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
   },
   background: {
     height: 240,
-    paddingTop: 30
+    paddingTop: 50
   },
   title: {
     fontSize: 20,

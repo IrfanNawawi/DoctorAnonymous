@@ -1,9 +1,9 @@
 import React from 'react'
 import { Image, StyleSheet, View } from 'react-native'
-import { IcAddPhoto, IcGenderMale, IlPhotoDefault } from '../../../assets'
+import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto, IlPhotoDefault } from '../../../assets'
 import { colors } from '../../../utils'
 
-type PhotoType = 'photo-upload' | 'photo-detail' | 'photo-gender';
+type PhotoType = 'photo-upload' | 'photo-remove' | 'photo-detail' | 'photo-gender-male' | 'photo-gender-female';
 
 type PhotoProps = {
   typePhoto: PhotoType;
@@ -13,8 +13,12 @@ const renderTypePhoto = (type: PhotoType) => {
   switch (type) {
     case 'photo-upload':
       return <IcAddPhoto style={styles.addPhoto}/>
-    case 'photo-gender':
+    case 'photo-remove':
+      return <IcRemovePhoto style={styles.addPhoto}/>
+    case 'photo-gender-male':
       return <IcGenderMale style={styles.addPhoto}/>
+    case 'photo-gender-female':
+      return <IcGenderFemale style={styles.addPhoto}/>
     default:
       return null
   }

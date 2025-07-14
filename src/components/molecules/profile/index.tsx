@@ -3,7 +3,7 @@ import { StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 import Photo from '../photo'
 
-type ProfileType = 'photo-upload' | 'photo-detail' | 'photo-gender';
+type ProfileType = 'photo-upload' | 'photo-remove' | 'photo-detail' | 'photo-gender-male' | 'photo-gender-female';
 
 type ProfileProps = {
   typeProfile: ProfileType;
@@ -15,7 +15,7 @@ export default function Profile({typeProfile = 'photo-detail', name, profession}
   return (
     <View style={styles.container}>
       <Photo typePhoto={typeProfile}/>
-      {typeProfile === 'photo-detail' || typeProfile === 'photo-gender' && (
+      {typeProfile === 'photo-detail' || typeProfile === 'photo-gender-male' || typeProfile === 'photo-gender-female' && (
         <>
           <Text style={styles.name}>{name}</Text>
           <Text style={styles.profession}>{profession}</Text>

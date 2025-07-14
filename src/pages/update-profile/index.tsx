@@ -4,11 +4,23 @@ import { Button, Gap, Header, Input, Profile } from '../../components'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../router';
+import { colors, useForm } from '../../utils';
 
 type UpdateProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UpdateProfile'>;
 
 export default function UpdateProfile() {
     const navigation = useNavigation<UpdateProfileScreenNavigationProp>();
+
+    const [form, setForm] = useForm({
+        fullname: '',
+        profession: '',
+        email: '',
+        password: '',
+    });
+
+    const onSaveProfile = () => {
+        navigation.navigate('UploadPhoto');
+    };
     
     return (
         <SafeAreaView style={styles.container}>
@@ -17,22 +29,39 @@ export default function UpdateProfile() {
                 <View style={styles.content}>
                     <Profile typeProfile='photo-upload'/>
                     <Gap height={26}/>
-                    <Input label="Full Name" />
+                    <Input 
+                        label="Full Name"
+                        value={form.fullname}
+                        onChangeTextInput={value => setForm('fullname', value)}
+                    />
                     <Gap height={24} />
 
-                    <Input label="Pekerjaan" />
+                    <Input 
+                        label="Pekerjaan"
+                        value={form.profession}
+                        onChangeTextInput={value => setForm('profession', value)}
+                    />
                     <Gap height={24} />
 
-                    <Input label="Email Address" />
+                    <Input 
+                        label="Email Address"
+                        value={form.email}
+                        onChangeTextInput={value => setForm('email', value)}
+                    />
                     <Gap height={24} />
 
-                    <Input label="Password" />
+                    <Input 
+                        label="Password"
+                        value={form.password}
+                        onChangeTextInput={value => setForm('password', value)}
+                        secureTextEntry
+                    />
                     <Gap height={40} />
 
                     <Button
                         typeButton="primary" 
                         title="Save Profile" 
-                        onPressButton={() => navigation.navigate('UploadPhoto') } 
+                        onPressButton={onSaveProfile} 
                     />
                 </View>
             </ScrollView>
@@ -43,7 +72,7 @@ export default function UpdateProfile() {
 const styles = StyleSheet.create({
     container: {
         flex: 1, 
-        backgroundColor: 'white'
+        backgroundColor: colors.white
     },
     content: {
         paddingHorizontal: 40,

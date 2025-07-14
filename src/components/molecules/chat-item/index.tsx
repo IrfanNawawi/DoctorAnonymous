@@ -70,7 +70,7 @@ const chatContentStyle = (isSender: boolean) => ({
 
 const textStyle = (isSender: boolean) => ({
   ...styles.text,
-  color: isSender ? colors.text.primary : 'white',
+  color: isSender ? colors.text.primary : colors.white,
 });
 
 const dateStyle = (isSender: boolean) => ({

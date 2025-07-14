@@ -9,6 +9,7 @@ const dataColors = {
     grey3: '#EDEEF0',
     white: '#FFFFFF',
     black: '#000000',
+    transparent: 'transparent'
 }
 
 export const colors = {
@@ -35,5 +36,6 @@ export const colors = {
         }
     },
     border: dataColors.grey2,
-    cardLight: dataColors.lightGreen
+    cardLight: dataColors.lightGreen,
+    transparent: dataColors.transparent
 };

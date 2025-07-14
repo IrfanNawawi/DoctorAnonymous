@@ -1,11 +1,15 @@
-import { NavigationProp, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { Button, Gap, Header, Link, Photo } from '../../components';
+import { RootStackParamList } from '../../router';
 import { colors, fonts } from '../../utils';
 
+type UploadPhotoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UploadPhoto'>;
+
 export default function UploadPhoto() {
-  const navigation = useNavigation<NavigationProp<any>>();
+  const navigation = useNavigation<UploadPhotoScreenNavigationProp>();
 
   return (
     <SafeAreaView style={styles.container}>
@@ -20,10 +24,10 @@ export default function UploadPhoto() {
           <Button 
             title='Upload and Continue' 
             typeButton='primary' 
-            onPressButton={() => navigation.navigate('Login')}
+            onPressButton={() => navigation.replace('Login')}
           />
           <Gap height={30}/>
-          <Link title='Skip for this' align='center' fontSize={16} />
+          <Link title='Skip for this' align='center' fontSize={16} onPressLink={() => navigation.replace('MainApp')}/>
         </View>
       </View>
     </SafeAreaView>

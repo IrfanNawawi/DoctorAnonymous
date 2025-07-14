@@ -11,7 +11,7 @@ type DoctorCategoryProps = {
 export default function DoctorCategory({category, onPressDoctorCategory}: DoctorCategoryProps) {
   const renderIconDoctorCategory = () => {
     switch (category) {
-      case 'dokterumum':
+      case 'dokter umum':
         return <IlCategoryDoctor style={styles.illustration} />;
       case 'psikiater':
         return <IlCategoryPsikiater style={styles.illustration} />;
