@@ -6,6 +6,9 @@ export const useForm = (initialValue: FormValues) => {
     const [values, setValues] = useState<FormValues>(initialValue);
 
     const setFormValue = (field: string, value: string) => {
+        if (field === 'reset') {
+            setValues(initialValue);
+        }
         setValues(prevValues => ({
             ...prevValues,
             [field]: value,

@@ -7,9 +7,10 @@ type InputProps = {
   value: string;
   onChangeTextInput: (text: string) => void;
   secureTextEntry?: boolean;
+  keyboardType?: 'default' | 'numeric' | 'email-address';
 };
 
-export default function Input({ label, value, onChangeTextInput, secureTextEntry = false }: InputProps) {
+export default function Input({ label, value, onChangeTextInput, secureTextEntry = false, keyboardType = 'default' }: InputProps) {
   const [borderColor, setBorderColor] = useState(colors.border);
 
   const handleFocus = () => setBorderColor(colors.primary);
@@ -23,6 +24,7 @@ export default function Input({ label, value, onChangeTextInput, secureTextEntry
         onBlur={handleBlur}
         style={[styles.input, { borderColor }]}
         value={value}
+        keyboardType={keyboardType}
         onChangeText={onChangeTextInput}
         secureTextEntry={secureTextEntry}
       />

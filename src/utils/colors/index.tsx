@@ -9,7 +9,9 @@ const dataColors = {
     grey3: '#EDEEF0',
     white: '#FFFFFF',
     black: '#000000',
-    transparent: 'transparent'
+    blackOpacity: 'rgba(0, 0, 0, 0.5)',
+    transparent: 'transparent',
+    red: '#E06379',
 }
 
 export const colors = {
@@ -37,5 +39,7 @@ export const colors = {
     },
     border: dataColors.grey2,
     cardLight: dataColors.lightGreen,
-    transparent: dataColors.transparent
+    transparent: dataColors.transparent,
+    loadingBackground: dataColors.blackOpacity,
+    error: dataColors.red
 };

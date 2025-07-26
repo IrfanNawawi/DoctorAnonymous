@@ -46,6 +46,7 @@ export default function UpdateProfile() {
                     <Input 
                         label="Email Address"
                         value={form.email}
+                        keyboardType='email-address'
                         onChangeTextInput={value => setForm('email', value)}
                     />
                     <Gap height={24} />

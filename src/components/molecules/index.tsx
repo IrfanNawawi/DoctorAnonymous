@@ -11,6 +11,7 @@ import InputChat from "./input-chat";
 import Profile from "./profile";
 import Photo from "./photo";
 import ListDoctorProfile from "./list-doctor-profile";
+import Loading from "./loading";
 
 export { 
     Header, 
@@ -25,5 +26,6 @@ export {
     InputChat,
     Profile,
     Photo,
-    ListDoctorProfile
+    ListDoctorProfile,
+    Loading
 };
