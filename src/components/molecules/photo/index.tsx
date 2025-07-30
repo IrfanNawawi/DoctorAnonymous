@@ -1,12 +1,14 @@
 import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
-import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto, IlPhotoDefault } from '../../../assets'
+import { Image, ImageProps, StyleSheet, TouchableOpacity } from 'react-native'
+import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto } from '../../../assets'
 import { colors } from '../../../utils'
 
 type PhotoType = 'photo-upload' | 'photo-remove' | 'photo-detail' | 'photo-gender-male' | 'photo-gender-female';
 
 type PhotoProps = {
   typePhoto: PhotoType;
+  sourcePhoto?: ImageProps;
+  onPressPhoto?: () => void;
 };
 
 const renderTypePhoto = (type: PhotoType) => {
@@ -25,12 +27,12 @@ const renderTypePhoto = (type: PhotoType) => {
 }
 
 
-export default function Photo({typePhoto = 'photo-detail'}: PhotoProps) {
+export default function Photo({typePhoto = 'photo-detail', sourcePhoto, onPressPhoto}: PhotoProps) {
   return (
-    <View style={styles.avatarWrapper}>
-        <Image source={IlPhotoDefault} style={styles.avatar}/>
+    <TouchableOpacity style={styles.avatarWrapper} onPress={onPressPhoto}>
+        <Image source={sourcePhoto} style={styles.avatar}/>
         { renderTypePhoto(typePhoto) }
-    </View>
+    </TouchableOpacity>
   )
 }
 

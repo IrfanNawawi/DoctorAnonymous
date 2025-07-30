@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import IconOnly from './icon-only';
 import IconBtnSend from './icon-btn-send';
@@ -21,6 +21,17 @@ export default function Button({ typeButton, typeIconButton, title = '', onPress
       return <IconOnly typeIcon={typeIconButton} onPressIconOnly={onPressButton} />;
     case 'icon-btn-send':
       return <IconBtnSend disabledIcon={disabledButton}/>;
+  }
+
+  if (disabledButton) {
+    return (
+      <View
+        style={styles.disableButton}
+        accessibilityRole="button"
+      >
+        <Text style={styles.disableTextButton}>{title}</Text>
+      </View>
+    );
   }
 
   return (
@@ -45,6 +56,17 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontFamily: fonts.primary[600],
   },
+  disableButton: {
+    paddingVertical: 10,
+    borderRadius: 10,
+    backgroundColor: colors.disable,
+  },
+  disableTextButton: {
+    fontSize: 18,
+    textAlign: 'center',
+    fontFamily: fonts.primary[600],
+    color: colors.disabled.text
+  }
 });
 
 // Style dinamis

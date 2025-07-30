@@ -7,6 +7,7 @@ const dataColors = {
     grey1: '#7D8797',
     grey2: '#E9E9E9',
     grey3: '#EDEEF0',
+    grey4: '#B1B7C2',
     white: '#FFFFFF',
     black: '#000000',
     blackOpacity: 'rgba(0, 0, 0, 0.5)',
@@ -36,6 +37,10 @@ export const colors = {
             background: dataColors.white,
             text: dataColors.dark1
         }
+    },
+    disabled: {
+        background: dataColors.grey3,
+        text: dataColors.grey4
     },
     border: dataColors.grey2,
     cardLight: dataColors.lightGreen,
