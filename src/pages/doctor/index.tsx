@@ -12,8 +12,8 @@ import {
 import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components'
 import { colors, fonts } from '../../utils'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../router'
 import { useNavigation } from '@react-navigation/native'
+import { RootStackParamList } from '../../types/navigation'
 
 type DoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Doctor'>;
 

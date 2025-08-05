@@ -17,23 +17,7 @@ import {
 } from "../pages";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { BottomNavigator } from "../components";
-
-export type RootStackParamList = {
-  Splash: undefined;
-  Dashboard: undefined;
-  Login: undefined;
-  Register: undefined;
-  UploadPhoto: undefined;
-  MainApp: undefined;
-  Doctor: undefined;
-  Consultation: undefined;
-  Hospitals: undefined;
-  ChooseDoctor: undefined;
-  Chatting: undefined;
-  UserProfile: undefined;
-  UpdateProfile: undefined;
-  DoctorProfile: undefined;
-}
+import { RootStackParamList } from "../types/navigation";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();

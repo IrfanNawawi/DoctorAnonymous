@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets/illustration';
-import { RootStackParamList } from '../../router';
+import { RootStackParamList } from '../../types/navigation';
 import { colors, fonts } from '../../utils';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;

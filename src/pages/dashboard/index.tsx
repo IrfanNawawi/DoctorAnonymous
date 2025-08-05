@@ -4,7 +4,7 @@ import { IlGetStarted, IlLogo } from '../../assets/illustration'
 import { Button, Gap } from '../../components'
 import { colors, fonts } from '../../utils';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../router';
+import { RootStackParamList } from '../../types/navigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
 type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Dashboard'>;

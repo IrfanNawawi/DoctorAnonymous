@@ -3,7 +3,7 @@ import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
 import { Button, Gap, Header, Input, Profile } from '../../components'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../router';
+import { RootStackParamList } from '../../types/navigation';
 import { colors, useForm } from '../../utils';
 
 type UpdateProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UpdateProfile'>;

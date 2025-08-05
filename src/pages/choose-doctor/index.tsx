@@ -4,8 +4,8 @@ import React from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
 import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, JSONDataDoctor } from '../../assets';
 import { Header, List } from '../../components';
-import { RootStackParamList } from '../../router';
 import { colors } from '../../utils';
+import { RootStackParamList } from '../../types/navigation';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 

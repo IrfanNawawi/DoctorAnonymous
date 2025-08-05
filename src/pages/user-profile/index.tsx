@@ -4,7 +4,7 @@ import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { JSONDataDoctor } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
-import { RootStackParamList } from '../../router';
+import { RootStackParamList } from '../../types/navigation';
 import { colors } from '../../utils';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;

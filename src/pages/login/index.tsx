@@ -4,10 +4,10 @@ import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets';
 import { Button, Gap, Input, Link, Loading } from '../../components';
 import { colors, fonts, useForm } from '../../utils';
-import { RootStackParamList } from '../../router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { showMessage } from 'react-native-flash-message';
+import { RootStackParamList } from '../../types/navigation';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 

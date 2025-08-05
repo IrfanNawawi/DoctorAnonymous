@@ -1,10 +1,10 @@
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { ChatItem, Header, InputChat } from '../../components'
-import { RootStackParamList } from '../../router';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { colors, fonts } from '../../utils';
+import { RootStackParamList } from '../../types/navigation';
 
 type ChattingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Chatting'>;
 

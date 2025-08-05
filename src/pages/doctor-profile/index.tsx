@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Header, ListDoctorProfile, Profile } from '../../components';
-import { RootStackParamList } from '../../router';
+import { RootStackParamList } from '../../types/navigation';
 import { JSONDataDoctor } from '../../assets';
 import { colors } from '../../utils';
 
