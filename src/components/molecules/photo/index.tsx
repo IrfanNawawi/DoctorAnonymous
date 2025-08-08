@@ -14,13 +14,13 @@ type PhotoProps = {
 const renderTypePhoto = (type: PhotoType) => {
   switch (type) {
     case 'photo-upload':
-      return <IcAddPhoto style={styles.addPhoto}/>
+      return <IcAddPhoto style={styles.actionPhoto}/>
     case 'photo-remove':
-      return <IcRemovePhoto style={styles.addPhoto}/>
+      return <IcRemovePhoto style={styles.actionPhoto}/>
     case 'photo-gender-male':
-      return <IcGenderMale style={styles.addPhoto}/>
+      return <IcGenderMale style={styles.actionPhoto}/>
     case 'photo-gender-female':
-      return <IcGenderFemale style={styles.addPhoto}/>
+      return <IcGenderFemale style={styles.actionPhoto}/>
     default:
       return null
   }
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
     },
-    addPhoto: {
+    actionPhoto: {
         position: 'absolute',
         bottom: 8,
         right: 6

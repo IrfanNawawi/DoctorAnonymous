@@ -1,16 +1,29 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { JSONDataDoctor } from '../../assets';
+import { IlPhotoDefault, JSONDataDoctor } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
 import { RootStackParamList } from '../../types/navigation';
-import { colors } from '../../utils';
+import { colors, getItem } from '../../utils';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
 export default function UserProfile() {
     const navigation = useNavigation<UserProfileScreenNavigationProp>();
+    const [profile, setProfile] = useState({
+        photo: IlPhotoDefault,
+        fullname: '',
+        profession: ''
+    });
+    
+    useEffect(() => {
+        const userData = getItem('user');
+        userData.photo = { uri: userData.photo };
+        if (userData) {
+          setProfile(userData);
+        }
+    }, []);
 
     const renderNavigateUserProfile = (name: string) => {
         switch (name) {
@@ -31,7 +44,12 @@ export default function UserProfile() {
         <SafeAreaView style={styles.container}>
             <Header title="Profile" onPressHeader={() => navigation.goBack()}/>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Profile typeProfile='photo-detail' name='Shayna Melinda' profession='UI/UX Designer'/>
+                <Profile 
+                    typeProfile='photo-detail'
+                    name={profile.fullname}
+                    profession={profile.profession}
+                    photoProfileProps={profile.photo}
+                />
                 <Gap height={26} />
                 {
                     JSONDataDoctor['setting-profile'].map((item) => {

@@ -5,6 +5,7 @@ import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets/illustration';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, fonts } from '../../utils';
+import { firebase } from '@react-native-firebase/auth';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;
 
@@ -13,7 +14,13 @@ export default function Splash() {
 
   useEffect(() => {
     const timer = setTimeout(() => {
-      navigation.replace('Dashboard');
+      firebase.auth().onAuthStateChanged(user => {
+        if (user) {
+          navigation.replace('MainApp');
+        } else {
+          navigation.replace('Dashboard');
+        }
+      });
     }, 3000);
 
     return () => clearTimeout(timer);

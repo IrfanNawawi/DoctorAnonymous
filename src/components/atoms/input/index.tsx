@@ -5,12 +5,13 @@ import { colors, fonts } from '../../../utils';
 type InputProps = {
   label: string;
   value: string;
-  onChangeTextInput: (text: string) => void;
+  onChangeTextInput?: (text: string) => void;
   secureTextEntry?: boolean;
   keyboardType?: 'default' | 'numeric' | 'email-address';
+  disabled?: boolean;
 };
 
-export default function Input({ label, value, onChangeTextInput, secureTextEntry = false, keyboardType = 'default' }: InputProps) {
+export default function Input({ label, value, onChangeTextInput, secureTextEntry = false, keyboardType = 'default', disabled = false }: InputProps) {
   const [borderColor, setBorderColor] = useState(colors.border);
 
   const handleFocus = () => setBorderColor(colors.primary);
@@ -22,11 +23,13 @@ export default function Input({ label, value, onChangeTextInput, secureTextEntry
       <TextInput
         onFocus={handleFocus}
         onBlur={handleBlur}
-        style={[styles.input, { borderColor }]}
+        style={[styles.input, { borderColor, color: disabled ? colors.disabled.text : colors.text.primary }]}
         value={value}
         keyboardType={keyboardType}
         onChangeText={onChangeTextInput}
         secureTextEntry={secureTextEntry}
+        editable={!disabled}
+        selectTextOnFocus={!disabled}
       />
     </View>
   );

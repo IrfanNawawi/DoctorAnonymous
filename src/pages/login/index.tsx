@@ -3,11 +3,12 @@ import React, { useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets';
 import { Button, Gap, Input, Link, Loading } from '../../components';
-import { colors, fonts, useForm } from '../../utils';
+import { colors, constant, fonts, setItem, useForm } from '../../utils';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
 import { showMessage } from 'react-native-flash-message';
 import { RootStackParamList } from '../../types/navigation';
+import { firebase } from '@react-native-firebase/database';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
@@ -25,10 +26,22 @@ export default function Login() {
   const onSignIn = () => {
     setLoading(true);
     signInWithEmailAndPassword(auth, form.email, form.password)
-    .then(() => {
+    .then(async () => {
       setLoading(false);
-      setForm('reset', '');
-      navigation.replace('MainApp')
+      
+      await firebase
+        .app()
+        .database(constant.DATABASE_URL)
+        .ref(`/users/${auth.currentUser?.uid}`)
+        .once('value')
+        .then(snapshot => {
+          if (snapshot.val()) {
+            const userData = snapshot.val();
+            setItem('user', JSON.stringify(userData));
+            setForm('reset', '');
+            navigation.replace('MainApp')
+          }
+        });
     })
     .catch(error => {
       setLoading(false);
@@ -42,13 +55,13 @@ export default function Login() {
   };
 
   const showMessageError = (message: string) => {
-      showMessage({
-        message,
-        type: 'default',
-        backgroundColor: colors.error,
-        color: colors.white
-      })
-    };
+    showMessage({
+      message,
+      type: 'default',
+      backgroundColor: colors.error,
+      color: colors.white
+    })
+  };
 
   return (
     <>
