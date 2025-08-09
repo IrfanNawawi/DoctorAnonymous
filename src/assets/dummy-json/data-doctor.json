@@ -121,8 +121,8 @@
         },
         {
             "id": 4,
-            "name": "Help Center",
-            "desc": "Read our guidelines",
+            "name": "Sign Out",
+            "desc": "Sign out from this account",
             "icon": "setting"
         }
     ],

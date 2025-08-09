@@ -5,7 +5,8 @@ import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { IlPhotoDefault, JSONDataDoctor } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, getItem } from '../../utils';
+import { colors, getItem, removeItem, showMessageError } from '../../utils';
+import { logoutAccount } from '../../services';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
@@ -25,6 +26,13 @@ export default function UserProfile() {
         }
     }, []);
 
+    const signOutAccount = () => {
+        logoutAccount().then(() => {
+            removeItem('user');
+            navigation.replace('Dashboard');
+        }).catch(errorMessage => showMessageError(errorMessage));
+    };
+
     const renderNavigateUserProfile = (name: string) => {
         switch (name) {
             case 'Edit Profile':
@@ -33,8 +41,8 @@ export default function UserProfile() {
                 return navigation.navigate('Chatting');
             case 'Give Us Rate':
                 return navigation.navigate('Chatting');
-            case 'Help Center':
-                return navigation.navigate('Chatting');
+            case 'Sign Out':
+                return signOutAccount();
             default:
                 return navigation.navigate('Chatting');
         }

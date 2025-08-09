@@ -2,14 +2,11 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { createUserWithEmailAndPassword, getAuth } from '@react-native-firebase/auth';
-import { firebase } from '@react-native-firebase/database';
-import { getUniqueId } from 'react-native-device-info';
-import { showMessage } from 'react-native-flash-message';
-
-import { Button, Gap, Header, Input, Loading } from '../../components';
+import { Button, Gap, Header, Input } from '../../components';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, constant, Helper, setItem, useForm } from '../../utils';
+import { colors, fetchDeviceId, fetchDevicePlatform, setItem, showMessageError } from '../../utils';
+import { useForm, useLoading } from '../../hooks';
+import { registerAccount, saveUserData } from '../../services';
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -18,8 +15,8 @@ type RegisterScreenNavigationProp = NativeStackNavigationProp<
 
 export default function Register() {
   const navigation = useNavigation<RegisterScreenNavigationProp>();
-  const auth = getAuth();
 
+  const { showLoading, hideLoading } = useLoading();
   const [form, setForm] = useForm({
     fullname: '',
     profession: '',
@@ -27,7 +24,6 @@ export default function Register() {
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
   const [deviceId, setDeviceId] = useState('');
   const [devicePlatform, setDevicePlatform] = useState('');
 
@@ -36,30 +32,29 @@ export default function Register() {
   }, []);
 
   const initializeDeviceInfo = async () => {
-    const id = await getUniqueId();
-    const platform = Helper.fetchDevicePlatform();
+    const id = await fetchDeviceId();
+    const platform = fetchDevicePlatform();
     setDeviceId(id);
     setDevicePlatform(platform);
   };
 
-  const handleRegister = async () => {
-    setLoading(true);
-
+  const onSignUp = async () => {
     try {
-      handleRegisterToFirebase();
-    } catch (error: any) {
-      showMessageError(error.message);
+      showLoading();
+      handleRegister();
+    } catch (errorMessage: any) {
+      showMessageError(errorMessage);
       setForm('reset', '');
     } finally {
-      setLoading(false);
+      hideLoading();
     }
   };
 
-  const handleRegisterToFirebase = async () => {
-    const userCredential = await createUserWithEmailAndPassword(auth, form.email, form.password);
+  const handleRegister = async () => {
+    const userCredential = await registerAccount(form.email, form.password);
 
     const userData = {
-      userId: userCredential.user.uid,
+      userId: userCredential.uid,
       fullname: form.fullname,
       profession: form.profession,
       email: form.email,
@@ -67,27 +62,13 @@ export default function Register() {
       devicePlatform,
     };
 
-    await firebase
-      .app()
-      .database(constant.DATABASE_URL)
-      .ref(`/users/${userCredential.user.uid}`)
-      .set(userData)
-      .then(() => {
-        setItem('user', JSON.stringify(userData));
-        setForm('reset', '');
-        navigation.navigate('UploadPhoto', { user: userData });
-      })
-      .catch(err => showMessageError(err));
+    saveUserData(userCredential.uid, userData)
+    .then(() => {
+      setItem('user', userData);
+      setForm('reset', '');
+      navigation.navigate('UploadPhoto', { user: userData });
+    }).catch(errorMessage => showMessageError(errorMessage));
   }
-
-  const showMessageError = (message: string) => {
-    showMessage({
-      message,
-      type: 'default',
-      backgroundColor: colors.error,
-      color: colors.white,
-    });
-  };
 
   const renderForm = () => (
     <ScrollView showsVerticalScrollIndicator={false}>
@@ -124,7 +105,7 @@ export default function Register() {
       <Button
         typeButton="primary"
         title="Continue"
-        onPressButton={handleRegister}
+        onPressButton={onSignUp}
       />
     </ScrollView>
   );
@@ -135,7 +116,6 @@ export default function Register() {
         <Header title="Daftar Akun" onPressHeader={() => navigation.goBack()} />
         <View style={styles.content}>{renderForm()}</View>
       </SafeAreaView>
-      {loading && <Loading />}
     </>
   );
 }

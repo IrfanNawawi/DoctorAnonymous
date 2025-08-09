@@ -20,7 +20,7 @@ const renderSettingUserProfile = (name: string) => {
             return <IcProfileLanguage />
         case 'Give Us Rate':
             return <IcProfileRated />
-        case 'Help Center':
+        case 'Sign Out':
             return <IcProfileHelpCenter />
         default:
             return <IcProfileEdit />

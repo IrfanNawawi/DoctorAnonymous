@@ -4,11 +4,9 @@ import { Button, Gap, Header, Input, Profile } from '../../components'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, constant, getItem, setItem } from '../../utils';
-import { firebase } from '@react-native-firebase/database';
-import { showMessage } from 'react-native-flash-message';
+import { colors, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
 import { IlPhotoDefault } from '../../assets';
-import { launchImageLibrary } from 'react-native-image-picker';
+import { changePassword, updateUserData } from '../../services';
 
 type UpdateProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UpdateProfile'>;
 
@@ -40,7 +38,6 @@ export default function UpdateProfile() {
                 return showMessageError('Password minimal 6 karakter');
             } else {
                 updatePassword();
-                updateProfile();
             }
         } else {
             updateProfile();
@@ -54,52 +51,35 @@ export default function UpdateProfile() {
             photo: sourcePhotoForDB || profile.photo.uri,
         };
 
-        await firebase
-            .app()
-            .database(constant.DATABASE_URL)
-            .ref(`/users/${userId}`)
-            .update(updatedProfile)
-            .then(() => {
-                const localUser = {
-                    ...profile,
-                    ...updatedProfile,
-                    email,
-                    userId,
-                };
-
-                setItem('user', JSON.stringify(localUser));
-                navigation.replace('MainApp');
-            })
-            .catch(err => showMessageError(err));
+        updateUserData(userId, updatedProfile).then(() => {
+            const localUser = {
+                ...profile,
+                ...updatedProfile,
+                email,
+                userId,
+            };
+            setItem('user', localUser);
+            navigation.replace('MainApp');
+        }).catch(errorMessage => showMessageError(errorMessage));
     };
 
     const updatePassword = async() => {
-        await firebase
-        .auth()
-        .currentUser?.updatePassword(password)
-        .catch(err => showMessageError(err));
+        changePassword(password)
+        .then(() => updateProfile())
+        .catch(errorMessage => showMessageError(errorMessage));
     };
 
-    const openImagePicker = () => {
-        launchImageLibrary({
-          mediaType: 'photo',
-          maxHeight: 200,
-          maxWidth: 200,
-          quality: 0.5,
-          includeBase64: true,
-          selectionLimit: 1,
-        }, response => {
-          if (response.didCancel) return showMessageError('User cancelled image picker');
-          if (response.errorCode) return showMessageError(`Image picker error: ${response.errorMessage}`);
-          const uri = response.assets?.[0]?.uri;
-          if (uri) {
-            setSourcePhotoForDB(`data:${response.assets?.[0]?.type};base64, ${response.assets?.[0]?.base64}`);
+    const handleGetImage = () => {
+        openImagePicker((uri, base64) => {
+            setSourcePhotoForDB(base64);
             setProfile({
-              ...profile,
-              photo: { uri },
+                ...profile,
+                photo: { uri },
             });
-          }
-        });
+        },
+        (errorMessage) => {
+            showMessageError(errorMessage);
+        })
     };
 
     const changeProfileData = (key: string, value: string) => {
@@ -107,15 +87,6 @@ export default function UpdateProfile() {
           ...profile,
           [key]: value,
         });
-      };
-
-    const showMessageError = (message: string) => {
-        showMessage({
-          message,
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white
-        })
     };
     
     return (
@@ -126,7 +97,7 @@ export default function UpdateProfile() {
                     <Profile 
                         typeProfile='photo-remove'
                         photoProfileProps={profile.photo}
-                        onPressPhotoProfileProps={openImagePicker}
+                        onPressPhotoProfileProps={handleGetImage}
                     />
                     <Gap height={26}/>
                     <Input 

@@ -1,66 +1,47 @@
 import { useNavigation } from '@react-navigation/native';
-import React, { useState } from 'react';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets';
-import { Button, Gap, Input, Link, Loading } from '../../components';
-import { colors, constant, fonts, setItem, useForm } from '../../utils';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { getAuth, signInWithEmailAndPassword } from '@react-native-firebase/auth';
-import { showMessage } from 'react-native-flash-message';
+import { Button, Gap, Input, Link } from '../../components';
+import { useForm, useLoading } from '../../hooks';
+import { getUserData, loginAccount } from '../../services';
 import { RootStackParamList } from '../../types/navigation';
-import { firebase } from '@react-native-firebase/database';
+import { colors, fonts, setItem, showMessageError } from '../../utils';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 
 export default function Login() {
   const navigation = useNavigation<LoginScreenNavigationProp>();
-  const auth = getAuth();
 
+  const { showLoading, hideLoading } = useLoading();
   const [form, setForm] = useForm({
     email: '',
     password: '',
   });
 
-  const [loading, setLoading] = useState(false);
+  const onSignIn = async() => {
+    try {
+      showLoading();
 
-  const onSignIn = () => {
-    setLoading(true);
-    signInWithEmailAndPassword(auth, form.email, form.password)
-    .then(async () => {
-      setLoading(false);
-      
-      await firebase
-        .app()
-        .database(constant.DATABASE_URL)
-        .ref(`/users/${auth.currentUser?.uid}`)
-        .once('value')
-        .then(snapshot => {
-          if (snapshot.val()) {
-            const userData = snapshot.val();
-            setItem('user', JSON.stringify(userData));
-            setForm('reset', '');
-            navigation.replace('MainApp')
-          }
-        });
-    })
-    .catch(error => {
-      setLoading(false);
+      const user = await loginAccount(form.email, form.password);
+      const userData = await getUserData(user.uid);
+
+      if (userData) {
+        setItem('user', userData);
+        setForm('reset', '');
+        navigation.replace('MainApp');
+      }
+    } catch (errorMessage: any) {
       setForm('reset', '');
-      showMessageError(error.message);
-    });
+      showMessageError(errorMessage);
+    } finally {
+      hideLoading();
+    }
   };
 
   const onSignUp = () => {
     navigation.navigate('Register')
-  };
-
-  const showMessageError = (message: string) => {
-    showMessage({
-      message,
-      type: 'default',
-      backgroundColor: colors.error,
-      color: colors.white
-    })
   };
 
   return (
@@ -103,7 +84,6 @@ export default function Login() {
           />
         </ScrollView>
       </SafeAreaView>
-      {loading && <Loading />}
     </>
   );
 }

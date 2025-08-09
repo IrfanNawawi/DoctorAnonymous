@@ -2,14 +2,12 @@ import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { launchImageLibrary } from 'react-native-image-picker';
 import { Button, Gap, Header, Link, Photo } from '../../components';
 import { RouteProp, useRoute } from '@react-navigation/native';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, constant, fonts, setItem } from '../../utils';
+import { colors, fonts, openImagePicker, setItem, showMessageError } from '../../utils';
 import { IlPhotoDefault } from '../../assets';
-import { showMessage } from 'react-native-flash-message';
-import { firebase } from '@react-native-firebase/database';
+import { updateUserData } from '../../services';
 
 type UploadPhotoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UploadPhoto'>;
 
@@ -22,49 +20,25 @@ export default function UploadPhoto() {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [imageUri, setImageUri] = useState(IlPhotoDefault);
 
-  const openImagePicker = () => {
-    launchImageLibrary({
-      mediaType: 'photo',
-      maxHeight: 200,
-      maxWidth: 200,
-      quality: 0.5,
-      includeBase64: true,
-      selectionLimit: 1,
-    }, response => {
-      if (response.didCancel) return showMessageError('User cancelled image picker');
-      if (response.errorCode) return showMessageError(`Image picker error: ${response.errorMessage}`);
-      const uri = response.assets?.[0]?.uri;
-      if (uri) {
-        setSourcePhotoForDB(`data:${response.assets?.[0]?.type};base64, ${response.assets?.[0]?.base64}`);
-        setImageUri({ uri });
-        setHasPhoto(true);
-      }
-    });
+  const handleGetImage = () => {
+    openImagePicker((uri, base64) => {
+      setSourcePhotoForDB(base64);
+      setImageUri({ uri });
+      setHasPhoto(true);
+    },
+    (errorMessage) => showMessageError(errorMessage)
+    );
   };
 
   const submitUploadPhoto = async () => {
-    await firebase
-      .app()
-      .database(constant.DATABASE_URL)
-      .ref(`/users/${user.userId}`)
-      .update({
+    updateUserData(user.userId, { photo: sourcePhotoForDB }).then(() => {
+      const localUser = {
+        ...user,
         photo: sourcePhotoForDB,
-      })
-      .then(() => {
-        const userData = { ...user, photo: sourcePhotoForDB };
-        setItem('user', JSON.stringify(userData));
-        navigation.replace('MainApp')
-      })
-      .catch(err => showMessageError(err));
-  };
-
-  const showMessageError = (message: string) => {
-    showMessage({
-      message,
-      type: 'default',
-      backgroundColor: colors.error,
-      color: colors.white,
-    });
+      };
+      setItem('user', localUser);
+      navigation.replace('MainApp');
+    }).catch(errorMessage => showMessageError(errorMessage));
   };
 
   return (
@@ -75,7 +49,7 @@ export default function UploadPhoto() {
           <Photo
             typePhoto={hasPhoto ? 'photo-remove' : 'photo-upload'}
             sourcePhoto={imageUri}
-            onPressPhoto={openImagePicker}
+            onPressPhoto={handleGetImage}
           />
           <Text style={styles.nameUser}>{user.fullname}</Text>
           <Text style={styles.professionalUser}>{user.profession}</Text>
