@@ -1,4 +1,14 @@
-import auth from '@react-native-firebase/auth';
+import { getApp } from '@react-native-firebase/app';
+import {
+  getAuth,
+  onAuthStateChanged,
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut,
+  updatePassword,
+} from '@react-native-firebase/auth';
+
+const auth = getAuth(getApp());
 
 /**
  * Listen session login user
@@ -10,7 +20,7 @@ export const getSessionAccount = (
   onLogin: () => void,
   onLogout: () => void
 ) => {
-  return auth().onAuthStateChanged((user) => {
+  return onAuthStateChanged(auth, (user) => {
     user ? onLogin() : onLogout();
   });
 };
@@ -23,13 +33,11 @@ export const getSessionAccount = (
  */
 export const registerAccount = async (email: string, password: string) => {
   try {
-    const userCredential = await auth().createUserWithEmailAndPassword(email, password);
+    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
-    }
-  };
+    if (error instanceof Error) throw error.message;
+  }
 };
 
 /**
@@ -40,13 +48,11 @@ export const registerAccount = async (email: string, password: string) => {
  */
 export const loginAccount = async (email: string, password: string) => {
   try {
-    const userCredential = await auth().signInWithEmailAndPassword(email, password);
+    const userCredential = await signInWithEmailAndPassword(auth, email, password);
     return userCredential.user;
   } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
-    }
-  };
+    if (error instanceof Error) throw error.message;
+  }
 };
 
 /**
@@ -54,12 +60,10 @@ export const loginAccount = async (email: string, password: string) => {
  */
 export const logoutAccount = async () => {
   try {
-    await auth().signOut();
+    await signOut(auth);
   } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
-    }
-  };
+    if (error instanceof Error) throw error.message;
+  }
 };
 
 /**
@@ -68,10 +72,10 @@ export const logoutAccount = async () => {
  */
 export const changePassword = async (password: string) => {
   try {
-    await auth().currentUser?.updatePassword(password);
-  } catch (error) {
-    if (error instanceof Error) {
-      throw error.message;
+    if (auth.currentUser) {
+      await updatePassword(auth.currentUser, password);
     }
+  } catch (error) {
+    if (error instanceof Error) throw error.message;
   }
 };

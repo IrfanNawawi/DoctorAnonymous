@@ -47,3 +47,65 @@ export const openImagePicker = (onSuccess: (uri: string, base64: string) => void
     }
   });
 };
+
+export const timeFormatting = (dateString: string): string => {
+  // Parsing "08/08/2025" → Date
+  const [day, month, year] = dateString.split("/").map(Number);
+  const targetDate = new Date(year, month - 1, day);
+  const targetTime = targetDate.getTime();
+  const nowTime = Date.now();
+
+  // Kalau tanggal di masa depan, langsung tampilkan format normal
+  if (targetTime > nowTime) {
+    return targetDate.toLocaleDateString("default", { month: "short", day: "numeric", year: "numeric" });
+  }
+
+  const diffMs = nowTime - targetTime;
+  const minutes = Math.floor(diffMs / 60000);
+  const hours = Math.floor(diffMs / 3600000);
+  const days = Math.floor(diffMs / 86400000);
+  const weeks = Math.floor(diffMs / 604800000);
+  const months = Math.floor(diffMs / 2600640000);
+  const years = Math.floor(diffMs / 31207680000);
+
+  const now = new Date();
+  const thisDay = now.getDate();
+  const thisMonth = now.getMonth();
+  const thisYear = now.getFullYear();
+  const agoDay = targetDate.getDate();
+  const agoMonth = targetDate.getMonth();
+  const agoYear = targetDate.getFullYear();
+
+  if (thisYear - agoYear >= 1) {
+    return targetDate.toLocaleDateString("default", { month: "short", day: "numeric", year: "numeric" });
+  }
+  if (thisMonth - agoMonth >= 1) {
+    return targetDate.toLocaleDateString("default", { month: "short", day: "numeric" });
+  }
+  if (thisMonth === agoMonth && thisDay - agoDay === 1) {
+    return "Yesterday";
+  }
+  if (minutes < 1) {
+    return "just now";
+  }
+  if (minutes < 60) {
+    return minutes === 1 ? "one minute ago" : `${minutes} minutes ago`;
+  }
+  if (hours < 24) {
+    return hours === 1
+      ? `an hour and ${minutes - 60} minutes ago`
+      : `${hours} hrs ago`;
+  }
+  if (days < 7) {
+    return days === 1
+      ? `${days} day and ${hours - 24} hrs ago`
+      : `${days} days ago`;
+  }
+  if (weeks < 5) {
+    return weeks === 1 ? "a week ago" : `${weeks} weeks ago`;
+  }
+  if (months < 12) {
+    return months === 1 ? "a month ago" : `${months} months ago`;
+  }
+  return years === 1 ? "a year ago" : `${years} years ago`;
+};

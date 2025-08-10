@@ -1,16 +1,16 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
 import { 
   DummyDoctorOne, 
   DummyDoctorThree, 
-  DummyDoctorTwo, 
-  JSONDataDoctor 
+  DummyDoctorTwo,  
 } from '../../assets'
 import { List } from '../../components'
 import { colors, fonts } from '../../utils'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { RootStackParamList } from '../../router'
 import { useNavigation } from '@react-navigation/native'
+import { RootStackParamList } from '../../types/navigation'
+import { getDataDoctor } from '../../services'
 
 type DoctorCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Consultation'>;
 
@@ -29,13 +29,18 @@ const renderImageConsultation = (name: string) => {
 
 export default function Consultation() {
   const navigation = useNavigation<DoctorCategoryScreenNavigationProp>();
+  const [consultation, setConsultation] = useState([]);
+
+  useEffect(() => {
+    getDataDoctor('consultation/').then(res => setConsultation(res));
+  }, []);
   
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.title}>Consultation</Text>
         {
-          JSONDataDoctor.consultation.map((item) => {
+          consultation.map((item: any) => {
             return (
               <List 
                 key={item.id} 

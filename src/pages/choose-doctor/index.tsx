@@ -1,11 +1,12 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet } from 'react-native';
-import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo, JSONDataDoctor } from '../../assets';
+import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo } from '../../assets';
 import { Header, List } from '../../components';
 import { colors } from '../../utils';
 import { RootStackParamList } from '../../types/navigation';
+import { getDataDoctor } from '../../services';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 
@@ -24,12 +25,17 @@ const renderImageConsultation = (name: string) => {
 
 export default function ChooseDoctor() {
     const navigation = useNavigation<ChooseDoctorScreenNavigationProp>();
+    const [consultation, setConsultation] = useState([]);
+
+    useEffect(() => {
+      getDataDoctor('consultation/').then(res => setConsultation(res));
+    }, []);
     
     return (
         <SafeAreaView style={styles.container}>
             <Header title="Pilih Dokter Anak" type='dark' onPressHeader={() => navigation.goBack()} />
             {
-            JSONDataDoctor.consultation.map((item) => {
+            consultation.map((item: any) => {
                 return (
                 <List 
                     key={item.id} 

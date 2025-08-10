@@ -1,16 +1,21 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Header, ListDoctorProfile, Profile } from '../../components';
 import { RootStackParamList } from '../../types/navigation';
-import { JSONDataDoctor } from '../../assets';
 import { colors } from '../../utils';
+import { getDataDoctor } from '../../services';
 
 type DoctorProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'DoctorProfile'>;
 
 export default function DoctorProfile() {
     const navigation = useNavigation<DoctorProfileScreenNavigationProp>();
+    const [doctorProfile, setDoctorProfile] = React.useState([]);
+
+    useEffect(() => {
+        getDataDoctor('doctor-profile/').then(res => setDoctorProfile(res));
+    }, []);
 
     return (
         <SafeAreaView style={styles.container}>
@@ -19,7 +24,7 @@ export default function DoctorProfile() {
                 <Profile typeProfile='photo-gender-male' name='Shayna Melinda' profession='UI/UX Designer'/>
                 <Gap height={10} />
                 {
-                    JSONDataDoctor['doctor-profile'].map((item) => {
+                    doctorProfile.map((item: any) => {
                         return (
                         <ListDoctorProfile
                             key={item.id} 

@@ -1,14 +1,14 @@
-import { ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
+import { ImageBackground, StyleSheet, Text, View } from 'react-native'
+import React, { useEffect, useState } from 'react'
 import { colors, fonts } from '../../utils'
 import { 
   DummyHospitalOne, 
   DummyHospitalThree, 
   DummyHospitalTwo, 
-  IlHospitalBackground, 
-  JSONDataDoctor 
+  IlHospitalBackground 
 } from '../../assets'
 import { ListHospital } from '../../components'
+import { getDataDoctor } from '../../services'
 
 const renderImageHospitals = (type: string) => {
   switch (type) {
@@ -24,15 +24,20 @@ const renderImageHospitals = (type: string) => {
 };
 
 export default function Hospitals() {
+  const [hospitals, setHospitals] = useState([]);
+  
+  useEffect(() => {
+    getDataDoctor('hospitals/').then(res => setHospitals(res));
+  })
   return (
     <View style={styles.container}>
       <ImageBackground source={IlHospitalBackground} style={styles.background}>
         <Text style={styles.title}>Nearby hospitals</Text>
-        <Text style={styles.availibility}>{JSONDataDoctor.hospitals.length} Tersedia</Text>
+        <Text style={styles.availibility}>{hospitals.length} Availibility</Text>
       </ImageBackground>
       <View style={styles.content}>
         {
-          JSONDataDoctor.hospitals.map(item => {
+          hospitals.map((item: any) => {
             return (
               <ListHospital 
                 key={item.id} 

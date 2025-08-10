@@ -11,13 +11,13 @@ type DoctorCategoryProps = {
 export default function DoctorCategory({category, onPressDoctorCategory}: DoctorCategoryProps) {
   const renderIconDoctorCategory = () => {
     switch (category) {
-      case 'dokter umum':
+      case 'General Practitioner':
         return <IlCategoryDoctor style={styles.illustration} />;
-      case 'psikiater':
+      case 'Psychiatrist':
         return <IlCategoryPsikiater style={styles.illustration} />;
-      case 'dokter obat':
+      case 'Pharmacologist':
         return <IlCategoryMedicine style={styles.illustration} />;
-      case 'dokter anak':
+      case 'Pediatrician':
         return <IlCategoryDoctorKids style={styles.illustration} />;
       default:
         return <IlCategoryDoctor style={styles.illustration} />;
@@ -27,7 +27,7 @@ export default function DoctorCategory({category, onPressDoctorCategory}: Doctor
   return (
     <TouchableOpacity style={styles.container} onPress={onPressDoctorCategory}>
         {renderIconDoctorCategory()}
-        <Text style={styles.label}>Saya butuh</Text>
+        <Text style={styles.label}>I need a</Text>
         <Text style={styles.category}>{category}</Text>
     </TouchableOpacity>
   )
@@ -40,8 +40,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
     borderRadius: 10,
     marginRight: 10,
-    width: 100,
-    height: 130
+    width: 115,
+    height: 140
   },
   illustration: {
     marginBottom: 28,

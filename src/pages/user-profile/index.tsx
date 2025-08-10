@@ -2,11 +2,11 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { IlPhotoDefault, JSONDataDoctor } from '../../assets';
+import { IlPhotoDefault } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, getItem, removeItem, showMessageError } from '../../utils';
-import { logoutAccount } from '../../services';
+import { getDataDoctor, logoutAccount } from '../../services';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
@@ -17,12 +17,14 @@ export default function UserProfile() {
         fullname: '',
         profession: ''
     });
+    const [settingProfile, setSettingProfile] = useState([]);
     
     useEffect(() => {
         const userData = getItem('user');
         userData.photo = { uri: userData.photo };
         if (userData) {
           setProfile(userData);
+          getDataDoctor('setting-profile/').then(res => setSettingProfile(res));
         }
     }, []);
 
@@ -60,7 +62,7 @@ export default function UserProfile() {
                 />
                 <Gap height={26} />
                 {
-                    JSONDataDoctor['setting-profile'].map((item) => {
+                    settingProfile.map((item: any) => {
                         return (
                         <List
                             key={item.id} 
