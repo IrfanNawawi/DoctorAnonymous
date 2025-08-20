@@ -4,7 +4,7 @@ import { Button, Gap, Header, Input, Profile } from '../../components'
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
+import { colors, getDateTimeIndonesia, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
 import { IlPhotoDefault } from '../../assets';
 import { changePassword, updateUserData } from '../../services';
 
@@ -49,6 +49,7 @@ export default function UpdateProfile() {
             fullname: profile.fullname,
             profession: profile.profession,
             photo: sourcePhotoForDB || profile.photo.uri,
+            lastUpdate: getDateTimeIndonesia(),
         };
 
         updateUserData(userId, updatedProfile).then(() => {
@@ -96,8 +97,8 @@ export default function UpdateProfile() {
                 <View style={styles.content}>
                     <Profile 
                         typeProfile='photo-remove'
-                        photoProfileProps={profile.photo}
-                        onPressPhotoProfileProps={handleGetImage}
+                        photo={profile.photo}
+                        onPress={handleGetImage}
                     />
                     <Gap height={26}/>
                     <Input 
@@ -133,7 +134,7 @@ export default function UpdateProfile() {
                     <Button
                         typeButton="primary" 
                         title="Save Profile" 
-                        onPressButton={onSaveProfile} 
+                        onPress={onSaveProfile} 
                     />
                 </View>
             </ScrollView>

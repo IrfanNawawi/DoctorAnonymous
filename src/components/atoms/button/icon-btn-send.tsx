@@ -2,15 +2,12 @@ import React from 'react'
 import { StyleSheet, View } from 'react-native'
 import { IcSendActive, IcSendNonactive } from '../../../assets'
 import { colors } from '../../../utils'
+import { ButtonProps } from '../../../types/button'
 
-type IconBtnSendProps = {
-  disabledIcon?: boolean
-}
-
-export default function IconBtnSend({disabledIcon}: IconBtnSendProps) {
+export default function IconBtnSend({disabled}: ButtonProps) {
   return (
-    <View style={containerStyle(disabledIcon)}>
-      {disabledIcon ? <IcSendNonactive/> : <IcSendActive/>}
+    <View style={containerStyle(disabled)}>
+      {disabled ? <IcSendNonactive/> : <IcSendActive/>}
     </View>
   )
 }

@@ -1,14 +1,9 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
 import { IcBackDark, IcBackLight } from '../../../assets'; // Replace with correct import path
+import { ButtonProps } from '../../../types/button';
 
-type IconType = 'back-dark' | 'back-light';
-type IconOnlyProps = {
-  typeIcon?: IconType;
-  onPressIconOnly?: () => void;
-};
-
-export default function IconOnly({ typeIcon, onPressIconOnly }: IconOnlyProps) {
+export default function IconOnly({ typeIcon, onPress }: ButtonProps) {
   const renderIconBack = () => {
     switch (typeIcon) {
       case 'back-dark':
@@ -19,9 +14,8 @@ export default function IconOnly({ typeIcon, onPressIconOnly }: IconOnlyProps) {
         return <IcBackDark />;
     }
   };
-
   return (
-    <TouchableOpacity onPress={onPressIconOnly}>
+    <TouchableOpacity onPress={onPress}>
       {renderIconBack()}
     </TouchableOpacity>
   );

@@ -72,7 +72,7 @@ export default function Login() {
           <Button
             typeButton="primary"
             title="Sign In"
-            onPressButton={onSignIn}
+            onPress={onSignIn}
           />
           <Gap height={30} />
 

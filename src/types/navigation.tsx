@@ -1,11 +1,5 @@
-export type UserRegisterData = {
-  userId: string;
-  fullname: string;
-  profession: string;
-  email: string;
-  deviceId: string;
-  devicePlatform: string;
-};
+import { CategoryData, DoctorData } from "./doctors";
+import { UserRegisterData } from "./users";
 
 export type RootStackParamList = {
   Splash: undefined;
@@ -17,9 +11,9 @@ export type RootStackParamList = {
   Doctor: undefined;
   Consultation: undefined;
   Hospitals: undefined;
-  ChooseDoctor: undefined;
+  ChooseDoctor: { category: CategoryData };
   Chatting: undefined;
   UserProfile: undefined;
   UpdateProfile: undefined;
-  DoctorProfile: undefined;
+  DoctorProfile: { doctor: DoctorData};
 }

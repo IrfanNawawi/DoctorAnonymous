@@ -1,11 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
 import { colors, fonts } from '../../../utils'
-
-type ListDoctorProfileProps = {
-    title: string;
-    desc: string;
-}
+import { ListDoctorProfileProps } from '../../../types/profile'
 
 export default function ListDoctorProfile({title, desc}: ListDoctorProfileProps) {
   return (

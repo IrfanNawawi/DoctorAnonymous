@@ -105,7 +105,7 @@ export default function Register() {
       <Button
         typeButton="primary"
         title="Continue"
-        onPressButton={onSignUp}
+        onPress={onSignUp}
       />
     </ScrollView>
   );

@@ -47,9 +47,9 @@ export default function UploadPhoto() {
       <View style={styles.content}>
         <View style={styles.profile}>
           <Photo
-            typePhoto={hasPhoto ? 'photo-remove' : 'photo-upload'}
-            sourcePhoto={imageUri}
-            onPressPhoto={handleGetImage}
+            typeProfile={hasPhoto ? 'photo-remove' : 'photo-upload'}
+            photo={imageUri}
+            onPress={handleGetImage}
           />
           <Text style={styles.nameUser}>{user.fullname}</Text>
           <Text style={styles.professionalUser}>{user.profession}</Text>
@@ -59,8 +59,8 @@ export default function UploadPhoto() {
           <Button
             title="Upload and Continue"
             typeButton="primary"
-            onPressButton={submitUploadPhoto}
-            disabledButton={!hasPhoto}
+            onPress={submitUploadPhoto}
+            disabled={!hasPhoto}
           />
           <Gap height={30} />
           <Link

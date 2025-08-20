@@ -1,15 +1,8 @@
 import React, { useMemo } from 'react';
-import { Image, ImageProps, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IcRatedStar } from '../../../assets';
 import { colors, fonts } from '../../../utils';
-
-type DoctorRatedProps = {
-  picture: ImageProps;
-  name: string;
-  profession: string;
-  rating: number;
-  onPressDoctorRated?: () => void;
-};
+import { DoctorData } from '../../../types/doctors';
 
 const StarRating = ({rating}: {rating: number}) => {
   const stars = useMemo(() => {
@@ -24,20 +17,20 @@ const StarRating = ({rating}: {rating: number}) => {
 };
 
 export default function DoctorRated({
-  picture,
-  name,
+  photo,
+  fullname,
   profession,
-  rating,
-  onPressDoctorRated,
-}: DoctorRatedProps) {
+  rate = 0,
+  onPress,
+}: DoctorData) {
   return (
-    <TouchableOpacity style={styles.container} onPress={onPressDoctorRated}>
-      <Image source={picture} style={styles.avatar} />
+    <TouchableOpacity style={styles.container} onPress={onPress}>
+      <Image source={photo} style={styles.avatar} />
       <View style={styles.profile}>
-        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.name}>{fullname}</Text>
         <Text style={styles.profession}>{profession}</Text>
       </View>
-      <StarRating rating={rating} />
+      <StarRating rating={rate} />
     </TouchableOpacity>
   );
 }

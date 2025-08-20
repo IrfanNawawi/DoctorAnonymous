@@ -1,9 +1,10 @@
 import { getApp } from '@react-native-firebase/app';
 import { 
+  equalTo,
   get, 
   getDatabase, 
   limitToLast, 
-  orderByChild, 
+  orderByChild,
   query, 
   ref, 
   set, 
@@ -48,14 +49,34 @@ export const getDataDoctor = async (reference: string) => {
   }
 };
 
-export const getFilterDataDoctor = async (reference: string) => {
+export const getDataDoctorById = async (reference: string, orderRef: string, id: string | number) => {
   try {
-    const doctorQuery = query(
+    const doctorQueryById = query(
       ref(db, reference),
-      orderByChild('rate'),
-      limitToLast(3)
+      orderByChild(orderRef),
+      equalTo(id),
     );
-    const snapshot = await get(doctorQuery);
+    const snapshot = await get(doctorQueryById);
+
+    if (!snapshot.exists()) return [];
+    const result = Object.keys(snapshot.val()).map((key) => ({
+      ...snapshot.val()[key],
+    }));
+
+    return result;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getFilterDataDoctor = async (reference: string, orderRef: string, limit: number) => {
+  try {
+    const doctorQueryFilter = query(
+      ref(db, reference),
+      orderByChild(orderRef),
+      limitToLast(limit),
+    );
+    const snapshot = await get(doctorQueryFilter);
     return snapshot.val();
   } catch (error) {
     throw error;

@@ -1,13 +1,7 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
-
-type ListHospitalProps = {
-    type: string,
-    name: string
-    address: string
-    picture: ImageProps
-}
+import { ListHospitalProps } from '../../../types/hospital'
 
 export default function ListHospital({type, name, address, picture}: ListHospitalProps) {
   return (

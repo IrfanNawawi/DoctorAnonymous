@@ -3,27 +3,19 @@ import React from 'react'
 import { Button, Gap } from '../../atoms'
 import { colors, fonts } from '../../../utils'
 import DarkProfile from './dark-profile'
-
-type DataTypeHeader = 'dark' | 'light' | 'dark-profile'
-
-type HeaderProps = {
-  title: string
-  type?: DataTypeHeader
-  onPressHeader?: () => void
-  onPressProfileDoctor?: () => void
-};
+import { HeaderProps } from '../../../types/header'
 
 export default function Header({ onPressHeader, title, type = 'light', onPressProfileDoctor }: HeaderProps) {
   
   if (type === 'dark-profile') {
-    return <DarkProfile onPressDarkProfile={onPressHeader} onPressProfileDoctor={onPressProfileDoctor}/>
+    return <DarkProfile onPressHeader={onPressHeader} onPressProfileDoctor={onPressProfileDoctor}/>
   }
   return (
     <View style={containerStyleHeader(type)}>
       <Button
         typeButton='icon-only'
-        typeIconButton={type === 'dark' ? 'back-light' : 'back-dark'}
-        onPressButton={onPressHeader}
+        typeIcon={type === 'dark' ? 'back-light' : 'back-dark'}
+        onPress={onPressHeader}
       />
       <Text style={containerTitleHeader(type)}>{title}</Text>
       <Gap width={24} />

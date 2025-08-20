@@ -2,10 +2,7 @@ import { Image, StyleSheet, Text, View } from 'react-native';
 import React from 'react';
 import { colors, fonts } from '../../../utils';
 import { DummyDoctorOne } from '../../../assets';
-
-type ChatItemProps = {
-  isSender?: boolean;
-};
+import { ChatItemProps } from '../../../types/chat-item';
 
 export default function ChatItem({ isSender = false }: ChatItemProps) {
   return (

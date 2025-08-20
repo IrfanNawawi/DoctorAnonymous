@@ -2,11 +2,9 @@ import React, { useEffect, useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { IlPhotoDefault } from '../../../assets'
 import { colors, fonts, getItem } from '../../../utils'
+import { ListDoctorProfileProps } from '../../../types/profile';
 
-type HomeProfileProps = {
-  onPressHomeProfile: () => void
-}
-export default function HomeProfile({onPressHomeProfile}: HomeProfileProps) {
+export default function HomeProfile({onPress}: ListDoctorProfileProps) {
   const [profile, setProfile] = useState({
     photo: IlPhotoDefault,
     fullname: '',
@@ -22,7 +20,7 @@ export default function HomeProfile({onPressHomeProfile}: HomeProfileProps) {
   }, []);
 
   return (
-    <TouchableOpacity style={styles.container} onPress={onPressHomeProfile}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Image source={profile.photo} style={styles.avatar}/>
       <View>
         <Text style={styles.name}>{profile.fullname}</Text>

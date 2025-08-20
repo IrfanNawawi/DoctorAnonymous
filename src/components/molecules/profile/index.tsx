@@ -1,25 +1,16 @@
 import React from 'react'
-import { ImageProps, StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 import Photo from '../photo'
+import { DoctorData } from '../../../types/doctors';
 
-type ProfileType = 'photo-upload' | 'photo-remove' | 'photo-detail' | 'photo-gender-male' | 'photo-gender-female';
-
-type ProfileProps = {
-  typeProfile: ProfileType;
-  name?: string;
-  profession?: string;
-  photoProfileProps?: ImageProps;
-  onPressPhotoProfileProps?: () => void
-};
-
-export default function Profile({typeProfile = 'photo-detail', name, profession, photoProfileProps, onPressPhotoProfileProps}: ProfileProps) {
+export default function Profile({typeProfile = 'photo-detail', fullname, profession, photo, onPress}: DoctorData) {
   return (
     <View style={styles.container}>
-      <Photo typePhoto={typeProfile} sourcePhoto={photoProfileProps} onPressPhoto={onPressPhotoProfileProps} />
+      <Photo typeProfile={typeProfile} photo={photo} onPress={onPress} />
       {['photo-detail', 'photo-gender-male', 'photo-gender-female'].includes(typeProfile) && (
         <>
-          <Text style={styles.name}>{name}</Text>
+          <Text style={styles.name}>{fullname}</Text>
           <Text style={styles.profession}>{profession}</Text>
         </>
       )}

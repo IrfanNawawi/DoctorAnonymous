@@ -1,19 +1,12 @@
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import React from 'react'
 import { colors, fonts } from '../../../utils'
+import { LinkProps } from '../../../types/link'
 
-type LinkProps = {
-    title: string
-    fontSize: number
-    align: 'left' | 'center' | 'right'
-    onPressLink?: () => void
-}
-
-
-export default function Link({title, fontSize, align, onPressLink}: LinkProps) {
+export default function Link({title, fontSize, align, onPress}: LinkProps) {
   return (
     <View>
-      <TouchableOpacity onPress={onPressLink}>
+      <TouchableOpacity onPress={onPress}>
         <Text style={fontSizeStyle(fontSize, align)}>{title}</Text>
       </TouchableOpacity>
     </View>

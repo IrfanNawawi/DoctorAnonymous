@@ -1,19 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { 
-  DummyDoctorOne, 
-  DummyDoctorThree, 
-  DummyDoctorTwo, 
+import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import {
   DummyNewsOne, 
   DummyNewsThree, 
   DummyNewsTwo 
 } from '../../assets'
 import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components'
-import { colors, fonts, timeFormatting } from '../../utils'
+import { colors, fonts, objectToArray, timeFormatting } from '../../utils'
 import { NativeStackNavigationProp } from '@react-navigation/native-stack'
 import { useNavigation } from '@react-navigation/native'
 import { RootStackParamList } from '../../types/navigation'
 import { getDataDoctor, getFilterDataDoctor } from '../../services'
+import { DoctorData } from '../../types/doctors'
 
 type DoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Doctor'>;
 
@@ -30,33 +28,26 @@ const renderImageNews = (id: number) => {
   }
 };
 
-const renderImageRated = (name: string) => {
-  switch (name) {
-    case 'Alexander Jannie':
-      return DummyDoctorOne;
-    case 'Sunny Frank':
-      return DummyDoctorTwo;
-    case 'Poe Minn':
-      return DummyDoctorThree;
-    default:
-      return DummyDoctorOne;
-  }
-};
-
 export default function Doctor() {
   const navigation = useNavigation<DoctorScreenNavigationProp>();
   const [news, setNews] = useState([]);
   const [category, setCategory] = useState([]);
-  const [rated, setRated] = useState([]);
+  const [rated, setRated] = useState<DoctorData[]>([]);  
 
   useEffect(() => {
     getDataDoctor('category/').then(res => setCategory(res));
-    getFilterDataDoctor('rated/').then(res => setRated(res));
+    getFilterDataDoctor('doctors/', 'rate', 3).then(res => {
+      const doctorsArray = objectToArray<DoctorData>(res);
+      doctorsArray.map((doctorData: any) => {
+        doctorData.photo = { uri: doctorData.photo };
+      })
+      setRated(doctorsArray);
+    });
     getDataDoctor('news/').then(res => setNews(res));
   }, []);
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <View style={styles.content}>
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperSection}>
@@ -76,7 +67,7 @@ export default function Doctor() {
                       <DoctorCategory 
                         key={item.id} 
                         category={item.name}
-                        onPressDoctorCategory={() => navigation.navigate('ChooseDoctor')}
+                        onPress={() => navigation.navigate('ChooseDoctor', { category: item })}
                       />
                     )
                   })
@@ -92,11 +83,11 @@ export default function Doctor() {
                 return (
                   <DoctorRated 
                     key={item.id}
-                    picture={renderImageRated(item.name)} 
-                    name={item.name} 
+                    photo={item.photo} 
+                    fullname={item.fullname}
                     profession={item.profession}
-                    rating={item.rate}
-                    onPressDoctorRated={() => navigation.navigate('DoctorProfile')}
+                    rate={item.rate}
+                    onPress={() => navigation.navigate('DoctorProfile', { doctor: item })}
                   />
                 )
               })
@@ -118,7 +109,7 @@ export default function Doctor() {
           <Gap height={30}/>
         </ScrollView>
       </View>
-    </SafeAreaView>
+    </View>
   )
 }
 

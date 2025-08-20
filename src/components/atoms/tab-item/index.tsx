@@ -15,15 +15,7 @@ import {
   IcMessagesNonactive,
 } from '../../../assets';
 import { colors, fonts } from '../../../utils';
-
-type IconTitleType = 'Doctor' | 'Consultation' | 'Hospitals';
-
-type IconProps = {
-  title: IconTitleType;
-  active?: boolean;
-  onPress?: () => void;
-  onLongPress?: () => void;
-};
+import { IconProps } from '../../../types/icon';
 
 export default function TabItem({ title, active = false, onPress, onLongPress }: IconProps) {
   // shared values

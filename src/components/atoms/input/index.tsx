@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { colors, fonts } from '../../../utils';
-
-type InputProps = {
-  label: string;
-  value: string;
-  onChangeTextInput?: (text: string) => void;
-  secureTextEntry?: boolean;
-  keyboardType?: 'default' | 'numeric' | 'email-address';
-  disabled?: boolean;
-};
+import { InputProps } from '../../../types/input';
 
 export default function Input({ label, value, onChangeTextInput, secureTextEntry = false, keyboardType = 'default', disabled = false }: InputProps) {
   const [borderColor, setBorderColor] = useState(colors.border);

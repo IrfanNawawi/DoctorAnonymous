@@ -1,12 +1,7 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, Text, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
-
-type NewsItemProps = {
-  headline: string,
-  date: string,
-  picture: ImageProps
-}
+import { NewsItemProps } from '../../../types/news'
 
 export default function NewsItem({headline, date, picture}: NewsItemProps) {
   return (

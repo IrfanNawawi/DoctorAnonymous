@@ -2,13 +2,9 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../../assets';
 import { colors, fonts } from '../../../utils';
+import { DoctorData } from '../../../types/doctors';
 
-type DoctorCategoryProps = {
-  category: string,
-  onPressDoctorCategory?: () => void
-}
-
-export default function DoctorCategory({category, onPressDoctorCategory}: DoctorCategoryProps) {
+export default function DoctorCategory({category, onPress}: DoctorData) {
   const renderIconDoctorCategory = () => {
     switch (category) {
       case 'General Practitioner':
@@ -25,7 +21,7 @@ export default function DoctorCategory({category, onPressDoctorCategory}: Doctor
   };
   
   return (
-    <TouchableOpacity style={styles.container} onPress={onPressDoctorCategory}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
         {renderIconDoctorCategory()}
         <Text style={styles.label}>I need a</Text>
         <Text style={styles.category}>{category}</Text>

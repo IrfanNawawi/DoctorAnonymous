@@ -3,19 +3,15 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { DummyDoctorOne } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 import { Button } from '../../atoms'
+import { HeaderProps } from '../../../types/header'
 
-type DarkProfileProps = {
-    onPressDarkProfile?: () => void,
-    onPressProfileDoctor?: () => void
-  };
-
-export default function DarkProfile({onPressDarkProfile, onPressProfileDoctor}: DarkProfileProps) {
+export default function DarkProfile({onPressHeader, onPressProfileDoctor}: HeaderProps) {
   return (
     <View style={styles.container}>
         <Button 
             typeButton='icon-only' 
-            typeIconButton='back-light' 
-            onPressButton={onPressDarkProfile}
+            typeIcon='back-light' 
+            onPress={onPressHeader}
         />
         <TouchableOpacity onPress={onPressProfileDoctor} style={styles.detailHeader}>
             <View style={styles.content}>

@@ -1,16 +1,8 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 import { IcNextLight, IcProfileEdit, IcProfileHelpCenter, IcProfileLanguage, IcProfileRated } from '../../../assets';
-
-type ListProps = {
-    name: string;
-    desc: string;
-    picture?: ImageProps
-    type?: 'next'
-    icon?: string
-    onPressList?: () => void
-}
+import { ListProps } from '../../../types/list';
 
 const renderSettingUserProfile = (name: string) => {
     switch (name) {

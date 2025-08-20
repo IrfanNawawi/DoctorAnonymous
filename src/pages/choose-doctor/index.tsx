@@ -1,60 +1,74 @@
-import { useNavigation } from '@react-navigation/native';
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { SafeAreaView, StyleSheet } from 'react-native';
-import { DummyDoctorOne, DummyDoctorThree, DummyDoctorTwo } from '../../assets';
+import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header, List } from '../../components';
-import { colors } from '../../utils';
+import { colors, objectToArray } from '../../utils';
 import { RootStackParamList } from '../../types/navigation';
-import { getDataDoctor } from '../../services';
+import { getDataDoctorById } from '../../services';
+import { DoctorData } from '../../types/doctors';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 
-const renderImageConsultation = (name: string) => {
-  switch (name) {
-    case 'Alexander Jannie':
-      return DummyDoctorOne;
-    case 'Nairobi Putri Hayza':
-      return DummyDoctorTwo;
-    case 'John McParker Steve':
-      return DummyDoctorThree;
-    default:
-      return DummyDoctorOne;
-  }
-};
-
 export default function ChooseDoctor() {
     const navigation = useNavigation<ChooseDoctorScreenNavigationProp>();
-    const [consultation, setConsultation] = useState([]);
+    const route = useRoute<RouteProp<RootStackParamList, 'ChooseDoctor'>>();
+    const { category } = route.params;
 
+    const [consultation, setConsultation] = useState<DoctorData[]>([]);
+   
     useEffect(() => {
-      getDataDoctor('consultation/').then(res => setConsultation(res));
-    }, []);
+      getDataDoctorById(`doctors/`, 'category', category.id).then(resultDoctor => {
+        resultDoctor.forEach((item: any) => {
+          item.photo = { uri: item.photo };
+        })
+        setConsultation(resultDoctor);
+      });
+    }, [category.id]);
     
     return (
-        <SafeAreaView style={styles.container}>
-            <Header title="Pilih Dokter Anak" type='dark' onPressHeader={() => navigation.goBack()} />
+      <View style={styles.container}>
+        <SafeAreaView style={styles.safeAreaTop} />
+        <SafeAreaView style={styles.safeAreaBottom}>
+          <Header 
+            title={`Choose a ${category.name}`} 
+            type='dark' 
+            onPressHeader={() => navigation.goBack()} 
+          />
+          <View style={styles.chatContainer}>
             {
             consultation.map((item: any) => {
                 return (
                 <List 
                     key={item.id} 
-                    name={item.name} 
+                    name={item.fullname} 
                     desc={item.gender} 
-                    picture={renderImageConsultation(item.name)}
+                    picture={item.photo}
                     type='next'
-                    onPressList={() => navigation.navigate('Chatting')}
+                    onPressList={() => navigation.navigate('DoctorProfile', { doctor: item })}
                 />
                 )
             })
             }
+          </View>
         </SafeAreaView>
+      </View>
     )
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        backgroundColor: colors.white
-    }
+  container: {
+    flex: 1,
+    backgroundColor: colors.secondary
+  },
+  safeAreaTop: {
+    backgroundColor: colors.secondary,
+  },
+  safeAreaBottom: {
+    flex: 1,
+    backgroundColor: colors.white,
+  },
+  chatContainer: {
+    flex: 1,
+  },
 })

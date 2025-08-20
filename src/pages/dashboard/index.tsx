@@ -25,13 +25,13 @@ export default function Dashboard() {
                     <Button 
                         typeButton='primary' 
                         title='Get Started' 
-                        onPressButton={() => navigation.navigate('Register')}
+                        onPress={() => navigation.navigate('Register')}
                     />
                     <Gap height={16}/>
                     <Button 
                         typeButton='secondary' 
                         title='Sign In' 
-                        onPressButton={() => navigation.replace('Login')}
+                        onPress={() => navigation.replace('Login')}
                     />
                 </View>
             </SafeAreaView>

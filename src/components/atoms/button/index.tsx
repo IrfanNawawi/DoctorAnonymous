@@ -1,46 +1,36 @@
 import React from 'react';
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { colors, fonts } from '../../../utils';
 import IconOnly from './icon-only';
 import IconBtnSend from './icon-btn-send';
+import { ButtonProps, ButtonType } from '../../../types/button';
 
-type ButtonType = 'primary' | 'secondary' | 'icon-only' | 'icon-btn-send';
-type IconType = 'back-dark' | 'back-light';
-
-type ButtonProps = {
-  typeButton: ButtonType;
-  title?: string;
-  onPressButton?: () => void;
-  typeIconButton?: IconType;
-  disabledButton?: boolean;
-};
-
-export default function Button({ typeButton, typeIconButton, title = '', onPressButton, disabledButton = false }: ButtonProps) {
-  switch (typeButton) {
-    case 'icon-only':
-      return <IconOnly typeIcon={typeIconButton} onPressIconOnly={onPressButton} />;
-    case 'icon-btn-send':
-      return <IconBtnSend disabledIcon={disabledButton}/>;
+export default function Button({
+  typeButton = 'primary',
+  typeIcon,
+  title = '',
+  onPress,
+  disabled = false
+}: ButtonProps) {
+  
+  if (typeButton === 'icon-only') {
+    return <IconOnly typeIcon={typeIcon} onPress={onPress} disabled={disabled} />;
   }
 
-  if (disabledButton) {
-    return (
-      <View
-        style={styles.disableButton}
-        accessibilityRole="button"
-      >
-        <Text style={styles.disableTextButton}>{title}</Text>
-      </View>
-    );
+  if (typeButton === 'icon-btn-send') {
+    return <IconBtnSend onPress={onPress} disabled={disabled} />;
   }
 
   return (
     <TouchableOpacity
-      style={containerStyle(typeButton)}
-      onPress={onPressButton}
+      style={disabled ? styles.disableButton : containerStyle(typeButton)}
+      onPress={onPress}
+      disabled={disabled}
       accessibilityRole="button"
     >
-      <Text style={titleButtonStyle(typeButton)}>{title}</Text>
+      <Text style={disabled ? styles.disableTextButton : titleButtonStyle(typeButton)}>
+        {title}
+      </Text>
     </TouchableOpacity>
   );
 }
@@ -70,16 +60,16 @@ const styles = StyleSheet.create({
 });
 
 // Style dinamis
-const containerStyle = (type: 'primary' | 'secondary') => ({
+const containerStyle = (type: ButtonType) => ({
   ...styles.containerBase,
   backgroundColor: type === 'secondary'
-      ? colors.button.secondary.background
-      : colors.button.primary.background, 
+    ? colors.button.secondary.background
+    : colors.button.primary.background, 
 });
 
-const titleButtonStyle = (type: 'primary' | 'secondary') => ({
+const titleButtonStyle = (type: ButtonType) => ({
   ...styles.titleBase,
   color: type === 'secondary'
-      ? colors.button.secondary.text
-      : colors.button.primary.text,
+    ? colors.button.secondary.text
+    : colors.button.primary.text,
 });

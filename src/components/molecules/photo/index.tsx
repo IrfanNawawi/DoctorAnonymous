@@ -1,17 +1,10 @@
 import React from 'react'
-import { Image, ImageProps, StyleSheet, TouchableOpacity } from 'react-native'
+import { Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto } from '../../../assets'
 import { colors } from '../../../utils'
+import { DoctorData, ProfileType } from '../../../types/doctors'
 
-type PhotoType = 'photo-upload' | 'photo-remove' | 'photo-detail' | 'photo-gender-male' | 'photo-gender-female';
-
-type PhotoProps = {
-  typePhoto: PhotoType;
-  sourcePhoto?: ImageProps;
-  onPressPhoto?: () => void;
-};
-
-const renderTypePhoto = (type: PhotoType) => {
+const renderTypePhoto = (type: ProfileType) => {
   switch (type) {
     case 'photo-upload':
       return <IcAddPhoto style={styles.actionPhoto}/>
@@ -27,11 +20,11 @@ const renderTypePhoto = (type: PhotoType) => {
 }
 
 
-export default function Photo({typePhoto = 'photo-detail', sourcePhoto, onPressPhoto}: PhotoProps) {
+export default function Photo({typeProfile = 'photo-detail', photo, onPress}: DoctorData) {
   return (
-    <TouchableOpacity style={styles.avatarWrapper} onPress={onPressPhoto}>
-        <Image source={sourcePhoto} style={styles.avatar}/>
-        { renderTypePhoto(typePhoto) }
+    <TouchableOpacity style={styles.avatarWrapper} onPress={onPress}>
+        <Image source={photo} style={styles.avatar}/>
+        { renderTypePhoto(typeProfile) }
     </TouchableOpacity>
   )
 }
