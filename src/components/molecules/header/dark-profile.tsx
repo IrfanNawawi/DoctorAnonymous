@@ -1,11 +1,10 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { DummyDoctorOne } from '../../../assets'
 import { colors, fonts } from '../../../utils'
 import { Button } from '../../atoms'
 import { HeaderProps } from '../../../types/header'
 
-export default function DarkProfile({onPressHeader, onPressProfileDoctor}: HeaderProps) {
+export default function DarkProfile({onPressHeader, onPressProfileDoctor, title, profession, photo}: HeaderProps) {
   return (
     <View style={styles.container}>
         <Button 
@@ -15,10 +14,10 @@ export default function DarkProfile({onPressHeader, onPressProfileDoctor}: Heade
         />
         <TouchableOpacity onPress={onPressProfileDoctor} style={styles.detailHeader}>
             <View style={styles.content}>
-                <Text style={styles.name}>Nairobi Putri Hayza</Text>
-                <Text style={styles.profession}>UI/UX Designer</Text>
+                <Text style={styles.name}>{title}</Text>
+                <Text style={styles.profession}>{profession}</Text>
             </View>
-            <Image source={DummyDoctorOne} style={styles.avatar}/>
+            <Image source={photo} style={styles.avatar}/>
         </TouchableOpacity>
     </View>
   )

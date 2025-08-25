@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header, List } from '../../components';
-import { colors, objectToArray } from '../../utils';
+import { colors } from '../../utils';
 import { RootStackParamList } from '../../types/navigation';
 import { getDataDoctorById } from '../../services';
 import { DoctorData } from '../../types/doctors';

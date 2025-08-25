@@ -82,3 +82,49 @@ export const getFilterDataDoctor = async (reference: string, orderRef: string, l
     throw error;
   }
 };
+
+export const saveChatData = async (chatId: string, dateChat: string, chatContentData: object) => {
+  try {
+    await set(ref(db, `/chatting/${chatId}/allChat/${dateChat}`).push(), chatContentData);
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getChatData = async (chatId: string) => {
+  try {
+    const snapshot = await get(ref(db, `/chatting/${chatId}/allChat/`));
+
+    if (!snapshot.exists() || !snapshot.val()) return [];
+
+    const dataSnapshot = snapshot.val();
+    const allDataChat = Object.keys(dataSnapshot).map((key) => {
+      const dataChat = dataSnapshot[key];
+
+      const newDataChat = Object.keys(dataChat)
+      .map((keyChat) => ({
+        id: keyChat,
+        data: dataChat[keyChat],
+      }))
+      .sort(
+        (a, b) =>
+          new Date(a.data.chatDelivery).getTime() -
+          new Date(b.data.chatDelivery).getTime()
+      );
+
+      return {
+        id: key,
+        data: newDataChat,
+      };
+    });
+
+    allDataChat.sort(
+      (a, b) => new Date(a.id).getTime() - new Date(b.id).getTime()
+    );
+
+    return allDataChat;
+  } catch (error) {
+    throw error;
+  }
+};
+

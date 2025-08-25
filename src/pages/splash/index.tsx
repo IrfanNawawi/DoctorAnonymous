@@ -13,7 +13,7 @@ export default function Splash() {
   const navigation = useNavigation<SplashScreenNavigationProp>();
 
   useEffect(() => {
-    let unsubscribeAuth: (() => void) | undefined;
+    let unsubscribeAuth: (() => void);
     const timer = setTimeout(() => {
       unsubscribeAuth = getSessionAccount(
         () => navigation.replace('MainApp'),

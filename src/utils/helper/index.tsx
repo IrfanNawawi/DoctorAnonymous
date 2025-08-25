@@ -126,21 +126,84 @@ export const formatToArray = (
 };
 
 
-export const getDateTimeIndonesia = () => {
+const formattingRegionID = () => {
   const now = new Date();
 
   const utc = now.getTime() + now.getTimezoneOffset() * 60000;
-  const wib = new Date(utc + 7 * 60 * 60 * 1000);
+  return new Date(utc + 7 * 60 * 60 * 1000);
+}
+
+const pad = (num: number) => String(num).padStart(2, '0');
+
+export const getDateTimeFormat = () => {
+  const wib = formattingRegionID();
 
   const year = wib.getFullYear();
-  const month = String(wib.getMonth() + 1).padStart(2, '0');
-  const day = String(wib.getDate()).padStart(2, '0');
+  const month = pad(wib.getMonth() + 1);
+  const day = pad(wib.getDate());
 
-  const hours = String(wib.getHours()).padStart(2, '0');
-  const minutes = String(wib.getMinutes()).padStart(2, '0');
-  const seconds = String(wib.getSeconds()).padStart(2, '0');
+  const hours = pad(wib.getHours());
+  const minutes = pad(wib.getMinutes());
+  const seconds = pad(wib.getSeconds());
 
   return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
+}
+
+export const getDateFormat = () => {
+  const wib = formattingRegionID();
+
+  const year = wib.getFullYear();
+  const month = pad(wib.getMonth() + 1);
+  const day = pad(wib.getDate());
+
+  return `${year}-${month}-${day}`;
+};
+
+export const getTimeFormat = () => {
+  const wib = formattingRegionID();
+  const hours = pad(wib.getHours());
+  const minutes = pad(wib.getMinutes());
+  const seconds = pad(wib.getSeconds());
+
+  return `${hours}:${minutes}:${seconds}`;
+};
+
+export const formatChatDate = (dateString: string) => {
+  if (!dateString) return '';
+
+  try {
+    const isoString = dateString.replace(' ', 'T');
+    const date = new Date(isoString);
+
+    return new Intl.DateTimeFormat('id-ID', {
+      weekday: 'long',
+      day: 'numeric',
+      month: 'long',
+      year: 'numeric',
+    }).format(date);
+  } catch (error) {
+    return dateString;
+  }
+}
+
+export const formatChatTime = (dateString: string) => {
+  if (!dateString) return '';
+
+  try {
+    const isoString = dateString.replace(' ', 'T');
+    const date = new Date(isoString);
+
+    let hours = date.getHours();
+    const minutes = pad(date.getMinutes());
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    return `${hours}.${minutes} ${ampm}`;
+  } catch (error) {
+    return dateString;
+  }
 };
 
 

@@ -26,16 +26,20 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
+  const TabContent = (
+    <Tab.Navigator
+      tabBar={(props) => <BottomNavigator {...props} />}
+      screenOptions={{ headerShown: false }}
+    >
+      <Tab.Screen name="Doctor" component={Doctor} />
+      <Tab.Screen name="Consultation" component={Consultation} />
+      <Tab.Screen name="Hospitals" component={Hospitals} />
+    </Tab.Navigator>
+  );
+
   return (
-    <SafeAreaView style={styles.container} edges={['top']}>
-      <Tab.Navigator
-        tabBar={props => <BottomNavigator {...props} />}
-        screenOptions={{ headerShown: false }}
-      >
-        <Tab.Screen name="Doctor" component={Doctor} />
-        <Tab.Screen name="Consultation" component={Consultation} />
-        <Tab.Screen name="Hospitals" component={Hospitals} />
-      </Tab.Navigator>
+    <SafeAreaView style={styles.container} edges={["top"]}>
+      {TabContent}
     </SafeAreaView>
   );
 };

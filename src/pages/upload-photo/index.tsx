@@ -67,7 +67,7 @@ export default function UploadPhoto() {
             title="Skip for this"
             align="center"
             fontSize={16}
-            onPressLink={() => navigation.replace('MainApp')}
+            onPress={() => navigation.replace('MainApp')}
           />
         </View>
       </View>

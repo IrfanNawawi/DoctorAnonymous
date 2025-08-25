@@ -1,14 +1,22 @@
 import React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, View } from 'react-native'
 import { IcSendActive, IcSendNonactive } from '../../../assets'
 import { colors } from '../../../utils'
 import { ButtonProps } from '../../../types/button'
 
-export default function IconBtnSend({disabled}: ButtonProps) {
+export default function IconBtnSend({disabled, onPress}: ButtonProps) {
+  if (disabled) {
+    return (
+      <View style={containerStyle(disabled)}>
+        <IcSendNonactive/>
+      </View>
+    )
+  }
+
   return (
-    <View style={containerStyle(disabled)}>
-      {disabled ? <IcSendNonactive/> : <IcSendActive/>}
-    </View>
+    <TouchableOpacity style={containerStyle(disabled)} onPress={onPress}>
+      <IcSendActive/>
+    </TouchableOpacity>
   )
 }
 

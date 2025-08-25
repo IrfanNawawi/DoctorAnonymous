@@ -12,7 +12,7 @@ export type RootStackParamList = {
   Consultation: undefined;
   Hospitals: undefined;
   ChooseDoctor: { category: CategoryData };
-  Chatting: undefined;
+  Chatting: { doctor: DoctorData };
   UserProfile: undefined;
   UpdateProfile: undefined;
   DoctorProfile: { doctor: DoctorData};

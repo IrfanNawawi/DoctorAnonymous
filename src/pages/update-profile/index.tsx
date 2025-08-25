@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native'
-import { Button, Gap, Header, Input, Profile } from '../../components'
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { Button, Gap, Header, Input, Profile } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, getDateTimeIndonesia, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
+import { colors, getDateTimeFormat, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
 import { IlPhotoDefault } from '../../assets';
 import { changePassword, updateUserData } from '../../services';
 
@@ -49,7 +49,7 @@ export default function UpdateProfile() {
             fullname: profile.fullname,
             profession: profile.profession,
             photo: sourcePhotoForDB || profile.photo.uri,
-            lastUpdate: getDateTimeIndonesia(),
+            lastUpdate: getDateTimeFormat(),
         };
 
         updateUserData(userId, updatedProfile).then(() => {

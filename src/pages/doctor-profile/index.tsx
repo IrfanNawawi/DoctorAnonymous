@@ -20,22 +20,22 @@ export default function DoctorProfile() {
   const [doctorProfile, setDoctorProfile] = useState<FormattedItem[]>([]);
   const [hospital, setHospital] = useState('');
 
-  // Fetch hospital detail by ID
   useEffect(() => {
     if (!doctor?.hospital) return;
 
     getDataDoctorById(`hospitals/`, 'id', doctor.hospital).then(
       (responseHospital) => {
-        responseHospital.map((item) => setHospital(item.name))
+        responseHospital.map((item) => {
+            setHospital(item.name);
+        })
       }
     );
   }, [doctor?.hospital]);
 
-  // Format doctor profile data
   useEffect(() => {
     if (!doctor) return;
 
-    const mapping = {
+    const doctorProfileMap = {
       university: 'Alumnus',
       hospital: 'Tempat Praktik',
       str: 'No. STR',
@@ -47,8 +47,8 @@ export default function DoctorProfile() {
       str: doctor.strNumber ?? '-',
     };
 
-    const formatted = formatToArray(profileData, mapping);
-    setDoctorProfile(formatted);
+    const reformatProfileDoctor = formatToArray(profileData, doctorProfileMap);
+    setDoctorProfile(reformatProfileDoctor);
   }, [doctor, hospital]);
 
   return (
@@ -75,7 +75,7 @@ export default function DoctorProfile() {
           <Button
             typeButton="primary"
             title="Start Consulting"
-            onPress={() => navigation.navigate('Chatting')}
+            onPress={() => navigation.navigate('Chatting', { doctor })}
           />
         </View>
       </ScrollView>

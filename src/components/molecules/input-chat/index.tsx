@@ -2,14 +2,23 @@ import React from 'react'
 import { StyleSheet, TextInput, View } from 'react-native'
 import { colors, fonts } from '../../../utils'
 import { Button } from '../../atoms'
+import { InputProps } from '../../../types/input'
 
-export default function InputChat() {
+export default function InputChat({ label, value, onChangeTextInput, onPress }: InputProps) {
   return (
     <View style={styles.container}>
-      <TextInput style={styles.input} placeholder='Tulis Pesan Untuk Nairobi' />
+      <TextInput
+        style={styles.input}
+        placeholder={`Tulis Pesan Untuk ${label}`}
+        value={value}
+        onChangeText={onChangeTextInput}
+        keyboardType="default"
+      />
       <Button 
         title='send' 
         typeButton='icon-btn-send'
+        disabled={!value}
+        onPress={onPress}
       />
     </View>
   )
@@ -19,6 +28,7 @@ const styles = StyleSheet.create({
   container: {
     padding: 16,
     flexDirection: 'row',
+    backgroundColor: colors.white
   },
   input: {
     backgroundColor: colors.disable,

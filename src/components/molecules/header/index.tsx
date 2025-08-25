@@ -5,10 +5,10 @@ import { colors, fonts } from '../../../utils'
 import DarkProfile from './dark-profile'
 import { HeaderProps } from '../../../types/header'
 
-export default function Header({ onPressHeader, title, type = 'light', onPressProfileDoctor }: HeaderProps) {
+export default function Header({ onPressHeader, title, type = 'light', onPressProfileDoctor, profession, photo }: HeaderProps) {
   
   if (type === 'dark-profile') {
-    return <DarkProfile onPressHeader={onPressHeader} onPressProfileDoctor={onPressProfileDoctor}/>
+    return <DarkProfile onPressHeader={onPressHeader} onPressProfileDoctor={onPressProfileDoctor} title={title} profession={profession} photo={photo}/>
   }
   return (
     <View style={containerStyleHeader(type)}>

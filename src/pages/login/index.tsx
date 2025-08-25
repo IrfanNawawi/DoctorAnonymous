@@ -66,7 +66,7 @@ export default function Login() {
           />
           <Gap height={10} />
 
-          <Link title="Forgot My Password" fontSize={12} align="left" onPressLink={() => {}} />
+          <Link title="Forgot My Password" fontSize={12} align="left" onPress={() => {}} />
           <Gap height={40} />
 
           <Button
@@ -80,7 +80,7 @@ export default function Login() {
             title="Create New Account"
             fontSize={16}
             align="center"
-            onPressLink={onSignUp}
+            onPress={onSignUp}
           />
         </ScrollView>
       </SafeAreaView>

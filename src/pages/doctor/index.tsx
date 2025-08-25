@@ -52,7 +52,7 @@ export default function Doctor() {
         <ScrollView showsVerticalScrollIndicator={false}>
           <View style={styles.wrapperSection}>
             <Gap height={30}/>
-            <HomeProfile onPressHomeProfile={() => navigation.navigate('UserProfile')}/>
+            <HomeProfile onPress={() => navigation.navigate('UserProfile')}/>
             <Text style={styles.welcome}>
               {`Who would you like\nto consult with today?`}
             </Text>
