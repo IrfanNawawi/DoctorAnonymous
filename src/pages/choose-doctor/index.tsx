@@ -3,10 +3,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header, List } from '../../components';
-import { colors } from '../../utils';
-import { RootStackParamList } from '../../types/navigation';
 import { getDataDoctorById } from '../../services';
 import { DoctorData } from '../../types/doctors';
+import { RootStackParamList } from '../../types/navigation';
+import { colors } from '../../utils';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 
@@ -19,8 +19,8 @@ export default function ChooseDoctor() {
    
     useEffect(() => {
       getDataDoctorById(`doctors/`, 'category', category.id).then(resultDoctor => {
-        resultDoctor.forEach((item: any) => {
-          item.photo = { uri: item.photo };
+        resultDoctor.forEach((doctorData: any) => {
+          doctorData.photo = { uri: doctorData.photo };
         })
         setConsultation(resultDoctor);
       });
@@ -37,7 +37,7 @@ export default function ChooseDoctor() {
           />
           <View style={styles.chatContainer}>
             {
-            consultation.map((item: any) => {
+              consultation.map((item: any) => {
                 return (
                 <List 
                     key={item.id} 
@@ -48,7 +48,7 @@ export default function ChooseDoctor() {
                     onPressList={() => navigation.navigate('DoctorProfile', { doctor: item })}
                 />
                 )
-            })
+              })
             }
           </View>
         </SafeAreaView>

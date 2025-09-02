@@ -206,4 +206,14 @@ export const formatChatTime = (dateString: string) => {
   }
 };
 
+export const substringDash = (newValue: string) => {
+  const output = newValue.split('-');
+  return output[0];
+};
+
+export const substringSecondDash = (newValue: string) => {
+  const output = newValue.split('-');
+  return output[1];
+};
+
 

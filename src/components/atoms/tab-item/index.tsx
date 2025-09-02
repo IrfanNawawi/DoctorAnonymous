@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import Animated, {
-  useSharedValue,
   useAnimatedStyle,
+  useSharedValue,
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
@@ -14,11 +14,11 @@ import {
   IcMessagesActive,
   IcMessagesNonactive,
 } from '../../../assets';
-import { colors, fonts } from '../../../utils';
 import { IconProps } from '../../../types/icon';
+import { colors, fonts } from '../../../utils';
 
 export default function TabItem({ title, active = false, onPress, onLongPress }: IconProps) {
-  // shared values
+  // shared values scale and opacity
   const scale = useSharedValue(active ? 1 : 0.8);
   const opacity = useSharedValue(active ? 1 : 0.6);
 
@@ -29,9 +29,7 @@ export default function TabItem({ title, active = false, onPress, onLongPress }:
       stiffness: 120,
     });
     opacity.value = withTiming(active ? 1 : 0.6, { duration: 250 });
-  
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [active]);
+  }, [active, opacity, scale]);
 
   // animated style
   const animatedStyle = useAnimatedStyle(() => ({
@@ -56,16 +54,7 @@ export default function TabItem({ title, active = false, onPress, onLongPress }:
     <TouchableOpacity onPress={onPress} onLongPress={onLongPress}>
       <Animated.View style={[styles.container, animatedStyle]}>
         {renderIcon()}
-        <Text
-          style={[
-            styles.text,
-            {
-              color: active
-                ? colors.text.menuActive
-                : colors.text.menuInactive,
-            },
-          ]}
-        >
+        <Text style={textStyle(active)}>
           {title}
         </Text>
       </Animated.View>
@@ -82,4 +71,9 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     marginTop: 4,
   },
+});
+
+const textStyle = (active: boolean) => ({
+  ...styles.text,
+  color: active ? colors.text.menuActive : colors.text.menuInactive,
 });

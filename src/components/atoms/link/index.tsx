@@ -1,7 +1,7 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import React from 'react'
-import { colors, fonts } from '../../../utils'
-import { LinkProps } from '../../../types/link'
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { LinkProps } from '../../../types/link';
+import { colors, fonts } from '../../../utils';
 
 export default function Link({title, fontSize, align, onPress}: LinkProps) {
   return (

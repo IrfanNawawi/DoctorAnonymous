@@ -6,3 +6,17 @@ export type ChatItemProps = {
   date: string;
   photoDoctor?: ImageProps;
 };
+
+interface ChatItemData {
+  id: string;
+  data: {
+    chatDelivery: string;
+    chatContent: string;
+    sentBy: string;
+  };
+};
+  
+export interface ChatGroup {
+  id: string;
+  data: ChatItemData[];
+};

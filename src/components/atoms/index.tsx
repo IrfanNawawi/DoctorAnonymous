@@ -4,10 +4,10 @@ import Input from './input';
 import Link from './link';
 import TabItem from './tab-item';
 
-export { 
-    Button, 
-    Gap, 
-    Input, 
-    Link, 
-    TabItem 
+export {
+    Button,
+    Gap,
+    Input,
+    Link,
+    TabItem
 };

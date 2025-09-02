@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet, TouchableOpacity, View } from 'react-native'
-import { IcSendActive, IcSendNonactive } from '../../../assets'
-import { colors } from '../../../utils'
-import { ButtonProps } from '../../../types/button'
+import React from 'react';
+import { StyleSheet, TouchableOpacity, View } from 'react-native';
+import { IcSendActive, IcSendNonactive } from '../../../assets';
+import { ButtonProps } from '../../../types/button';
+import { colors } from '../../../utils';
 
 export default function IconBtnSend({disabled, onPress}: ButtonProps) {
   if (disabled) {

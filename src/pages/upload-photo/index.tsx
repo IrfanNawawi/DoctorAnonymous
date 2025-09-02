@@ -1,13 +1,12 @@
+import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { IlPhotoDefault } from '../../assets';
 import { Button, Gap, Header, Link, Photo } from '../../components';
-import { RouteProp, useRoute } from '@react-navigation/native';
+import { updateUserData } from '../../services';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, fonts, openImagePicker, setItem, showMessageError } from '../../utils';
-import { IlPhotoDefault } from '../../assets';
-import { updateUserData } from '../../services';
 
 type UploadPhotoScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UploadPhoto'>;
 

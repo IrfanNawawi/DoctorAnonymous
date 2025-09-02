@@ -4,13 +4,16 @@ import {
   get, 
   getDatabase, 
   limitToLast, 
+  onValue, 
   orderByChild,
+  push,
   query, 
   ref, 
   set, 
+  Unsubscribe, 
   update 
 } from '@react-native-firebase/database';
-import { constant } from '../../utils';
+import { constant, substringDash, substringSecondDash } from '../../utils';
 
 const app = getApp();
 const db = getDatabase(app, constant.DATABASE_URL);
@@ -44,6 +47,35 @@ export const getDataDoctor = async (reference: string) => {
   try {
     const snapshot = await get(ref(db, reference));
     return snapshot.val();
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const getDataMessages = async (reference: string) => {
+  try {
+    const snapshot = await get(ref(db, reference));
+    if (!snapshot.exists()) return [];
+    const dataMessages = snapshot.val();
+    const message = await Promise.all(
+      Object.keys(dataMessages).map(async (key) => {
+        const doctorDetail = await getDataDoctor(`doctors/${dataMessages[key].uidPartner}/`);
+        doctorDetail.photo = { uri: doctorDetail.photo };
+        return {
+          id: key,
+          ...dataMessages[key],
+          doctorDetail,
+        };
+      })
+    );
+
+    message.sort(
+      (a, b) =>
+        new Date(b.lastChatDelivery).getTime() -
+        new Date(a.lastChatDelivery).getTime()
+    );
+
+    return message;
   } catch (error) {
     throw error;
   }
@@ -85,32 +117,38 @@ export const getFilterDataDoctor = async (reference: string, orderRef: string, l
 
 export const saveChatData = async (chatId: string, dateChat: string, chatContentData: object) => {
   try {
-    await set(ref(db, `/chatting/${chatId}/allChat/${dateChat}`).push(), chatContentData);
+    await push(ref(db, `/chatting/${chatId}/allChat/${dateChat}`), chatContentData);
   } catch (error) {
     throw error;
   }
 };
 
-export const getChatData = async (chatId: string) => {
-  try {
-    const snapshot = await get(ref(db, `/chatting/${chatId}/allChat/`));
-
-    if (!snapshot.exists() || !snapshot.val()) return [];
+export const getChatData = (
+  chatId: string,
+  callback: (data: any[]) => void
+): Unsubscribe => {
+  const chatRef = ref(db, `/chatting/${chatId}/allChat/`);
+  const unsubscribe = onValue(chatRef, (snapshot) => {
+    if (!snapshot.exists() || !snapshot.val()) {
+      callback([]);
+      return;
+    }
 
     const dataSnapshot = snapshot.val();
+
     const allDataChat = Object.keys(dataSnapshot).map((key) => {
       const dataChat = dataSnapshot[key];
 
       const newDataChat = Object.keys(dataChat)
-      .map((keyChat) => ({
-        id: keyChat,
-        data: dataChat[keyChat],
-      }))
-      .sort(
-        (a, b) =>
-          new Date(a.data.chatDelivery).getTime() -
-          new Date(b.data.chatDelivery).getTime()
-      );
+        .map((keyChat) => ({
+          id: keyChat,
+          data: dataChat[keyChat],
+        }))
+        .sort(
+          (a, b) =>
+            new Date(a.data.chatDelivery).getTime() -
+            new Date(b.data.chatDelivery).getTime()
+        );
 
       return {
         id: key,
@@ -119,10 +157,20 @@ export const getChatData = async (chatId: string) => {
     });
 
     allDataChat.sort(
-      (a, b) => new Date(a.id).getTime() - new Date(b.id).getTime()
+      (a, b) => 
+        new Date(a.id).getTime() - 
+        new Date(b.id).getTime()
     );
 
-    return allDataChat;
+    callback(allDataChat);
+  });
+
+  return unsubscribe;
+};
+
+export const saveLastChatData = async (flagUser: boolean, chatId: string, lastChatContentData: object) => {
+  try {
+    await set(ref(db, `/messages/${flagUser ? substringDash(chatId) : substringSecondDash(chatId)}/${chatId}`), lastChatContentData);
   } catch (error) {
     throw error;
   }

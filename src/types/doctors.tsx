@@ -24,4 +24,10 @@ export type DoctorData = {
 export type CategoryData = {
   id: string;
   name: string;
-}
+};
+
+export const doctorProfileMap = {
+  university: 'Alumnus',
+  hospital: 'Tempat Praktik',
+  str: 'No. STR',
+};

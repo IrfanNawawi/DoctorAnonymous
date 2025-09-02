@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet, TextInput, View } from 'react-native'
-import { colors, fonts } from '../../../utils'
-import { Button } from '../../atoms'
-import { InputProps } from '../../../types/input'
+import React from 'react';
+import { StyleSheet, TextInput, View } from 'react-native';
+import { InputProps } from '../../../types/input';
+import { colors, fonts } from '../../../utils';
+import { Button } from '../../atoms';
 
 export default function InputChat({ label, value, onChangeTextInput, onPress }: InputProps) {
   return (

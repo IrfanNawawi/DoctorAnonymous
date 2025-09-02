@@ -1,6 +1,6 @@
 import React from 'react';
 import { TouchableOpacity } from 'react-native';
-import { IcBackDark, IcBackLight } from '../../../assets'; // Replace with correct import path
+import { IcBackDark, IcBackLight } from '../../../assets';
 import { ButtonProps } from '../../../types/button';
 
 export default function IconOnly({ typeIcon, onPress }: ButtonProps) {

@@ -1,31 +1,19 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ChatItem, Header, InputChat } from '../../components';
-import { getChatData, saveChatData } from '../../services';
+import { getChatData, saveChatData, saveLastChatData } from '../../services';
+import { ChatGroup } from '../../types/chat-item';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, fonts, formatChatDate, formatChatTime, getDateFormat, getDateTimeFormat, getItem, showMessageError } from '../../utils';
 
 type ChattingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Chatting'>;
 
-interface ChatItemData {
-  id: string;
-  data: {
-    chatDelivery: string;
-    chatContent: string;
-    sentBy: string;
-  };
-};
-  
-interface ChatGroup {
-  id: string;
-  data: ChatItemData[];
-};
-
 export default function Chatting() {
   const navigation = useNavigation<ChattingScreenNavigationProp>();
   const route = useRoute<RouteProp<RootStackParamList, 'Chatting'>>();
+  const scrollViewRef = useRef<ScrollView>(null!);
   const { doctor } = route.params;
 
   const [userId, setUserId] = useState('');
@@ -33,30 +21,22 @@ export default function Chatting() {
   const [chatContent, setChatContent] = useState('');
 
   useEffect(() => {
-    getLocalDataUser();
-  }, []);
+    const data = getItem('user');
+    if (data) {
+      setUserId(data.userId);
+      const unsubscribe = getChatData(`${data.userId}-${doctor.userId}`, (dataChat) => {
+        setChatData(dataChat);
+      });
 
-  const getLocalDataUser = () => {
-    try {
-      const data = getItem('user');
-      if (data) {
-        setUserId(data.userId);
-        getDataChat(data.userId);
-      }
-    } catch (error: any) {
-      showMessageError(error);
+      return () => unsubscribe();
     }
-  };
+  }, [doctor.userId]);
 
-  const getDataChat = (userId: string) => {
-    getChatData(`${userId}-${doctor.userId}`).then((data) => {
-      if (data) {
-        setChatData(data);
-      }
-    }).catch((errorMessage) => {
-      showMessageError(errorMessage);
-    });
-  };
+  useEffect(() => {
+    if (chatData.length > 0) {
+      scrollViewRef.current?.scrollToEnd({ animated: true });
+    }
+  }, [chatData]);
 
   const chatPress = () => {
     if (!chatContent.trim() || !userId) return;
@@ -67,10 +47,25 @@ export default function Chatting() {
       chatContent,
     };
 
+    const lastDataChatDoctor = {
+      lastChatContent: chatContent,
+      lastChatDelivery: getDateTimeFormat(),
+      uidPartner: userId,
+    }
+
+    const lastDataChatUser = {
+      lastChatContent: chatContent,
+      lastChatDelivery: getDateTimeFormat(),
+      uidPartner: doctor.userId,
+    }
+
     saveChatData(`${userId}-${doctor.userId}`, getDateFormat(), dataChat)
-      .then(() => setChatContent(''))
-      .catch((errorMessage) => showMessageError(errorMessage));
-  };
+      .then(() => {
+        setChatContent('');
+        saveLastChatData(true, `${userId}-${doctor.userId}`, lastDataChatUser);
+        saveLastChatData(false, `${userId}-${doctor.userId}`, lastDataChatDoctor);
+      }).catch((errorMessage) => showMessageError(errorMessage));
+    };
 
   return (
     <View style={styles.container}>
@@ -86,6 +81,7 @@ export default function Chatting() {
         />
         <View style={styles.chatContainer}>
           <ScrollView
+            ref={scrollViewRef}
             style={styles.chatWrapper}
             showsVerticalScrollIndicator={false}
             >

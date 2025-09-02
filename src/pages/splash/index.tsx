@@ -3,9 +3,9 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
 import { SafeAreaView, StyleSheet, Text } from 'react-native';
 import { IlLogo } from '../../assets/illustration';
+import { getSessionAccount } from '../../services';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, fonts } from '../../utils';
-import { getSessionAccount } from '../../services';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;
 
@@ -13,18 +13,19 @@ export default function Splash() {
   const navigation = useNavigation<SplashScreenNavigationProp>();
 
   useEffect(() => {
-    let unsubscribeAuth: (() => void);
+    const handleSessionAvailable = () => navigation.replace('MainApp');
+    const handleSessionExpired = () => navigation.replace('Dashboard');
+
     const timer = setTimeout(() => {
-      unsubscribeAuth = getSessionAccount(
-        () => navigation.replace('MainApp'),
-        () => navigation.replace('Dashboard')
+      const unsubscribe = getSessionAccount(
+        handleSessionAvailable,
+        handleSessionExpired
       );
+
+      return () => unsubscribe();
     }, 3000);
 
-    return () => {
-      clearTimeout(timer);
-      if (unsubscribeAuth) unsubscribeAuth();
-    };
+    return () => clearTimeout(timer);
   }, [navigation]);
 
   return (

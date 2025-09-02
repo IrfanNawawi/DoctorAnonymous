@@ -1,5 +1,6 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
+import { IconTitleType } from '../../../types/icon';
 import { colors } from '../../../utils';
 import { TabItem } from '../../atoms';
 
@@ -38,7 +39,7 @@ export default function BottomNavigator({ state, descriptors, navigation }: Bott
         };
 
         return (
-          <TabItem key={route.key} title={label} active={isFocused} onPress={onPress} onLongPress={onLongPress} />
+          <TabItem key={route.key} title={label as IconTitleType} active={isFocused} onPress={onPress} onLongPress={onLongPress} />
         );
       })}
     </View>

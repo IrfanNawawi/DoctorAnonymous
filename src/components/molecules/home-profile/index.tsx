@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { IlPhotoDefault } from '../../../assets'
-import { colors, fonts, getItem } from '../../../utils'
+import React, { useEffect, useState } from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { IlPhotoDefault } from '../../../assets';
 import { ListDoctorProfileProps } from '../../../types/profile';
+import { colors, fonts, getItem } from '../../../utils';
 
 export default function HomeProfile({onPress}: ListDoctorProfileProps) {
   const [profile, setProfile] = useState({

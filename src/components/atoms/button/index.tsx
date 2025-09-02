@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
-import { colors, fonts } from '../../../utils';
-import IconOnly from './icon-only';
-import IconBtnSend from './icon-btn-send';
 import { ButtonProps, ButtonType } from '../../../types/button';
+import { colors, fonts } from '../../../utils';
+import IconBtnSend from './icon-btn-send';
+import IconOnly from './icon-only';
 
 export default function Button({
   typeButton = 'primary',
@@ -14,7 +14,7 @@ export default function Button({
 }: ButtonProps) {
   
   if (typeButton === 'icon-only') {
-    return <IconOnly typeIcon={typeIcon} onPress={onPress} disabled={disabled} />;
+    return <IconOnly typeIcon={typeIcon} onPress={onPress} />;
   }
 
   if (typeButton === 'icon-btn-send') {

@@ -1,38 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import { 
-  DummyDoctorOne, 
-  DummyDoctorThree, 
-  DummyDoctorTwo,  
-} from '../../assets'
-import { List } from '../../components'
-import { colors, fonts } from '../../utils'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../types/navigation'
-import { getDataDoctor } from '../../services'
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { List } from '../../components';
+import { getDataMessages } from '../../services';
+import { RootStackParamList } from '../../types/navigation';
+import { colors, fonts, getItem, showMessageError } from '../../utils';
 
 type DoctorCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Consultation'>;
-
-const renderImageConsultation = (name: string) => {
-  switch (name) {
-    case 'Alexander Jannie':
-      return DummyDoctorOne;
-    case 'Nairobi Putri Hayza':
-      return DummyDoctorTwo;
-    case 'John McParker Steve':
-      return DummyDoctorThree;
-    default:
-      return DummyDoctorOne;
-  }
-};
 
 export default function Consultation() {
   const navigation = useNavigation<DoctorCategoryScreenNavigationProp>();
   const [consultation, setConsultation] = useState([]);
 
   useEffect(() => {
-    getDataDoctor('consultation/').then(res => setConsultation(res));
+    const data = getItem('user');
+    if (data) {
+      getDataMessages(`messages/${data.userId}/`).then((messageData: any) => {
+        setConsultation(messageData);
+      }).catch(errorMessage => {
+        showMessageError(errorMessage);
+      })
+    }
   }, []);
   
   return (
@@ -44,10 +33,10 @@ export default function Consultation() {
             return (
               <List 
                 key={item.id} 
-                name={item.name} 
-                desc={item.desc} 
-                picture={renderImageConsultation(item.name)} 
-                onPressList={() => navigation.navigate('Chatting')}
+                name={item.doctorDetail.fullname} 
+                desc={item.lastChatContent} 
+                picture={item.doctorDetail.photo} 
+                onPressList={() => navigation.navigate('Chatting', { doctor: item.doctorDetail })}
               />
             )
           })

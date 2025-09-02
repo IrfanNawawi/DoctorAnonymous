@@ -1,14 +1,14 @@
-import { ImageBackground, StyleSheet, Text, View } from 'react-native'
-import React, { useEffect, useState } from 'react'
-import { colors, fonts } from '../../utils'
-import { 
-  DummyHospitalOne, 
-  DummyHospitalThree, 
-  DummyHospitalTwo, 
-  IlHospitalBackground 
-} from '../../assets'
-import { ListHospital } from '../../components'
-import { getDataDoctor } from '../../services'
+import React, { useEffect, useState } from 'react';
+import { ImageBackground, StyleSheet, Text, View } from 'react-native';
+import {
+  DummyHospitalOne,
+  DummyHospitalThree,
+  DummyHospitalTwo,
+  IlHospitalBackground
+} from '../../assets';
+import { ListHospital } from '../../components';
+import { getDataDoctor } from '../../services';
+import { colors, fonts } from '../../utils';
 
 const renderImageHospitals = (type: string) => {
   switch (type) {
@@ -28,7 +28,8 @@ export default function Hospitals() {
   
   useEffect(() => {
     getDataDoctor('hospitals/').then(res => setHospitals(res));
-  })
+  }, []);
+
   return (
     <View style={styles.container}>
       <ImageBackground source={IlHospitalBackground} style={styles.background}>

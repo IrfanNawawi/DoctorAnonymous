@@ -1,26 +1,26 @@
-import React from "react";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { 
-  Chatting, 
-  ChooseDoctor, 
-  Consultation, 
-  Dashboard, 
-  Doctor, 
-  DoctorProfile, 
-  Hospitals, 
-  Login, 
-  Register, 
-  Splash, 
-  UpdateProfile, 
-  UploadPhoto, 
+import React from "react";
+import { StyleSheet } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { BottomNavigator } from "../components";
+import {
+  Chatting,
+  ChooseDoctor,
+  Consultation,
+  Dashboard,
+  Doctor,
+  DoctorProfile,
+  Hospitals,
+  Login,
+  Register,
+  Splash,
+  UpdateProfile,
+  UploadPhoto,
   UserProfile
 } from "../pages";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { BottomNavigator } from "../components";
 import { RootStackParamList } from "../types/navigation";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { colors } from "../utils";
-import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();

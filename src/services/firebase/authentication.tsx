@@ -12,16 +12,16 @@ const auth = getAuth(getApp());
 
 /**
  * Listen session login user
- * @param onLogin Callback saat user login
- * @param onLogout Callback saat user logout
+ * @param onSessionAvailable Callback saat user login
+ * @param onSessionExpired Callback saat user logout
  * @returns unsubscribe function
  */
 export const getSessionAccount = (
-  onLogin: () => void,
-  onLogout: () => void
+  onSessionAvailable: () => void,
+  onSessionExpired: () => void
 ) => {
   return onAuthStateChanged(auth, (user) => {
-    user ? onLogin() : onLogout();
+    user ? onSessionAvailable() : onSessionExpired();
   });
 };
 

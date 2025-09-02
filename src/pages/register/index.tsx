@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Header, Input } from '../../components';
-import { RootStackParamList } from '../../types/navigation';
-import { colors, fetchDeviceId, fetchDevicePlatform, setItem, showMessageError } from '../../utils';
 import { useForm, useLoading } from '../../hooks';
 import { registerAccount, saveUserData } from '../../services';
+import { RootStackParamList } from '../../types/navigation';
+import { colors, fetchDeviceId, fetchDevicePlatform, setItem, showMessageError } from '../../utils';
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -53,6 +53,10 @@ export default function Register() {
   const handleRegister = async () => {
     const userCredential = await registerAccount(form.email, form.password);
 
+    if (!userCredential) {
+      throw new Error('Register failed');
+    }
+
     const userData = {
       userId: userCredential.uid,
       fullname: form.fullname,
@@ -62,8 +66,7 @@ export default function Register() {
       devicePlatform,
     };
 
-    saveUserData(userCredential.uid, userData)
-    .then(() => {
+    saveUserData(userCredential.uid, userData).then(() => {
       setItem('user', userData);
       setForm('reset', '');
       navigation.navigate('UploadPhoto', { user: userData });

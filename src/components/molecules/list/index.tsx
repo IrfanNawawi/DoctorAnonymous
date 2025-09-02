@@ -1,8 +1,8 @@
-import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
-import { colors, fonts } from '../../../utils'
+import React from 'react';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IcNextLight, IcProfileEdit, IcProfileHelpCenter, IcProfileLanguage, IcProfileRated } from '../../../assets';
 import { ListProps } from '../../../types/list';
+import { colors, fonts } from '../../../utils';
 
 const renderSettingUserProfile = (name: string) => {
     switch (name) {

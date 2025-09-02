@@ -1,8 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { IlCategoryDoctor, IlCategoryDoctorKids, IlCategoryMedicine, IlCategoryPsikiater } from '../../../assets';
-import { colors, fonts } from '../../../utils';
 import { DoctorData } from '../../../types/doctors';
+import { colors, fonts } from '../../../utils';
 
 export default function DoctorCategory({category, onPress}: DoctorData) {
   const renderIconDoctorCategory = () => {

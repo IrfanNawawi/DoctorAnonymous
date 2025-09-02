@@ -1,8 +1,8 @@
 import React, { useMemo } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { IcRatedStar } from '../../../assets';
-import { colors, fonts } from '../../../utils';
 import { DoctorData } from '../../../types/doctors';
+import { colors, fonts } from '../../../utils';
 
 const StarRating = ({rating}: {rating: number}) => {
   const stars = useMemo(() => {

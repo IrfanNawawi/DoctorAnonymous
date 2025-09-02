@@ -1,9 +1,9 @@
-import { StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { Button, Gap } from '../../atoms'
-import { colors, fonts } from '../../../utils'
-import DarkProfile from './dark-profile'
-import { HeaderProps } from '../../../types/header'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
+import { HeaderProps } from '../../../types/header';
+import { colors, fonts } from '../../../utils';
+import { Button, Gap } from '../../atoms';
+import DarkProfile from './dark-profile';
 
 export default function Header({ onPressHeader, title, type = 'light', onPressProfileDoctor, profession, photo }: HeaderProps) {
   

@@ -1,17 +1,17 @@
-import React, { useEffect, useState } from 'react'
-import { ScrollView, StyleSheet, Text, View } from 'react-native'
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
-  DummyNewsOne, 
-  DummyNewsThree, 
-  DummyNewsTwo 
-} from '../../assets'
-import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components'
-import { colors, fonts, objectToArray, timeFormatting } from '../../utils'
-import { NativeStackNavigationProp } from '@react-navigation/native-stack'
-import { useNavigation } from '@react-navigation/native'
-import { RootStackParamList } from '../../types/navigation'
-import { getDataDoctor, getFilterDataDoctor } from '../../services'
-import { DoctorData } from '../../types/doctors'
+  DummyNewsOne,
+  DummyNewsThree,
+  DummyNewsTwo
+} from '../../assets';
+import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components';
+import { getDataDoctor, getFilterDataDoctor } from '../../services';
+import { DoctorData } from '../../types/doctors';
+import { RootStackParamList } from '../../types/navigation';
+import { colors, fonts, objectToArray, timeFormatting } from '../../utils';
 
 type DoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Doctor'>;
 
@@ -37,8 +37,9 @@ export default function Doctor() {
   useEffect(() => {
     getDataDoctor('category/').then(res => setCategory(res));
     getFilterDataDoctor('doctors/', 'rate', 3).then(res => {
-      const doctorsArray = objectToArray<DoctorData>(res);
-      doctorsArray.map((doctorData: any) => {
+      let doctorsArray = objectToArray<DoctorData>(res);
+      doctorsArray.sort((a, b) => (b.rate ?? 0) - (a.rate ?? 0));
+      doctorsArray.forEach((doctorData: any) => {
         doctorData.photo = { uri: doctorData.photo };
       })
       setRated(doctorsArray);

@@ -3,9 +3,10 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Header, ListDoctorProfile, Profile } from '../../components';
+import { getDataDoctorById } from '../../services';
+import { doctorProfileMap } from '../../types/doctors';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, FormattedItem, formatToArray } from '../../utils';
-import { getDataDoctorById } from '../../services';
 
 type DoctorProfileScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,
@@ -23,23 +24,15 @@ export default function DoctorProfile() {
   useEffect(() => {
     if (!doctor?.hospital) return;
 
-    getDataDoctorById(`hospitals/`, 'id', doctor.hospital).then(
-      (responseHospital) => {
-        responseHospital.map((item) => {
-            setHospital(item.name);
-        })
-      }
-    );
+    getDataDoctorById(`hospitals/`, 'id', doctor.hospital).then(resultHospital => {
+      resultHospital.forEach((hospitalData: any) => {
+        setHospital(hospitalData.name);
+      })
+    });
   }, [doctor?.hospital]);
 
   useEffect(() => {
     if (!doctor) return;
-
-    const doctorProfileMap = {
-      university: 'Alumnus',
-      hospital: 'Tempat Praktik',
-      str: 'No. STR',
-    };
 
     const profileData = {
       university: doctor.university ?? '-',

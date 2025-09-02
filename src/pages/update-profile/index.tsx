@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Gap, Header, Input, Profile } from '../../components';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useEffect, useState } from 'react';
+import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
+import { IlPhotoDefault } from '../../assets';
+import { Button, Gap, Header, Input, Profile } from '../../components';
+import { changePassword, updateUserData } from '../../services';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, getDateTimeFormat, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
-import { IlPhotoDefault } from '../../assets';
-import { changePassword, updateUserData } from '../../services';
 
 type UpdateProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UpdateProfile'>;
 

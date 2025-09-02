@@ -4,9 +4,9 @@ import React, { useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { IlPhotoDefault } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
+import { getDataDoctor, logoutAccount } from '../../services';
 import { RootStackParamList } from '../../types/navigation';
 import { colors, getItem, removeItem, showMessageError, timeFormatting } from '../../utils';
-import { getDataDoctor, logoutAccount } from '../../services';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
@@ -25,9 +25,11 @@ export default function UserProfile() {
         if (userData) {
           setProfile(userData);
           getDataDoctor('setting-profile/').then(settings => {
-            settings.map((item: any) => {
-                item.id === 1 && (item.desc = `Last update ${timeFormatting(userData.lastUpdate)}`);
-            })
+            if (userData.lastUpdate) {
+                settings.map((item: any) => {
+                    item.id === 1 && (item.desc = `Last update ${timeFormatting(userData.lastUpdate)}`);
+                })
+            }
             setSettingProfile(settings)
         });
         }

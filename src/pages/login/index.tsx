@@ -20,11 +20,16 @@ export default function Login() {
     password: '',
   });
 
-  const onSignIn = async() => {
+  const onSignIn = async () => {
     try {
       showLoading();
 
       const user = await loginAccount(form.email, form.password);
+
+      if (!user) {
+        throw new Error('Login failed, user not found');
+      }
+
       const userData = await getUserData(user.uid);
 
       if (userData) {

@@ -1,8 +1,8 @@
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
-import { colors, fonts } from '../../../utils'
-import Photo from '../photo'
+import React from 'react';
+import { StyleSheet, Text, View } from 'react-native';
 import { DoctorData } from '../../../types/doctors';
+import { colors, fonts } from '../../../utils';
+import Photo from '../photo';
 
 export default function Profile({typeProfile = 'photo-detail', fullname, profession, photo, onPress}: DoctorData) {
   return (

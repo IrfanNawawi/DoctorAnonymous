@@ -1,11 +1,11 @@
-import { Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import { IlGetStarted, IlLogo } from '../../assets/illustration'
-import { Button, Gap } from '../../components'
-import { colors, fonts } from '../../utils';
 import { useNavigation } from '@react-navigation/native';
-import { RootStackParamList } from '../../types/navigation';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React from 'react';
+import { Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { IlGetStarted, IlLogo } from '../../assets/illustration';
+import { Button, Gap } from '../../components';
+import { RootStackParamList } from '../../types/navigation';
+import { colors, fonts } from '../../utils';
 
 type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Dashboard'>;
 

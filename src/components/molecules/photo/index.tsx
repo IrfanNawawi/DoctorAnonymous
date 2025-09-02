@@ -1,8 +1,8 @@
-import React from 'react'
-import { Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto } from '../../../assets'
-import { colors } from '../../../utils'
-import { DoctorData, ProfileType } from '../../../types/doctors'
+import React from 'react';
+import { Image, StyleSheet, TouchableOpacity } from 'react-native';
+import { IcAddPhoto, IcGenderFemale, IcGenderMale, IcRemovePhoto } from '../../../assets';
+import { DoctorData, ProfileType } from '../../../types/doctors';
+import { colors } from '../../../utils';
 
 const renderTypePhoto = (type: ProfileType) => {
   switch (type) {
