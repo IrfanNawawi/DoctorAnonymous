@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
 import {
   DummyHospitalOne,
@@ -30,6 +30,18 @@ export default function Hospitals() {
     getDataDoctor('hospitals/').then(res => setHospitals(res));
   }, []);
 
+  const processedHospitals = useMemo(() =>
+    hospitals.map((item: any) => (
+        <ListHospital 
+          key={item.id} 
+          type={item.type}
+          name={item.name} 
+          address={item.address}
+          picture={renderImageHospitals(item.type)} 
+        />
+      )
+    ), [hospitals]);
+
   return (
     <View style={styles.container}>
       <ImageBackground source={IlHospitalBackground} style={styles.background}>
@@ -37,19 +49,7 @@ export default function Hospitals() {
         <Text style={styles.availibility}>{hospitals.length} Availibility</Text>
       </ImageBackground>
       <View style={styles.content}>
-        {
-          hospitals.map((item: any) => {
-            return (
-              <ListHospital 
-                key={item.id} 
-                type={item.type}
-                name={item.name} 
-                address={item.address}
-                picture={renderImageHospitals(item.type)} 
-              />
-            )
-          })
-        }
+        {processedHospitals}
       </View>
     </View>
   )

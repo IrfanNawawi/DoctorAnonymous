@@ -3,13 +3,11 @@ import { getUniqueId } from "react-native-device-info";
 import { showMessage } from "react-native-flash-message";
 import { colors } from "../colors";
 import { launchImageLibrary } from "react-native-image-picker";
+import { useMemo } from "react";
 
 export const fetchDevicePlatform = () => {
   const platformName = Platform.OS.toUpperCase();
-  const platformVersion =
-    Platform.OS === 'ios'
-      ? Platform.Version
-      : Platform.constants?.reactNativeVersion;
+  const platformVersion = Platform.Version.toString();
 
   return `${platformName}^${platformVersion}`;
 }
@@ -215,5 +213,9 @@ export const substringSecondDash = (newValue: string) => {
   const output = newValue.split('-');
   return output[1];
 };
+
+export function useEmailValidation(email: string) {
+  return useMemo(() => /\S+@\S+\.\S+/.test(email), [email]);
+}
 
 

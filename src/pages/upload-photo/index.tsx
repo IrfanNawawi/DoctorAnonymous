@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import { IlPhotoDefault } from '../../assets';
 import { Button, Gap, Header, Link, Photo } from '../../components';
@@ -19,7 +19,7 @@ export default function UploadPhoto() {
   const [hasPhoto, setHasPhoto] = useState(false);
   const [imageUri, setImageUri] = useState(IlPhotoDefault);
 
-  const handleGetImage = () => {
+  const handleGetImage = useCallback(() => {
     openImagePicker((uri, base64) => {
       setSourcePhotoForDB(base64);
       setImageUri({ uri });
@@ -27,9 +27,9 @@ export default function UploadPhoto() {
     },
     (errorMessage) => showMessageError(errorMessage)
     );
-  };
+  }, []);
 
-  const submitUploadPhoto = async () => {
+  const submitUploadPhoto = useCallback(async () => {
     updateUserData(user.userId, { photo: sourcePhotoForDB }).then(() => {
       const localUser = {
         ...user,
@@ -38,7 +38,7 @@ export default function UploadPhoto() {
       setItem('user', localUser);
       navigation.replace('MainApp');
     }).catch(errorMessage => showMessageError(errorMessage));
-  };
+  }, [user, sourcePhotoForDB, navigation]);
 
   return (
     <SafeAreaView style={styles.container}>

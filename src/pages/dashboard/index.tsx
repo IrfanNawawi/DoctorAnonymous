@@ -18,7 +18,7 @@ export default function Dashboard() {
                 <View>
                     <IlLogo />
                     <Text style={styles.title}>
-                        {'Konsultasi dengan\ndokter jadi lebih\nmudah & fleksibel'}
+                        {'Consultation with \na doctor becomes \neasier and more flexible'}
                     </Text>
                 </View>
                 <View>

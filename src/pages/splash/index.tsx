@@ -15,17 +15,19 @@ export default function Splash() {
   useEffect(() => {
     const handleSessionAvailable = () => navigation.replace('MainApp');
     const handleSessionExpired = () => navigation.replace('Dashboard');
+    let unsubscribeAuth: (() => void);
 
     const timer = setTimeout(() => {
-      const unsubscribe = getSessionAccount(
+      unsubscribeAuth = getSessionAccount(
         handleSessionAvailable,
         handleSessionExpired
       );
-
-      return () => unsubscribe();
     }, 3000);
 
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (unsubscribeAuth) unsubscribeAuth();
+    };
   }, [navigation]);
 
   return (

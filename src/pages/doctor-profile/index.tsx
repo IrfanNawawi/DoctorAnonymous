@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
 import { Button, Gap, Header, ListDoctorProfile, Profile } from '../../components';
 import { getDataDoctorById } from '../../services';
@@ -44,6 +44,16 @@ export default function DoctorProfile() {
     setDoctorProfile(reformatProfileDoctor);
   }, [doctor, hospital]);
 
+  const processedDoctorProfile = useMemo(() =>
+    doctorProfile.map((item) => (
+      <ListDoctorProfile
+        key={item.id}
+        title={item.title}
+        desc={item.desc}
+      />
+    ))
+  , [doctorProfile]);
+
   return (
     <SafeAreaView style={styles.container}>
       <Header title="Doctor Profile" onPressHeader={() => navigation.goBack()} />
@@ -57,13 +67,7 @@ export default function DoctorProfile() {
           photo={doctor.photo}
         />
         <Gap height={10} />
-        {doctorProfile.map((item) => (
-          <ListDoctorProfile
-            key={item.id}
-            title={item.title}
-            desc={item.desc}
-          />
-        ))}
+        {processedDoctorProfile}
         <View style={styles.buttonWrapper}>
           <Button
             typeButton="primary"

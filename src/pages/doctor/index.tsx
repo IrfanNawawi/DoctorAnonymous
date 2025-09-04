@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import {
   DummyNewsOne,
@@ -37,15 +37,39 @@ export default function Doctor() {
   useEffect(() => {
     getDataDoctor('category/').then(res => setCategory(res));
     getFilterDataDoctor('doctors/', 'rate', 3).then(res => {
-      let doctorsArray = objectToArray<DoctorData>(res);
-      doctorsArray.sort((a, b) => (b.rate ?? 0) - (a.rate ?? 0));
-      doctorsArray.forEach((doctorData: any) => {
-        doctorData.photo = { uri: doctorData.photo };
-      })
+      const doctorsArray = objectToArray<DoctorData>(res);
       setRated(doctorsArray);
     });
     getDataDoctor('news/').then(res => setNews(res));
   }, []);
+
+  const processedCategory = useMemo(() =>
+    category.map((item: any) => (
+        <DoctorCategory 
+          key={item.id} 
+          category={item.name}
+          onPress={() => navigation.navigate('ChooseDoctor', { category: item })}
+        />
+      )
+    ), [category, navigation]);
+
+  const processedRated = useMemo(() =>
+    rated.map((doctorData: any) => ({
+        ...doctorData,
+        photo: { uri: doctorData.photo },
+      }))
+      .sort((a, b) => (b.rate ?? 0) - (a.rate ?? 0)), [rated]);
+  
+  const processedNews = useMemo(() =>
+    news.map((item: any) => (
+        <NewsItem 
+          key={item.id} 
+          headline={item.title} 
+          date={timeFormatting(item.date)} 
+          picture={renderImageNews(item.id)}
+        />
+      )
+    ), [news]);
 
   return (
     <View style={styles.container}>
@@ -62,17 +86,7 @@ export default function Doctor() {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.category}>
                 <Gap width={32} />
-                {
-                  category.map((item: any) => {
-                    return (
-                      <DoctorCategory 
-                        key={item.id} 
-                        category={item.name}
-                        onPress={() => navigation.navigate('ChooseDoctor', { category: item })}
-                      />
-                    )
-                  })
-                }
+                {processedCategory}
                 <Gap width={22} />
               </View>
             </ScrollView>
@@ -80,7 +94,7 @@ export default function Doctor() {
           <View style={styles.wrapperSection}>
             <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
             {
-              rated.map((item: any) => {
+              processedRated.map((item: any) => {
                 return (
                   <DoctorRated 
                     key={item.id}
@@ -95,18 +109,7 @@ export default function Doctor() {
             }
             <Text style={styles.sectionLabel}>Good News</Text>
           </View>
-          {
-            news.map((item: any) => {
-              return (
-                <NewsItem 
-                  key={item.id} 
-                  headline={item.title} 
-                  date={timeFormatting(item.date)} 
-                  picture={renderImageNews(item.id)}
-                />
-              )
-            })
-          }
+          {processedNews}
           <Gap height={30}/>
         </ScrollView>
       </View>

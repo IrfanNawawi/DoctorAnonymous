@@ -1,13 +1,14 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { InputProps } from '../../../types/input';
 import { colors, fonts } from '../../../utils';
 import { Button } from '../../atoms';
 
-export default function InputChat({ label, value, onChangeTextInput, onPress }: InputProps) {
+const InputChat = forwardRef<TextInput, InputProps>(({ label, value, onChangeTextInput, onPress }, ref) => {
   return (
     <View style={styles.container}>
       <TextInput
+        ref={ref}
         style={styles.input}
         placeholder={`Tulis Pesan Untuk ${label}`}
         value={value}
@@ -22,7 +23,9 @@ export default function InputChat({ label, value, onChangeTextInput, onPress }: 
       />
     </View>
   )
-}
+});
+
+export default InputChat;
 
 const styles = StyleSheet.create({
   container: {

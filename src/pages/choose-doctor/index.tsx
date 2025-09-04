@@ -1,6 +1,6 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { SafeAreaView, StyleSheet, View } from 'react-native';
 import { Header, List } from '../../components';
 import { getDataDoctorById } from '../../services';
@@ -25,6 +25,21 @@ export default function ChooseDoctor() {
         setConsultation(resultDoctor);
       });
     }, [category.id]);
+
+    const renderedConsultation = useMemo(
+      () =>
+        consultation.map((item: any) => (
+          <List 
+            key={item.id} 
+            name={item.fullname} 
+            desc={item.gender} 
+            picture={item.photo}
+            type='next'
+            onPressList={() => navigation.navigate('DoctorProfile', { doctor: item })}
+          />
+        )),
+      [consultation, navigation]
+    );
     
     return (
       <View style={styles.container}>
@@ -36,20 +51,7 @@ export default function ChooseDoctor() {
             onPressHeader={() => navigation.goBack()} 
           />
           <View style={styles.chatContainer}>
-            {
-              consultation.map((item: any) => {
-                return (
-                <List 
-                    key={item.id} 
-                    name={item.fullname} 
-                    desc={item.gender} 
-                    picture={item.photo}
-                    type='next'
-                    onPressList={() => navigation.navigate('DoctorProfile', { doctor: item })}
-                />
-                )
-              })
-            }
+            {renderedConsultation}
           </View>
         </SafeAreaView>
       </View>

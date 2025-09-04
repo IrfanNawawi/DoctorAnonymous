@@ -1,16 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, forwardRef } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { InputProps } from '../../../types/input';
 import { colors, fonts } from '../../../utils';
 
-export default function Input({ 
+const Input = forwardRef<TextInput, InputProps>(({
   label, 
   value, 
   onChangeTextInput, 
   secureTextEntry = false, 
   keyboardType = 'default', 
   disabled = false
-}: InputProps) {
+}, ref) => {
   const [borderColor, setBorderColor] = useState(colors.border);
 
   const handleFocus = () => setBorderColor(colors.primary);
@@ -20,6 +20,7 @@ export default function Input({
     <View>
       <Text style={styles.label}>{label}</Text>
       <TextInput
+        ref={ref}
         onFocus={handleFocus}
         onBlur={handleBlur}
         style={{ ...inputStyle(disabled), borderColor }}
@@ -32,7 +33,9 @@ export default function Input({
       />
     </View>
   );
-}
+});
+
+export default Input;
 
 const styles = StyleSheet.create({
   label: {

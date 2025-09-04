@@ -1,6 +1,6 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 import { IlPhotoDefault } from '../../assets';
 import { Gap, Header, List, Profile } from '../../components';
@@ -35,19 +35,17 @@ export default function UserProfile() {
         }
     }, []);
 
-    const signOutAccount = () => {
+    const signOutAccount = useCallback(() => {
         logoutAccount().then(() => {
             removeItem('user');
             navigation.replace('Dashboard');
         }).catch(errorMessage => showMessageError(errorMessage));
-    };
+    }, [navigation]);
 
-    const renderNavigateUserProfile = (name: string) => {
+    const renderNavigateUserProfile = useCallback((name: string) => {
         switch (name) {
             case 'Edit Profile':
-                return navigation.navigate('UpdateProfile');
             case 'Language':
-                return navigation.navigate('UpdateProfile');
             case 'Give Us Rate':
                 return navigation.navigate('UpdateProfile');
             case 'Sign Out':
@@ -55,7 +53,7 @@ export default function UserProfile() {
             default:
                 return navigation.navigate('UpdateProfile');
         }
-    }
+    }, [navigation, signOutAccount]);
 
     return (
         <SafeAreaView style={styles.container}>
