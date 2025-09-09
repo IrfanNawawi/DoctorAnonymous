@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { LinkProps } from '../../../types/link';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 export default function Link({title, fontSize, align, onPress}: LinkProps) {
   return (

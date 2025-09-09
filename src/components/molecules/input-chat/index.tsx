@@ -1,8 +1,9 @@
 import React, { forwardRef } from 'react';
 import { StyleSheet, TextInput, View } from 'react-native';
 import { InputProps } from '../../../types/input';
-import { colors, fonts } from '../../../utils';
-import { Button } from '../../atoms';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
+import Button from '../../atoms/button';
 
 const InputChat = forwardRef<TextInput, InputProps>(({ label, value, onChangeTextInput, onPress }, ref) => {
   return (
@@ -15,7 +16,7 @@ const InputChat = forwardRef<TextInput, InputProps>(({ label, value, onChangeTex
         onChangeText={onChangeTextInput}
         keyboardType="default"
       />
-      <Button 
+      <Button
         title='send' 
         typeButton='icon-btn-send'
         disabled={!value}

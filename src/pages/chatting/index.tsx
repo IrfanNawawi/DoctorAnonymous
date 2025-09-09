@@ -1,21 +1,18 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
-import { ChatItem, Header, InputChat } from '../../components';
-import { getChatData, saveChatData, saveLastChatData } from '../../services';
+import { ScrollView, StyleSheet, Text, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import ChatItem from '../../components/molecules/chat-item';
+import Header from '../../components/molecules/header';
+import InputChat from '../../components/molecules/input-chat';
+import { getChatData, saveChatData, saveLastChatData } from '../../services/firebase/realtime-database';
 import { ChatGroup } from '../../types/chat-item';
 import { RootStackParamList } from '../../types/navigation';
-import {
-  colors,
-  fonts,
-  formatChatDate,
-  formatChatTime,
-  getDateFormat,
-  getDateTimeFormat,
-  getItem,
-  showMessageError,
-} from '../../utils';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
+import { formatChatDate, formatChatTime, getDateFormat, getDateTimeFormat, showMessageError } from '../../utils/helper';
+import { getItem } from '../../utils/storage/mmkvStorage';
 
 type ChattingScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Chatting'>;
 

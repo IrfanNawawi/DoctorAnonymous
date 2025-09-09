@@ -1,11 +1,13 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
-import { SafeAreaView, StyleSheet, Text } from 'react-native';
+import { StyleSheet, Text } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { IlLogo } from '../../assets/illustration';
-import { getSessionAccount } from '../../services';
+import { getSessionAccount } from '../../services/firebase/authentication';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fonts } from '../../utils';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
 
 type SplashScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Splash'>;
 

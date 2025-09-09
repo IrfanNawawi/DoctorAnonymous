@@ -1,7 +1,8 @@
 import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { ButtonProps, ButtonType } from '../../../types/button';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 import IconBtnSend from './icon-btn-send';
 import IconOnly from './icon-only';
 

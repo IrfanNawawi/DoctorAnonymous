@@ -1,12 +1,18 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, View } from 'react-native';
-import { Button, Gap, Header, ListDoctorProfile, Profile } from '../../components';
-import { getDataDoctorById } from '../../services';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../../components/atoms/button';
+import Gap from '../../components/atoms/gap';
+import Header from '../../components/molecules/header';
+import ListDoctorProfile from '../../components/molecules/list-doctor-profile';
+import Profile from '../../components/molecules/profile';
+import { getDataDoctorById } from '../../services/firebase/realtime-database';
 import { doctorProfileMap } from '../../types/doctors';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, FormattedItem, formatToArray } from '../../utils';
+import { colors } from '../../utils/colors';
+import { FormattedItem, formatToArray } from '../../utils/helper';
 
 type DoctorProfileScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

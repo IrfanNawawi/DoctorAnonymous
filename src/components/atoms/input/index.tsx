@@ -1,7 +1,8 @@
-import React, { useState, forwardRef } from 'react';
+import React, { forwardRef, useState } from 'react';
 import { StyleSheet, Text, TextInput, View } from 'react-native';
 import { InputProps } from '../../../types/input';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 const Input = forwardRef<TextInput, InputProps>(({
   label, 

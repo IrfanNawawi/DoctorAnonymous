@@ -1,19 +1,20 @@
 import { getApp } from '@react-native-firebase/app';
-import { 
+import {
   equalTo,
-  get, 
-  getDatabase, 
-  limitToLast, 
-  onValue, 
+  get,
+  getDatabase,
+  limitToLast,
+  onValue,
   orderByChild,
   push,
-  query, 
-  ref, 
-  set, 
-  Unsubscribe, 
-  update 
+  query,
+  ref,
+  set,
+  Unsubscribe,
+  update
 } from '@react-native-firebase/database';
-import { constant, substringDash, substringSecondDash } from '../../utils';
+import { constant } from '../../utils/constant';
+import { substringDash, substringSecondDash } from '../../utils/helper';
 
 const app = getApp();
 const db = getDatabase(app, constant.DATABASE_URL);

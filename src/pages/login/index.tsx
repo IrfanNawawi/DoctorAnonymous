@@ -1,13 +1,22 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useMemo, useRef } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput } from 'react-native';
-import { IlLogo } from '../../assets';
-import { Button, Gap, Input, Link } from '../../components';
-import { useForm, useLoading } from '../../hooks';
-import { getUserData, loginAccount } from '../../services';
+import { ScrollView, StyleSheet, Text, TextInput } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { IlLogo } from '../../assets/illustration';
+import Button from '../../components/atoms/button';
+import Gap from '../../components/atoms/gap';
+import Input from '../../components/atoms/input';
+import Link from '../../components/atoms/link';
+import { useForm } from '../../hooks/useForm';
+import { useLoading } from '../../hooks/useLoading';
+import { loginAccount } from '../../services/firebase/authentication';
+import { getUserData } from '../../services/firebase/realtime-database';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fonts, setItem, showMessageError, useEmailValidation } from '../../utils';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
+import { showMessageError, useEmailValidation } from '../../utils/helper';
+import { setItem } from '../../utils/storage/mmkvStorage';
 
 type LoginScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Login'>;
 

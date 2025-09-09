@@ -1,12 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, TextInput, View } from 'react-native';
-import { IlPhotoDefault } from '../../assets';
-import { Button, Gap, Header, Input, Profile } from '../../components';
-import { changePassword, updateUserData } from '../../services';
+import { ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { IlPhotoDefault } from '../../assets/illustration';
+import Button from '../../components/atoms/button';
+import Gap from '../../components/atoms/gap';
+import Input from '../../components/atoms/input';
+import Header from '../../components/molecules/header';
+import Profile from '../../components/molecules/profile';
+import { changePassword } from '../../services/firebase/authentication';
+import { updateUserData } from '../../services/firebase/realtime-database';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, getDateTimeFormat, getItem, openImagePicker, setItem, showMessageError } from '../../utils';
+import { colors } from '../../utils/colors';
+import { getDateTimeFormat, openImagePicker, showMessageError } from '../../utils/helper';
+import { getItem, setItem } from '../../utils/storage/mmkvStorage';
 
 type UpdateProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UpdateProfile'>;
 
@@ -108,13 +116,13 @@ export default function UpdateProfile() {
     const renderForm = useMemo(() => (
         <ScrollView showsVerticalScrollIndicator={false}>
             <View style={styles.content}>
-                <Profile 
+                <Profile
                     typeProfile='photo-remove'
                     photo={profile.photo}
                     onPress={handleGetImage}
                 />
                 <Gap height={26}/>
-                <Input 
+                <Input
                     ref={inputRefs.fullname}
                     label="Full Name"
                     value={profile.fullname}

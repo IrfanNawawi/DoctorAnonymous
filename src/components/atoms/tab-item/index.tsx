@@ -6,16 +6,10 @@ import Animated, {
   withSpring,
   withTiming,
 } from 'react-native-reanimated';
-import {
-  IcDoctorActive,
-  IcDoctorNonactive,
-  IcHospitalsActive,
-  IcHospitalsNonactive,
-  IcMessagesActive,
-  IcMessagesNonactive,
-} from '../../../assets';
+import { IcDoctorActive, IcDoctorNonactive, IcHospitalsActive, IcHospitalsNonactive, IcMessagesActive, IcMessagesNonactive } from '../../../assets/icon';
 import { IconProps } from '../../../types/icon';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 export default function TabItem({ title, active = false, onPress, onLongPress }: IconProps) {
   // shared values scale and opacity

@@ -1,14 +1,11 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { ImageBackground, StyleSheet, Text, View } from 'react-native';
-import {
-  DummyHospitalOne,
-  DummyHospitalThree,
-  DummyHospitalTwo,
-  IlHospitalBackground
-} from '../../assets';
-import { ListHospital } from '../../components';
-import { getDataDoctor } from '../../services';
-import { colors, fonts } from '../../utils';
+import { DummyHospitalOne, DummyHospitalThree, DummyHospitalTwo } from '../../assets/dummy-image';
+import { IlHospitalBackground } from '../../assets/illustration';
+import ListHospital from '../../components/molecules/list-hospital';
+import { getDataDoctor } from '../../services/firebase/realtime-database';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
 
 const renderImageHospitals = (type: string) => {
   switch (type) {

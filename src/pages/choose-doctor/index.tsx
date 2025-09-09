@@ -1,12 +1,14 @@
 import { RouteProp, useNavigation, useRoute } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView, StyleSheet, View } from 'react-native';
-import { Header, List } from '../../components';
-import { getDataDoctorById } from '../../services';
+import { StyleSheet, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Header from '../../components/molecules/header';
+import List from '../../components/molecules/list';
+import { getDataDoctorById } from '../../services/firebase/realtime-database';
 import { DoctorData } from '../../types/doctors';
 import { RootStackParamList } from '../../types/navigation';
-import { colors } from '../../utils';
+import { colors } from '../../utils/colors';
 
 type ChooseDoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'ChooseDoctor'>;
 
@@ -29,7 +31,7 @@ export default function ChooseDoctor() {
     const renderedConsultation = useMemo(
       () =>
         consultation.map((item: any) => (
-          <List 
+          <List
             key={item.id} 
             name={item.fullname} 
             desc={item.gender} 
@@ -45,7 +47,7 @@ export default function ChooseDoctor() {
       <View style={styles.container}>
         <SafeAreaView style={styles.safeAreaTop} />
         <SafeAreaView style={styles.safeAreaBottom}>
-          <Header 
+          <Header
             title={`Choose a ${category.name}`} 
             type='dark' 
             onPressHeader={() => navigation.goBack()} 

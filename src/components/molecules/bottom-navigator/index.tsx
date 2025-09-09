@@ -1,8 +1,8 @@
 import { BottomTabBarProps } from '@react-navigation/bottom-tabs';
 import { StyleSheet, View } from 'react-native';
 import { IconTitleType } from '../../../types/icon';
-import { colors } from '../../../utils';
-import { TabItem } from '../../atoms';
+import { colors } from '../../../utils/colors';
+import TabItem from '../../atoms/tab-item';
 
 export default function BottomNavigator({ state, descriptors, navigation }: BottomTabBarProps) {
   

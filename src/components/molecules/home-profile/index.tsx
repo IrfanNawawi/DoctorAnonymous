@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { IlPhotoDefault } from '../../../assets';
+import { IlPhotoDefault } from '../../../assets/illustration';
 import { ListDoctorProfileProps } from '../../../types/profile';
-import { colors, fonts, getItem } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
+import { getItem } from '../../../utils/storage/mmkvStorage';
 
 export default function HomeProfile({onPress}: ListDoctorProfileProps) {
   const [profile, setProfile] = useState({

@@ -73,3 +73,15 @@ yarn-error.log
 !.yarn/releases
 !.yarn/sdks
 !.yarn/versions
+
+# Local Properties for run in intellij emulator
+/android/local.properties
+
+# Bundle android
+android/app/src/main/assets/index.android.bundle
+android/app/.cxx
+.jso/
+bun.lockb
+
+#andoroid log
+android/*.log

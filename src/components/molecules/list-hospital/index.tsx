@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, View } from 'react-native';
 import { ListHospitalProps } from '../../../types/hospital';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 export default function ListHospital({type, name, address, picture}: ListHospitalProps) {
   return (

@@ -1,12 +1,19 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useCallback, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
-import { IlPhotoDefault } from '../../assets';
-import { Gap, Header, List, Profile } from '../../components';
-import { getDataDoctor, logoutAccount } from '../../services';
+import { ScrollView, StyleSheet } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { IlPhotoDefault } from '../../assets/illustration';
+import Gap from '../../components/atoms/gap';
+import Header from '../../components/molecules/header';
+import List from '../../components/molecules/list';
+import Profile from '../../components/molecules/profile';
+import { logoutAccount } from '../../services/firebase/authentication';
+import { getDataDoctor } from '../../services/firebase/realtime-database';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, getItem, removeItem, showMessageError, timeFormatting } from '../../utils';
+import { colors } from '../../utils/colors';
+import { showMessageError, timeFormatting } from '../../utils/helper';
+import { getItem, removeItem } from '../../utils/storage/mmkvStorage';
 
 type UserProfileScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'UserProfile'>;
 
@@ -59,7 +66,7 @@ export default function UserProfile() {
         <SafeAreaView style={styles.container}>
             <Header title="Profile" onPressHeader={() => navigation.goBack()}/>
             <ScrollView showsVerticalScrollIndicator={false}>
-                <Profile 
+                <Profile
                     typeProfile='photo-detail'
                     fullname={profile.fullname}
                     profession={profile.profession}

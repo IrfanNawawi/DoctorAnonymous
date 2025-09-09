@@ -1,13 +1,14 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { HeaderProps } from '../../../types/header';
-import { colors, fonts } from '../../../utils';
-import { Button } from '../../atoms';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
+import Button from '../../atoms/button';
 
 export default function DarkProfile({onPressHeader, onPressProfileDoctor, title, profession, photo}: HeaderProps) {
   return (
     <View style={styles.container}>
-        <Button 
+        <Button
             typeButton='icon-only' 
             typeIcon='back-light' 
             onPress={onPressHeader}

@@ -1,8 +1,9 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { IcNextLight, IcProfileEdit, IcProfileHelpCenter, IcProfileLanguage, IcProfileRated } from '../../../assets';
+import { IcNextLight, IcProfileEdit, IcProfileHelpCenter, IcProfileLanguage, IcProfileRated } from '../../../assets/icon';
 import { ListProps } from '../../../types/list';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 const renderSettingUserProfile = (name: string) => {
     switch (name) {

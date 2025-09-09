@@ -2,16 +2,18 @@ import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo, useState } from 'react';
 import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import {
-  DummyNewsOne,
-  DummyNewsThree,
-  DummyNewsTwo
-} from '../../assets';
-import { DoctorCategory, DoctorRated, Gap, HomeProfile, NewsItem } from '../../components';
-import { getDataDoctor, getFilterDataDoctor } from '../../services';
+import { DummyNewsOne, DummyNewsThree, DummyNewsTwo } from '../../assets/dummy-image';
+import Gap from '../../components/atoms/gap';
+import DoctorCategory from '../../components/molecules/doctor-category';
+import DoctorRated from '../../components/molecules/doctor-rated';
+import HomeProfile from '../../components/molecules/home-profile';
+import NewsItem from '../../components/molecules/news-item';
+import { getDataDoctor, getFilterDataDoctor } from '../../services/firebase/realtime-database';
 import { DoctorData } from '../../types/doctors';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fonts, objectToArray, timeFormatting } from '../../utils';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
+import { objectToArray, timeFormatting } from '../../utils/helper';
 
 type DoctorScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Doctor'>;
 
@@ -45,7 +47,7 @@ export default function Doctor() {
 
   const processedCategory = useMemo(() =>
     category.map((item: any) => (
-        <DoctorCategory 
+        <DoctorCategory
           key={item.id} 
           category={item.name}
           onPress={() => navigation.navigate('ChooseDoctor', { category: item })}
@@ -96,7 +98,7 @@ export default function Doctor() {
             {
               processedRated.map((item: any) => {
                 return (
-                  <DoctorRated 
+                  <DoctorRated
                     key={item.id}
                     photo={item.photo} 
                     fullname={item.fullname}

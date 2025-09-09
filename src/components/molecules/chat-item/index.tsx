@@ -1,7 +1,8 @@
 import React from 'react';
 import { Image, StyleSheet, Text, TextStyle, View, ViewStyle } from 'react-native';
 import { ChatItemProps } from '../../../types/chat-item';
-import { colors, fonts } from '../../../utils';
+import { colors } from '../../../utils/colors';
+import { fonts } from '../../../utils/fonts';
 
 export default function ChatItem({ isSender = false, text, date, photoDoctor }: ChatItemProps) {
   return (

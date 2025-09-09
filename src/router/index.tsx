@@ -3,7 +3,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import React from "react";
 import { StyleSheet } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { BottomNavigator } from "../components";
+import BottomNavigator from "../components/molecules/bottom-navigator";
 import {
   Chatting,
   ChooseDoctor,
@@ -20,7 +20,7 @@ import {
   UserProfile
 } from "../pages";
 import { RootStackParamList } from "../types/navigation";
-import { colors } from "../utils";
+import { colors } from '../utils/colors';
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
 const Tab = createBottomTabNavigator();

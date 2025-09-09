@@ -1,12 +1,20 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import React, { useEffect, useState, useMemo, useCallback, useRef } from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, TextInput, View } from 'react-native';
-import { Button, Gap, Header, Input } from '../../components';
-import { useForm, useLoading } from '../../hooks';
-import { registerAccount, saveUserData } from '../../services';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import { ScrollView, StyleSheet, TextInput, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Button from '../../components/atoms/button';
+import Gap from '../../components/atoms/gap';
+import Input from '../../components/atoms/input';
+import Header from '../../components/molecules/header';
+import { useForm } from '../../hooks/useForm';
+import { useLoading } from '../../hooks/useLoading';
+import { registerAccount } from '../../services/firebase/authentication';
+import { saveUserData } from '../../services/firebase/realtime-database';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fetchDeviceId, fetchDevicePlatform, setItem, showMessageError, useEmailValidation } from '../../utils';
+import { colors } from '../../utils/colors';
+import { fetchDeviceId, fetchDevicePlatform, showMessageError, useEmailValidation } from '../../utils/helper';
+import { setItem } from '../../utils/storage/mmkvStorage';
 
 type RegisterScreenNavigationProp = NativeStackNavigationProp<
   RootStackParamList,

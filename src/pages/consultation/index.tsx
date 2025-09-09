@@ -1,11 +1,15 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useMemo, useState } from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import { List } from '../../components';
-import { getDataMessages } from '../../services';
+import { StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import List from '../../components/molecules/list';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fonts, getItem, showMessageError } from '../../utils';
+import { getDataMessages } from '../../services/firebase/realtime-database';
+import { getItem } from '../../utils/storage/mmkvStorage';
+import { showMessageError } from '../../utils/helper';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
 
 type DoctorCategoryScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Consultation'>;
 
@@ -27,7 +31,7 @@ export default function Consultation() {
   const renderedConsultation = useMemo(
     () =>
       consultation.map((item: any) => (
-          <List 
+          <List
             key={item.id} 
             name={item.doctorDetail.fullname} 
             desc={item.lastChatContent} 

@@ -1,11 +1,14 @@
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React from 'react';
-import { Dimensions, ImageBackground, SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { Dimensions, ImageBackground, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import { IlGetStarted, IlLogo } from '../../assets/illustration';
-import { Button, Gap } from '../../components';
+import Button from '../../components/atoms/button';
+import Gap from '../../components/atoms/gap';
 import { RootStackParamList } from '../../types/navigation';
-import { colors, fonts } from '../../utils';
+import { colors } from '../../utils/colors';
+import { fonts } from '../../utils/fonts';
 
 type DashboardScreenNavigationProp = NativeStackNavigationProp<RootStackParamList, 'Dashboard'>;
 
@@ -22,7 +25,7 @@ export default function Dashboard() {
                     </Text>
                 </View>
                 <View>
-                    <Button 
+                    <Button
                         typeButton='primary' 
                         title='Get Started' 
                         onPress={() => navigation.navigate('Register')}

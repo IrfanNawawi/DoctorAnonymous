@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { setLoading } from '../redux';
+import { setLoading } from '../redux/loadingSlice';
 
 export const useLoading = () => {
   const dispatch = useDispatch();
